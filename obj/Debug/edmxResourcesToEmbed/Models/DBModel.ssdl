@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="invModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CLASS">
+    <Key>
+      <PropertyRef Name="CLASS" />
+    </Key>
+    <Property Name="CLASS" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="50" />
+    <Property Name="BLA_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="BLA_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="TOD_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="TOD_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="TOT_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="TOT_AMT" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CUSTITEM">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CUST_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
+    <Property Name="SAL_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="L_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="L_PRICE" Type="varchar" MaxLength="50" />
+    <Property Name="L_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="COST" Type="varchar" MaxLength="50" />
+    <Property Name="REMARK" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CUSTOMER">
+    <Key>
+      <PropertyRef Name="CUST_CODE" />
+    </Key>
+    <Property Name="CUST_CODE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CUST_NAME" Type="varchar" MaxLength="50" />
+    <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
+    <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
+    <Property Name="UNIFORM" Type="varchar" MaxLength="50" />
+    <Property Name="ATTENTION" Type="varchar" MaxLength="50" />
+    <Property Name="TELEPHONE" Type="varchar" MaxLength="50" />
+    <Property Name="FAX" Type="varchar" MaxLength="50" />
+    <Property Name="REMARK" Type="varchar" MaxLength="50" />
+    <Property Name="PAY_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
+    <Property Name="DISC" Type="varchar" MaxLength="50" />
+    <Property Name="BLAAMT" Type="varchar" MaxLength="50" />
+    <Property Name="TAXMON" Type="varchar" MaxLength="50" />
+    <Property Name="BLAMON" Type="varchar" MaxLength="50" />
+    <Property Name="RECAMT" Type="varchar" MaxLength="50" />
+    <Property Name="FOWAMT" Type="varchar" MaxLength="50" />
+    <Property Name="SAL_NO" Type="varchar" MaxLength="50" />
+    <Property Name="PRT_LAB" Type="varchar" MaxLength="50" />
+    <Property Name="TAX" Type="varchar" MaxLength="50" />
+    <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="EMPLOY">
+    <Key>
+      <PropertyRef Name="SAL_NO" />
+    </Key>
+    <Property Name="SAL_NO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="50" />
+    <Property Name="SEX" Type="varchar" MaxLength="50" />
+    <Property Name="BLOOD" Type="varchar" MaxLength="50" />
+    <Property Name="B_PLACE" Type="varchar" MaxLength="50" />
+    <Property Name="BIRTHDAY" Type="varchar" MaxLength="50" />
+    <Property Name="ID_NO" Type="varchar" MaxLength="50" />
+    <Property Name="MARRY" Type="varchar" MaxLength="50" />
+    <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
+    <Property Name="TEL1" Type="varchar" MaxLength="50" />
+    <Property Name="BBCALL" Type="varchar" MaxLength="50" />
+    <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
+    <Property Name="TEL2" Type="varchar" MaxLength="50" />
+    <Property Name="EDUCAT" Type="varchar" MaxLength="50" />
+    <Property Name="EXPERIENC" Type="varchar" MaxLength="50" />
+    <Property Name="UNIT" Type="varchar" MaxLength="50" />
+    <Property Name="JOB" Type="varchar" MaxLength="50" />
+    <Property Name="A_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="L_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="ATTENTION" Type="varchar" MaxLength="50" />
+    <Property Name="RELATION" Type="varchar" MaxLength="50" />
+    <Property Name="REL_ADDR" Type="varchar" MaxLength="50" />
+    <Property Name="REL_TEL" Type="varchar" MaxLength="50" />
+    <Property Name="ACC_NO" Type="varchar" MaxLength="50" />
+    <Property Name="SAL_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="AMTP1" Type="varchar" MaxLength="50" />
+    <Property Name="AMTP2" Type="varchar" MaxLength="50" />
+    <Property Name="AMTP3" Type="varchar" MaxLength="50" />
+    <Property Name="AMTP4" Type="varchar" MaxLength="50" />
+    <Property Name="AMTP5" Type="varchar" MaxLength="50" />
+    <Property Name="AMTP6" Type="varchar" MaxLength="50" />
+    <Property Name="AMTP8" Type="varchar" MaxLength="50" />
+    <Property Name="AMTP9" Type="varchar" MaxLength="50" />
+    <Property Name="AMTPA" Type="varchar" MaxLength="50" />
+    <Property Name="AMTMP" Type="varchar" MaxLength="50" />
+    <Property Name="AMTM1" Type="varchar" MaxLength="50" />
+    <Property Name="AMTM2" Type="varchar" MaxLength="50" />
+    <Property Name="AMTM3" Type="varchar" MaxLength="50" />
+    <Property Name="REMARK" Type="varchar" MaxLength="50" />
+    <Property Name="IN_DATE" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FACTITEM">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FACT_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
+    <Property Name="L_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="L_PRICE" Type="varchar" MaxLength="50" />
+    <Property Name="L_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="COST" Type="varchar" MaxLength="50" />
+    <Property Name="REMARK" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FACTORY">
+    <Key>
+      <PropertyRef Name="FACT_CODE" />
+    </Key>
+    <Property Name="FACT_CODE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FACT_NAME" Type="varchar" MaxLength="50" />
+    <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
+    <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
+    <Property Name="UNIFORM" Type="varchar" MaxLength="50" />
+    <Property Name="ATTENTION" Type="varchar" MaxLength="50" />
+    <Property Name="TELEPHONE" Type="varchar" MaxLength="50" />
+    <Property Name="FAX" Type="varchar" MaxLength="50" />
+    <Property Name="REMARK" Type="varchar" MaxLength="50" />
+    <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
+    <Property Name="BLAAMT" Type="varchar" MaxLength="50" />
+    <Property Name="TAXMON" Type="varchar" MaxLength="50" />
+    <Property Name="BLAMON" Type="varchar" MaxLength="50" />
+    <Property Name="RECAMT" Type="varchar" MaxLength="50" />
+    <Property Name="FOWAMT" Type="varchar" MaxLength="50" />
+    <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="INVOICE">
+    <Key>
+      <PropertyRef Name="TRN_NO" />
+    </Key>
+    <Property Name="TRN_NO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="INV_NO" Type="varchar" MaxLength="50" />
+    <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="CODE" Type="varchar" MaxLength="50" />
+    <Property Name="TAX" Type="varchar" MaxLength="50" />
+    <Property Name="REMARK1" Type="varchar" MaxLength="50" />
+    <Property Name="ACC_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="ACC_YN" Type="varchar" MaxLength="50" />
+    <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
+    <Property Name="SMARK" Type="varchar" MaxLength="50" />
+    <Property Name="SUMAMT" Type="varchar" MaxLength="50" />
+    <Property Name="TAXAMT" Type="varchar" MaxLength="50" />
+    <Property Name="TOTAMT" Type="varchar" MaxLength="50" />
+    <Property Name="SAL_NO" Type="varchar" MaxLength="50" />
+    <Property Name="AMO1" Type="varchar" MaxLength="50" />
+    <Property Name="AMO2" Type="varchar" MaxLength="50" />
+    <Property Name="AMO3" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ITEM">
+    <Key>
+      <PropertyRef Name="ITEM_NO" />
+    </Key>
+    <Property Name="ITEM_NO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CLASS" Type="varchar" MaxLength="50" />
+    <Property Name="NAME1" Type="varchar" MaxLength="50" />
+    <Property Name="NAME2" Type="varchar" MaxLength="50" />
+    <Property Name="S_PRICE" Type="varchar" MaxLength="50" />
+    <Property Name="C_PRICE" Type="varchar" MaxLength="50" />
+    <Property Name="U_PRICE" Type="varchar" MaxLength="50" />
+    <Property Name="UNIT" Type="varchar" MaxLength="50" />
+    <Property Name="QTY" Type="varchar" MaxLength="50" />
+    <Property Name="S1_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="S2_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="BLA_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="P_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="R_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="G_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="I_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="SDATE" Type="varchar" MaxLength="50" />
+    <Property Name="SQTY" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ITRANS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TRN_NO" Type="varchar" MaxLength="50" />
+    <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
+    <Property Name="QTY" Type="varchar" MaxLength="50" />
+    <Property Name="PRICE" Type="varchar" MaxLength="50" />
+    <Property Name="AMOUNT" Type="varchar" MaxLength="50" />
+    <Property Name="CODE" Type="varchar" MaxLength="50" />
+    <Property Name="ACC_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="ACC_YN" Type="varchar" MaxLength="50" />
+    <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="ORD_NO" Type="varchar" MaxLength="50" />
+    <Property Name="PRD_NO" Type="varchar" MaxLength="50" />
+    <Property Name="SHIP_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="ST_NO" Type="varchar" MaxLength="50" />
+    <Property Name="SAL_NO" Type="varchar" MaxLength="50" />
+    <Property Name="SAL_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="COST" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MONTOT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MON_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="TOT_AMT" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NCUST">
+    <Key>
+      <PropertyRef Name="CUST_CODE" />
+    </Key>
+    <Property Name="CUST_CODE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CUST_NAME" Type="varchar" MaxLength="50" />
+    <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
+    <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
+    <Property Name="UNIFORM" Type="varchar" MaxLength="50" />
+    <Property Name="ATTENTION" Type="varchar" MaxLength="50" />
+    <Property Name="TELEPHONE" Type="varchar" MaxLength="50" />
+    <Property Name="FAX" Type="varchar" MaxLength="50" />
+    <Property Name="REMARK" Type="varchar" MaxLength="50" />
+    <Property Name="PAY_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
+    <Property Name="DISC" Type="varchar" MaxLength="50" />
+    <Property Name="BLAAMT" Type="varchar" MaxLength="50" />
+    <Property Name="TAXMON" Type="varchar" MaxLength="50" />
+    <Property Name="BLAMON" Type="varchar" MaxLength="50" />
+    <Property Name="RECAMT" Type="varchar" MaxLength="50" />
+    <Property Name="FOWAMT" Type="varchar" MaxLength="50" />
+    <Property Name="SAL_NO" Type="varchar" MaxLength="50" />
+    <Property Name="PRT_LAB" Type="varchar" MaxLength="50" />
+    <Property Name="TAX" Type="varchar" MaxLength="50" />
+    <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PAYAMT">
+    <Key>
+      <PropertyRef Name="REC_NO" />
+    </Key>
+    <Property Name="REC_NO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FACT_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="REC_MON" Type="varchar" MaxLength="50" />
+    <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="REC_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="CL_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="CHNO" Type="varchar" MaxLength="50" />
+    <Property Name="CASH" Type="varchar" MaxLength="50" />
+    <Property Name="DISC" Type="varchar" MaxLength="50" />
+    <Property Name="OTH_REC" Type="varchar" MaxLength="50" />
+    <Property Name="REMARK1" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PAYMON">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FACT_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="MON_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="SAL_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="TAX_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="REC_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="TOT_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="BAL1" Type="varchar" MaxLength="50" />
+    <Property Name="AMO1" Type="varchar" MaxLength="50" />
+    <Property Name="AMO2" Type="varchar" MaxLength="50" />
+    <Property Name="AMO3" Type="varchar" MaxLength="50" />
+    <Property Name="DISC" Type="varchar" MaxLength="50" />
+    <Property Name="NANO" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PHRASE">
+    <Key>
+      <PropertyRef Name="PHR_ID" />
+    </Key>
+    <Property Name="PHR_ID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PHR_KEYS" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PTRANS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TRN_NO" Type="varchar" MaxLength="50" />
+    <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
+    <Property Name="QTY" Type="varchar" MaxLength="50" />
+    <Property Name="PRICE" Type="varchar" MaxLength="50" />
+    <Property Name="AMOUNT" Type="varchar" MaxLength="50" />
+    <Property Name="CODE" Type="varchar" MaxLength="50" />
+    <Property Name="ACC_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="ACC_YN" Type="varchar" MaxLength="50" />
+    <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="ORD_NO" Type="varchar" MaxLength="50" />
+    <Property Name="PRD_NO" Type="varchar" MaxLength="50" />
+    <Property Name="SHIP_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="ST_NO" Type="varchar" MaxLength="50" />
+    <Property Name="COST" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PURCH">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TRN_NO" Type="varchar" MaxLength="50" />
+    <Property Name="INV_NO" Type="varchar" MaxLength="50" />
+    <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="CODE" Type="varchar" MaxLength="50" />
+    <Property Name="REMARK1" Type="varchar" MaxLength="50" />
+    <Property Name="TAX" Type="varchar" MaxLength="50" />
+    <Property Name="ACC_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="ACC_YN" Type="varchar" MaxLength="50" />
+    <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
+    <Property Name="PMARK" Type="varchar" MaxLength="50" />
+    <Property Name="SUMAMT" Type="varchar" MaxLength="50" />
+    <Property Name="TAXAMT" Type="varchar" MaxLength="50" />
+    <Property Name="TOTAMT" Type="varchar" MaxLength="50" />
+    <Property Name="AMO1" Type="varchar" MaxLength="50" />
+    <Property Name="AMO2" Type="varchar" MaxLength="50" />
+    <Property Name="AMO3" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RECAMT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="REC_NO" Type="varchar" MaxLength="50" />
+    <Property Name="CUST_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="REC_MON" Type="varchar" MaxLength="50" />
+    <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="REC_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="CL_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="CHNO" Type="varchar" MaxLength="50" />
+    <Property Name="CASH" Type="varchar" MaxLength="50" />
+    <Property Name="DISC" Type="varchar" MaxLength="50" />
+    <Property Name="OTH_REC" Type="varchar" MaxLength="50" />
+    <Property Name="D_NO" Type="varchar" MaxLength="50" />
+    <Property Name="RMARK" Type="varchar" MaxLength="50" />
+    <Property Name="REMARK1" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RECMON">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CUST_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="MON_DATE" Type="varchar" MaxLength="50" />
+    <Property Name="SAL_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="TAX_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="REC_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="TOT_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="BAL1" Type="varchar" MaxLength="50" />
+    <Property Name="AMO1" Type="varchar" MaxLength="50" />
+    <Property Name="AMO2" Type="varchar" MaxLength="50" />
+    <Property Name="AMO3" Type="varchar" MaxLength="50" />
+    <Property Name="DISC" Type="varchar" MaxLength="50" />
+    <Property Name="NANO" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="invModelStoreContainer">
+    <EntitySet Name="CLASS" EntityType="Self.CLASS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CUSTITEM" EntityType="Self.CUSTITEM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EMPLOY" EntityType="Self.EMPLOY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FACTITEM" EntityType="Self.FACTITEM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FACTORY" EntityType="Self.FACTORY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="INVOICE" EntityType="Self.INVOICE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ITEM" EntityType="Self.ITEM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ITRANS" EntityType="Self.ITRANS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MONTOT" EntityType="Self.MONTOT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NCUST" EntityType="Self.NCUST" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PAYAMT" EntityType="Self.PAYAMT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PAYMON" EntityType="Self.PAYMON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PHRASE" EntityType="Self.PHRASE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PTRANS" EntityType="Self.PTRANS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PURCH" EntityType="Self.PURCH" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RECAMT" EntityType="Self.RECAMT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RECMON" EntityType="Self.RECMON" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

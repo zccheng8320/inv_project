@@ -1,8 +1,10 @@
-﻿@{
+﻿@model INV_Project.Models.CUSTOMER
+@{
     ViewData["Title"] = "Customer";
+    TempData["CUST_CODE"] = "JK020";
 }
 <script>
-    if(navigator.userAgent.indexOf("MSIE")>0)  {
+    if (navigator.userAgent.indexOf("MSIE") > 0) {
         //IE
         document.onkeydown = function () {
             switch (event.keyCode) {
@@ -37,13 +39,12 @@
                     alert('U');
                     break;
 
-            }　　　　
+            }
         }
     }
-    else
-    {
+    else {
         window.onkeydown = function () {
-　　　　　　　　switch (event.keyCode) {
+            switch (event.keyCode) {
                 case 49:
                     alert('1');
                     break;
@@ -58,8 +59,8 @@
                     break;
                 case 53:
                     alert('5');
-                break;
-            case 54:
+                    break;
+                case 54:
                     alert('6');
                     break;
                 case 65:
@@ -67,8 +68,8 @@
                     break;
                 case 67:
                     alert('C');
-                break;
-            case 87:
+                    break;
+                case 87:
                     alert('W');
                     break;
                 case 85:
@@ -88,40 +89,40 @@
     <table class="table table-hover table-dark">
         <tbody align="left">
             <tr>
-                <td colspan="4" class="h1">客戶編號: JK02180</td>
+                <td colspan="4" class="h1">客戶編號: @Html.DisplayFor(modelItem => modelItem.CUST_CODE)</td>
 
             </tr>
             <tr>
-                <td colspan="4" class="h1">客戶名稱: 張君丞 先生</td>
+                <td colspan="4" class="h1">客戶名稱: @Html.DisplayFor(modelItem => modelItem.CUST_NAME)</td>
             </tr>
             <tr>
-                <td colspan="4" class="h1">公司地址: 台灣省雲林縣林森路一段潭子巷70弄3樓1號</td>
+                <td colspan="4" class="h1">公司地址: @Html.DisplayFor(modelItem => modelItem.ADDRESS1)</td>
             </tr>
             <tr>
-                <td colspan="4" class="h1">發票地址: 台灣省雲林縣林森路一段潭子巷70弄3樓1號</td>
+                <td colspan="4" class="h1">發票地址: @Html.DisplayFor(modelItem => modelItem.ADDRESS2)</td>
 
             </tr>
             <tr>
-                <td colspan="2" class="h1">統一編號: 23478912</td>
-                <td colspan="2" class="h1">付款方式:</td>
+                <td colspan="2" class="h1">統一編號: @Html.DisplayFor(modelItem => modelItem.UNIFORM)</td>
+                <td colspan="2" class="h1">付款方式: @Html.DisplayFor(modelItem => modelItem.PAY_WAY)</td>
             </tr>
             <tr>
-                <td colspan="2" class="h1">聯絡人: 我是大</td>
-                <td class="h1">稅 金:0.00 </td>
+                <td colspan="2" class="h1">聯絡人: @Html.DisplayFor(modelItem => modelItem.ATTENTION)</td>
+                <td class="h1">稅 金: @Html.DisplayFor(modelItem => modelItem.TAX) </td>
                 <td class="h1">% </td>
             </tr>
             <tr>
-                <td colspan="2" class="h1">電話: 04-22058299 04-25231799</td>
-                <td colspan="2" class="h1">業務編號: </td>
+                <td colspan="2" class="h1">電話: @Html.DisplayFor(modelItem => modelItem.TELEPHONE)</td>
+                <td colspan="2" class="h1">業務編號: @Html.DisplayFor(modelItem => modelItem.SAL_NO)</td>
             </tr>
             <tr>
-                <td colspan="2" class="h1">傳真: 04-22058299 04-25231799</td>
-                <td class="h1">結帳日: 31</td>
-                <td class="h1">標籤列印: Y </td>
+                <td colspan="2" class="h1">傳真: @Html.DisplayFor(modelItem => modelItem.FAX)</td>
+                <td class="h1">結帳日: @Html.DisplayFor(modelItem => modelItem.PAY_DATE)</td>
+                <td class="h1">標籤列印: @Html.DisplayFor(modelItem => modelItem.PRT_LAB) </td>
             </tr>
             <tr>
-                <td colspan="3" class="h1">備註: </td>
-                <td class="h1">異動日期:106.11.06 </td>
+                <td colspan="3" class="h1">備註: @Html.DisplayFor(modelItem => modelItem.REMARK)</td>
+                <td class="h1">異動日期: @Html.DisplayFor(modelItem => modelItem.TRN_DATE) </td>
             </tr>
         </tbody>
     </table>

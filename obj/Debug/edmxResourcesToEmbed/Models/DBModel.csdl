@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="invModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="invEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CLASS" EntityType="invModel.CLASS" />
+    <EntitySet Name="CUSTITEM" EntityType="invModel.CUSTITEM" />
+    <EntitySet Name="CUSTOMER" EntityType="invModel.CUSTOMER" />
+    <EntitySet Name="EMPLOY" EntityType="invModel.EMPLOY" />
+    <EntitySet Name="FACTITEM" EntityType="invModel.FACTITEM" />
+    <EntitySet Name="FACTORY" EntityType="invModel.FACTORY" />
+    <EntitySet Name="INVOICE" EntityType="invModel.INVOICE" />
+    <EntitySet Name="ITEM" EntityType="invModel.ITEM" />
+    <EntitySet Name="ITRANS" EntityType="invModel.ITRANS" />
+    <EntitySet Name="MONTOT" EntityType="invModel.MONTOT" />
+    <EntitySet Name="NCUST" EntityType="invModel.NCUST" />
+    <EntitySet Name="PAYAMT" EntityType="invModel.PAYAMT" />
+    <EntitySet Name="PAYMON" EntityType="invModel.PAYMON" />
+    <EntitySet Name="PHRASE" EntityType="invModel.PHRASE" />
+    <EntitySet Name="PTRANS" EntityType="invModel.PTRANS" />
+    <EntitySet Name="PURCH" EntityType="invModel.PURCH" />
+    <EntitySet Name="RECAMT" EntityType="invModel.RECAMT" />
+    <EntitySet Name="RECMON" EntityType="invModel.RECMON" />
+  </EntityContainer>
+  <EntityType Name="CLASS">
+    <Key>
+      <PropertyRef Name="CLASS1" />
+    </Key>
+    <Property Name="CLASS1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BLA_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BLA_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOD_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOD_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOT_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOT_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CUSTITEM">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CUST_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ITEM_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAL_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="L_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="L_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="L_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="COST" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CUSTOMER">
+    <Key>
+      <PropertyRef Name="CUST_CODE" />
+    </Key>
+    <Property Name="CUST_CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CUST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UNIFORM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ATTENTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TELEPHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PAY_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PAY_WAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BLAAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAXMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BLAMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RECAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FOWAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAL_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRT_LAB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="EMPLOY">
+    <Key>
+      <PropertyRef Name="SAL_NO" />
+    </Key>
+    <Property Name="SAL_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SEX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BLOOD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="B_PLACE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BIRTHDAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ID_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MARRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TEL1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BBCALL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TEL2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EDUCAT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EXPERIENC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UNIT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="JOB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="A_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="L_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ATTENTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RELATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REL_ADDR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REL_TEL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ACC_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAL_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTP1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTP2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTP3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTP4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTP5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTP6" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTP8" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTP9" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTPA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTMP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTM1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTM2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMTM3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="FACTITEM">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FACT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ITEM_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="L_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="L_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="L_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="COST" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="FACTORY">
+    <Key>
+      <PropertyRef Name="FACT_CODE" />
+    </Key>
+    <Property Name="FACT_CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FACT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UNIFORM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ATTENTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TELEPHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PAY_WAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BLAAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAXMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BLAMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RECAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FOWAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="INVOICE">
+    <Key>
+      <PropertyRef Name="TRN_NO" />
+    </Key>
+    <Property Name="TRN_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="INV_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REMARK1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ACC_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ACC_YN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PAY_WAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SUMAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAXAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOTAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAL_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ITEM">
+    <Key>
+      <PropertyRef Name="ITEM_NO" />
+    </Key>
+    <Property Name="ITEM_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CLASS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NAME1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NAME2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="S_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="C_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="U_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UNIT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="S1_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="S2_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BLA_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="P_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="R_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="G_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="I_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SDATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SQTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ITRANS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TRN_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ITEM_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMOUNT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ACC_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ACC_YN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ORD_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRD_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SHIP_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ST_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAL_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAL_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="COST" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MONTOT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MON_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOT_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="NCUST">
+    <Key>
+      <PropertyRef Name="CUST_CODE" />
+    </Key>
+    <Property Name="CUST_CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CUST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UNIFORM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ATTENTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TELEPHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PAY_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PAY_WAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BLAAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAXMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BLAMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RECAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FOWAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAL_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRT_LAB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PAYAMT">
+    <Key>
+      <PropertyRef Name="REC_NO" />
+    </Key>
+    <Property Name="REC_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FACT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REC_MON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REC_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CL_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CHNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CASH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OTH_REC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REMARK1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PAYMON">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FACT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MON_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAL_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAX_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REC_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOT_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BAL1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NANO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PHRASE">
+    <Key>
+      <PropertyRef Name="PHR_ID" />
+    </Key>
+    <Property Name="PHR_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PHR_KEYS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PTRANS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TRN_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ITEM_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMOUNT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ACC_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ACC_YN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ORD_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRD_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SHIP_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ST_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="COST" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PURCH">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TRN_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="INV_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REMARK1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ACC_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ACC_YN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PAY_WAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SUMAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAXAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOTAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="RECAMT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="REC_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CUST_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REC_MON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REC_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CL_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CHNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CASH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OTH_REC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="D_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REMARK1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="RECMON">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CUST_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MON_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAL_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAX_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REC_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOT_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BAL1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMO3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NANO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

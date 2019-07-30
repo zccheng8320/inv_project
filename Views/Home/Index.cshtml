@@ -7,7 +7,7 @@
         document.onkeydown = function () {
             switch (event.keyCode) {
                 case 49:
-                    alert('1');
+                    window.location.href='/Home/Customer';
                     break;
                 case 50:
                     alert('2');
@@ -81,6 +81,7 @@
         }
     }
 </script>
+<script type="text/javascript" src="admin_js/addAdminCheck.js?randomId=<%=Math.random()%>"></script>
 <main role="main" class="inner cover">
     <h1>庫存管理系統</h1>
 
