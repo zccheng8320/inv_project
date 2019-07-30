@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+
+            <div class="pos-f-t">
+                <nav class="navbar navbar-dark bg-dark">
+                    <div class="navbar-toggler">
+                        <a class="nav-link dropdown-toggle h3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            常用功能選單
+                        </a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-primary h2" href="#">客戶資料管理</a>
+                            <a class="dropdown-item text-primary h2" href="#">廠商資料管理</a>
+                            <a class="dropdown-item text-primary h2" href="#">產品資料管理</a>
+                            <a class="dropdown-item text-primary h2" href="#">進出單據管理</a>
+
+                        </div>
+                    </div>
+                    @{
+                        var year = DateTime.Now.Year - 1911;
+                        var month = "" + DateTime.Now.Month;
+                        var day = "" + DateTime.Now.Day;
+                        if (DateTime.Now.Month < 10)
+                        { month = "0" + month; }
+                        if (DateTime.Now.Day < 10)
+                        { day = "0" + day; }
+                        var today = year + "." + month + "." + day;
+                    }
+                    <h1 class="masthead-brand">庫 存 管 理 系 統</h1>
+                    <h1 class="masthead-brand">日期:@today</h1>
+
+                </nav>
+            </div>
+        </header>
+
+        @RenderBody()
+        <hr />
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>&copy; 2019 - 嘉國事業有限公司</p>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

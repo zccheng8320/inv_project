@@ -1,0 +1,1161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="invModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CLASS">
+          <Key>
+            <PropertyRef Name="CLASS" />
+          </Key>
+          <Property Name="CLASS" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" />
+          <Property Name="BLA_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="BLA_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="TOD_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="TOD_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="TOT_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="TOT_AMT" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CUSTITEM">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CUST_CODE" Type="varchar" MaxLength="50" />
+          <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
+          <Property Name="SAL_CODE" Type="varchar" MaxLength="50" />
+          <Property Name="L_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="L_PRICE" Type="varchar" MaxLength="50" />
+          <Property Name="L_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="COST" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="CUST_CODE" />
+          </Key>
+          <Property Name="CUST_CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CUST_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
+          <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
+          <Property Name="UNIFORM" Type="varchar" MaxLength="50" />
+          <Property Name="ATTENTION" Type="varchar" MaxLength="50" />
+          <Property Name="TELEPHONE" Type="varchar" MaxLength="50" />
+          <Property Name="FAX" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK" Type="varchar" MaxLength="50" />
+          <Property Name="PAY_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
+          <Property Name="DISC" Type="varchar" MaxLength="50" />
+          <Property Name="BLAAMT" Type="varchar" MaxLength="50" />
+          <Property Name="TAXMON" Type="varchar" MaxLength="50" />
+          <Property Name="BLAMON" Type="varchar" MaxLength="50" />
+          <Property Name="RECAMT" Type="varchar" MaxLength="50" />
+          <Property Name="FOWAMT" Type="varchar" MaxLength="50" />
+          <Property Name="SAL_NO" Type="varchar" MaxLength="50" />
+          <Property Name="PRT_LAB" Type="varchar" MaxLength="50" />
+          <Property Name="TAX" Type="varchar" MaxLength="50" />
+          <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EMPLOY">
+          <Key>
+            <PropertyRef Name="SAL_NO" />
+          </Key>
+          <Property Name="SAL_NO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" />
+          <Property Name="SEX" Type="varchar" MaxLength="50" />
+          <Property Name="BLOOD" Type="varchar" MaxLength="50" />
+          <Property Name="B_PLACE" Type="varchar" MaxLength="50" />
+          <Property Name="BIRTHDAY" Type="varchar" MaxLength="50" />
+          <Property Name="ID_NO" Type="varchar" MaxLength="50" />
+          <Property Name="MARRY" Type="varchar" MaxLength="50" />
+          <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
+          <Property Name="TEL1" Type="varchar" MaxLength="50" />
+          <Property Name="BBCALL" Type="varchar" MaxLength="50" />
+          <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
+          <Property Name="TEL2" Type="varchar" MaxLength="50" />
+          <Property Name="EDUCAT" Type="varchar" MaxLength="50" />
+          <Property Name="EXPERIENC" Type="varchar" MaxLength="50" />
+          <Property Name="UNIT" Type="varchar" MaxLength="50" />
+          <Property Name="JOB" Type="varchar" MaxLength="50" />
+          <Property Name="A_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="L_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="ATTENTION" Type="varchar" MaxLength="50" />
+          <Property Name="RELATION" Type="varchar" MaxLength="50" />
+          <Property Name="REL_ADDR" Type="varchar" MaxLength="50" />
+          <Property Name="REL_TEL" Type="varchar" MaxLength="50" />
+          <Property Name="ACC_NO" Type="varchar" MaxLength="50" />
+          <Property Name="SAL_CODE" Type="varchar" MaxLength="50" />
+          <Property Name="AMTP1" Type="varchar" MaxLength="50" />
+          <Property Name="AMTP2" Type="varchar" MaxLength="50" />
+          <Property Name="AMTP3" Type="varchar" MaxLength="50" />
+          <Property Name="AMTP4" Type="varchar" MaxLength="50" />
+          <Property Name="AMTP5" Type="varchar" MaxLength="50" />
+          <Property Name="AMTP6" Type="varchar" MaxLength="50" />
+          <Property Name="AMTP8" Type="varchar" MaxLength="50" />
+          <Property Name="AMTP9" Type="varchar" MaxLength="50" />
+          <Property Name="AMTPA" Type="varchar" MaxLength="50" />
+          <Property Name="AMTMP" Type="varchar" MaxLength="50" />
+          <Property Name="AMTM1" Type="varchar" MaxLength="50" />
+          <Property Name="AMTM2" Type="varchar" MaxLength="50" />
+          <Property Name="AMTM3" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK" Type="varchar" MaxLength="50" />
+          <Property Name="IN_DATE" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FACTITEM">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FACT_CODE" Type="varchar" MaxLength="50" />
+          <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
+          <Property Name="L_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="L_PRICE" Type="varchar" MaxLength="50" />
+          <Property Name="L_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="COST" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FACTORY">
+          <Key>
+            <PropertyRef Name="FACT_CODE" />
+          </Key>
+          <Property Name="FACT_CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FACT_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
+          <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
+          <Property Name="UNIFORM" Type="varchar" MaxLength="50" />
+          <Property Name="ATTENTION" Type="varchar" MaxLength="50" />
+          <Property Name="TELEPHONE" Type="varchar" MaxLength="50" />
+          <Property Name="FAX" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK" Type="varchar" MaxLength="50" />
+          <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
+          <Property Name="BLAAMT" Type="varchar" MaxLength="50" />
+          <Property Name="TAXMON" Type="varchar" MaxLength="50" />
+          <Property Name="BLAMON" Type="varchar" MaxLength="50" />
+          <Property Name="RECAMT" Type="varchar" MaxLength="50" />
+          <Property Name="FOWAMT" Type="varchar" MaxLength="50" />
+          <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="INVOICE">
+          <Key>
+            <PropertyRef Name="TRN_NO" />
+          </Key>
+          <Property Name="TRN_NO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="INV_NO" Type="varchar" MaxLength="50" />
+          <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="CODE" Type="varchar" MaxLength="50" />
+          <Property Name="TAX" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK1" Type="varchar" MaxLength="50" />
+          <Property Name="ACC_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="ACC_YN" Type="varchar" MaxLength="50" />
+          <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
+          <Property Name="SMARK" Type="varchar" MaxLength="50" />
+          <Property Name="SUMAMT" Type="varchar" MaxLength="50" />
+          <Property Name="TAXAMT" Type="varchar" MaxLength="50" />
+          <Property Name="TOTAMT" Type="varchar" MaxLength="50" />
+          <Property Name="SAL_NO" Type="varchar" MaxLength="50" />
+          <Property Name="AMO1" Type="varchar" MaxLength="50" />
+          <Property Name="AMO2" Type="varchar" MaxLength="50" />
+          <Property Name="AMO3" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ITEM">
+          <Key>
+            <PropertyRef Name="ITEM_NO" />
+          </Key>
+          <Property Name="ITEM_NO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CLASS" Type="varchar" MaxLength="50" />
+          <Property Name="NAME1" Type="varchar" MaxLength="50" />
+          <Property Name="NAME2" Type="varchar" MaxLength="50" />
+          <Property Name="S_PRICE" Type="varchar" MaxLength="50" />
+          <Property Name="C_PRICE" Type="varchar" MaxLength="50" />
+          <Property Name="U_PRICE" Type="varchar" MaxLength="50" />
+          <Property Name="UNIT" Type="varchar" MaxLength="50" />
+          <Property Name="QTY" Type="varchar" MaxLength="50" />
+          <Property Name="S1_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="S2_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="BLA_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="P_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="R_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="G_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="I_QTY" Type="varchar" MaxLength="50" />
+          <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="SDATE" Type="varchar" MaxLength="50" />
+          <Property Name="SQTY" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ITRANS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TRN_NO" Type="varchar" MaxLength="50" />
+          <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
+          <Property Name="QTY" Type="varchar" MaxLength="50" />
+          <Property Name="PRICE" Type="varchar" MaxLength="50" />
+          <Property Name="AMOUNT" Type="varchar" MaxLength="50" />
+          <Property Name="CODE" Type="varchar" MaxLength="50" />
+          <Property Name="ACC_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="ACC_YN" Type="varchar" MaxLength="50" />
+          <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="ORD_NO" Type="varchar" MaxLength="50" />
+          <Property Name="PRD_NO" Type="varchar" MaxLength="50" />
+          <Property Name="SHIP_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="ST_NO" Type="varchar" MaxLength="50" />
+          <Property Name="SAL_NO" Type="varchar" MaxLength="50" />
+          <Property Name="SAL_CODE" Type="varchar" MaxLength="50" />
+          <Property Name="COST" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MONTOT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MON_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="TOT_AMT" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="NCUST">
+          <Key>
+            <PropertyRef Name="CUST_CODE" />
+          </Key>
+          <Property Name="CUST_CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CUST_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
+          <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
+          <Property Name="UNIFORM" Type="varchar" MaxLength="50" />
+          <Property Name="ATTENTION" Type="varchar" MaxLength="50" />
+          <Property Name="TELEPHONE" Type="varchar" MaxLength="50" />
+          <Property Name="FAX" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK" Type="varchar" MaxLength="50" />
+          <Property Name="PAY_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
+          <Property Name="DISC" Type="varchar" MaxLength="50" />
+          <Property Name="BLAAMT" Type="varchar" MaxLength="50" />
+          <Property Name="TAXMON" Type="varchar" MaxLength="50" />
+          <Property Name="BLAMON" Type="varchar" MaxLength="50" />
+          <Property Name="RECAMT" Type="varchar" MaxLength="50" />
+          <Property Name="FOWAMT" Type="varchar" MaxLength="50" />
+          <Property Name="SAL_NO" Type="varchar" MaxLength="50" />
+          <Property Name="PRT_LAB" Type="varchar" MaxLength="50" />
+          <Property Name="TAX" Type="varchar" MaxLength="50" />
+          <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PAYAMT">
+          <Key>
+            <PropertyRef Name="REC_NO" />
+          </Key>
+          <Property Name="REC_NO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FACT_CODE" Type="varchar" MaxLength="50" />
+          <Property Name="REC_MON" Type="varchar" MaxLength="50" />
+          <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="REC_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="CL_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="CHNO" Type="varchar" MaxLength="50" />
+          <Property Name="CASH" Type="varchar" MaxLength="50" />
+          <Property Name="DISC" Type="varchar" MaxLength="50" />
+          <Property Name="OTH_REC" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK1" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PAYMON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FACT_CODE" Type="varchar" MaxLength="50" />
+          <Property Name="MON_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="SAL_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="TAX_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="REC_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="TOT_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="BAL1" Type="varchar" MaxLength="50" />
+          <Property Name="AMO1" Type="varchar" MaxLength="50" />
+          <Property Name="AMO2" Type="varchar" MaxLength="50" />
+          <Property Name="AMO3" Type="varchar" MaxLength="50" />
+          <Property Name="DISC" Type="varchar" MaxLength="50" />
+          <Property Name="NANO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PHRASE">
+          <Key>
+            <PropertyRef Name="PHR_ID" />
+          </Key>
+          <Property Name="PHR_ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PHR_KEYS" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PTRANS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TRN_NO" Type="varchar" MaxLength="50" />
+          <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
+          <Property Name="QTY" Type="varchar" MaxLength="50" />
+          <Property Name="PRICE" Type="varchar" MaxLength="50" />
+          <Property Name="AMOUNT" Type="varchar" MaxLength="50" />
+          <Property Name="CODE" Type="varchar" MaxLength="50" />
+          <Property Name="ACC_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="ACC_YN" Type="varchar" MaxLength="50" />
+          <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="ORD_NO" Type="varchar" MaxLength="50" />
+          <Property Name="PRD_NO" Type="varchar" MaxLength="50" />
+          <Property Name="SHIP_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="ST_NO" Type="varchar" MaxLength="50" />
+          <Property Name="COST" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PURCH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TRN_NO" Type="varchar" MaxLength="50" />
+          <Property Name="INV_NO" Type="varchar" MaxLength="50" />
+          <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="CODE" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK1" Type="varchar" MaxLength="50" />
+          <Property Name="TAX" Type="varchar" MaxLength="50" />
+          <Property Name="ACC_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="ACC_YN" Type="varchar" MaxLength="50" />
+          <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
+          <Property Name="PMARK" Type="varchar" MaxLength="50" />
+          <Property Name="SUMAMT" Type="varchar" MaxLength="50" />
+          <Property Name="TAXAMT" Type="varchar" MaxLength="50" />
+          <Property Name="TOTAMT" Type="varchar" MaxLength="50" />
+          <Property Name="AMO1" Type="varchar" MaxLength="50" />
+          <Property Name="AMO2" Type="varchar" MaxLength="50" />
+          <Property Name="AMO3" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RECAMT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="REC_NO" Type="varchar" MaxLength="50" />
+          <Property Name="CUST_CODE" Type="varchar" MaxLength="50" />
+          <Property Name="REC_MON" Type="varchar" MaxLength="50" />
+          <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="REC_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="CL_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="CHNO" Type="varchar" MaxLength="50" />
+          <Property Name="CASH" Type="varchar" MaxLength="50" />
+          <Property Name="DISC" Type="varchar" MaxLength="50" />
+          <Property Name="OTH_REC" Type="varchar" MaxLength="50" />
+          <Property Name="D_NO" Type="varchar" MaxLength="50" />
+          <Property Name="RMARK" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK1" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RECMON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CUST_CODE" Type="varchar" MaxLength="50" />
+          <Property Name="MON_DATE" Type="varchar" MaxLength="50" />
+          <Property Name="SAL_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="TAX_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="REC_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="TOT_AMT" Type="varchar" MaxLength="50" />
+          <Property Name="BAL1" Type="varchar" MaxLength="50" />
+          <Property Name="AMO1" Type="varchar" MaxLength="50" />
+          <Property Name="AMO2" Type="varchar" MaxLength="50" />
+          <Property Name="AMO3" Type="varchar" MaxLength="50" />
+          <Property Name="DISC" Type="varchar" MaxLength="50" />
+          <Property Name="NANO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="invModelStoreContainer">
+          <EntitySet Name="CLASS" EntityType="Self.CLASS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CUSTITEM" EntityType="Self.CUSTITEM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLOY" EntityType="Self.EMPLOY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FACTITEM" EntityType="Self.FACTITEM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FACTORY" EntityType="Self.FACTORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INVOICE" EntityType="Self.INVOICE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ITEM" EntityType="Self.ITEM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ITRANS" EntityType="Self.ITRANS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MONTOT" EntityType="Self.MONTOT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NCUST" EntityType="Self.NCUST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PAYAMT" EntityType="Self.PAYAMT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PAYMON" EntityType="Self.PAYMON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHRASE" EntityType="Self.PHRASE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PTRANS" EntityType="Self.PTRANS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PURCH" EntityType="Self.PURCH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECAMT" EntityType="Self.RECAMT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECMON" EntityType="Self.RECMON" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="invModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="invEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="CLASS" EntityType="invModel.CLASS" />
+          <EntitySet Name="CUSTITEM" EntityType="invModel.CUSTITEM" />
+          <EntitySet Name="CUSTOMER" EntityType="invModel.CUSTOMER" />
+          <EntitySet Name="EMPLOY" EntityType="invModel.EMPLOY" />
+          <EntitySet Name="FACTITEM" EntityType="invModel.FACTITEM" />
+          <EntitySet Name="FACTORY" EntityType="invModel.FACTORY" />
+          <EntitySet Name="INVOICE" EntityType="invModel.INVOICE" />
+          <EntitySet Name="ITEM" EntityType="invModel.ITEM" />
+          <EntitySet Name="ITRANS" EntityType="invModel.ITRANS" />
+          <EntitySet Name="MONTOT" EntityType="invModel.MONTOT" />
+          <EntitySet Name="NCUST" EntityType="invModel.NCUST" />
+          <EntitySet Name="PAYAMT" EntityType="invModel.PAYAMT" />
+          <EntitySet Name="PAYMON" EntityType="invModel.PAYMON" />
+          <EntitySet Name="PHRASE" EntityType="invModel.PHRASE" />
+          <EntitySet Name="PTRANS" EntityType="invModel.PTRANS" />
+          <EntitySet Name="PURCH" EntityType="invModel.PURCH" />
+          <EntitySet Name="RECAMT" EntityType="invModel.RECAMT" />
+          <EntitySet Name="RECMON" EntityType="invModel.RECMON" />
+        </EntityContainer>
+        <EntityType Name="CLASS">
+          <Key>
+            <PropertyRef Name="CLASS1" />
+          </Key>
+          <Property Name="CLASS1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BLA_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BLA_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOD_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOD_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOT_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOT_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CUSTITEM">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CUST_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SAL_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COST" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="CUST_CODE" />
+          </Key>
+          <Property Name="CUST_CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CUST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UNIFORM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ATTENTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TELEPHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAY_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAY_WAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BLAAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAXMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BLAMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RECAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FOWAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SAL_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRT_LAB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="EMPLOY">
+          <Key>
+            <PropertyRef Name="SAL_NO" />
+          </Key>
+          <Property Name="SAL_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SEX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BLOOD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="B_PLACE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BIRTHDAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MARRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TEL1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BBCALL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TEL2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EDUCAT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EXPERIENC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UNIT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JOB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="A_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ATTENTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RELATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REL_ADDR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REL_TEL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACC_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SAL_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTP1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTP2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTP3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTP4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTP5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTP6" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTP8" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTP9" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTPA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTMP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTM1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTM2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMTM3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FACTITEM">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FACT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COST" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FACTORY">
+          <Key>
+            <PropertyRef Name="FACT_CODE" />
+          </Key>
+          <Property Name="FACT_CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FACT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UNIFORM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ATTENTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TELEPHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAY_WAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BLAAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAXMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BLAMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RECAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FOWAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="INVOICE">
+          <Key>
+            <PropertyRef Name="TRN_NO" />
+          </Key>
+          <Property Name="TRN_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="INV_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACC_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACC_YN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAY_WAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SUMAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAXAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOTAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SAL_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ITEM">
+          <Key>
+            <PropertyRef Name="ITEM_NO" />
+          </Key>
+          <Property Name="ITEM_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CLASS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NAME1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NAME2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="S_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="C_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UNIT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="S1_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="S2_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BLA_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="P_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="R_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="G_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="I_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SDATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SQTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ITRANS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TRN_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMOUNT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACC_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACC_YN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ORD_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRD_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SHIP_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ST_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SAL_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SAL_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COST" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MONTOT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MON_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOT_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="NCUST">
+          <Key>
+            <PropertyRef Name="CUST_CODE" />
+          </Key>
+          <Property Name="CUST_CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CUST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UNIFORM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ATTENTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TELEPHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAY_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAY_WAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BLAAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAXMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BLAMON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RECAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FOWAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SAL_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRT_LAB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PAYAMT">
+          <Key>
+            <PropertyRef Name="REC_NO" />
+          </Key>
+          <Property Name="REC_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FACT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REC_MON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REC_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CL_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CHNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CASH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTH_REC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PAYMON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FACT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MON_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SAL_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAX_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REC_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOT_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BAL1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NANO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PHRASE">
+          <Key>
+            <PropertyRef Name="PHR_ID" />
+          </Key>
+          <Property Name="PHR_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PHR_KEYS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PTRANS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TRN_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMOUNT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACC_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACC_YN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ORD_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRD_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SHIP_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ST_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COST" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PURCH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TRN_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="INV_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAX" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACC_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACC_YN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAY_WAY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SUMAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAXAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOTAMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RECAMT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="REC_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CUST_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REC_MON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REC_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CL_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CHNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CASH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTH_REC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="D_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RECMON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CUST_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MON_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SAL_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAX_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REC_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOT_AMT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BAL1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AMO3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DISC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NANO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="invModelStoreContainer" CdmEntityContainer="invEntities" >
+          <EntitySetMapping Name="CLASS">
+            <EntityTypeMapping TypeName="invModel.CLASS">
+              <MappingFragment StoreEntitySet="CLASS">
+                <ScalarProperty Name="TOT_AMT" ColumnName="TOT_AMT" />
+                <ScalarProperty Name="TOT_QTY" ColumnName="TOT_QTY" />
+                <ScalarProperty Name="TOD_AMT" ColumnName="TOD_AMT" />
+                <ScalarProperty Name="TOD_QTY" ColumnName="TOD_QTY" />
+                <ScalarProperty Name="BLA_AMT" ColumnName="BLA_AMT" />
+                <ScalarProperty Name="BLA_QTY" ColumnName="BLA_QTY" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="CLASS1" ColumnName="CLASS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CUSTITEM">
+            <EntityTypeMapping TypeName="invModel.CUSTITEM">
+              <MappingFragment StoreEntitySet="CUSTITEM">
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+                <ScalarProperty Name="L_QTY" ColumnName="L_QTY" />
+                <ScalarProperty Name="L_PRICE" ColumnName="L_PRICE" />
+                <ScalarProperty Name="L_DATE" ColumnName="L_DATE" />
+                <ScalarProperty Name="SAL_CODE" ColumnName="SAL_CODE" />
+                <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
+                <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CUSTOMER">
+            <EntityTypeMapping TypeName="invModel.CUSTOMER">
+              <MappingFragment StoreEntitySet="CUSTOMER">
+                <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+                <ScalarProperty Name="TAX" ColumnName="TAX" />
+                <ScalarProperty Name="PRT_LAB" ColumnName="PRT_LAB" />
+                <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
+                <ScalarProperty Name="FOWAMT" ColumnName="FOWAMT" />
+                <ScalarProperty Name="RECAMT" ColumnName="RECAMT" />
+                <ScalarProperty Name="BLAMON" ColumnName="BLAMON" />
+                <ScalarProperty Name="TAXMON" ColumnName="TAXMON" />
+                <ScalarProperty Name="BLAAMT" ColumnName="BLAAMT" />
+                <ScalarProperty Name="DISC" ColumnName="DISC" />
+                <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
+                <ScalarProperty Name="PAY_DATE" ColumnName="PAY_DATE" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+                <ScalarProperty Name="ATTENTION" ColumnName="ATTENTION" />
+                <ScalarProperty Name="UNIFORM" ColumnName="UNIFORM" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="CUST_NAME" ColumnName="CUST_NAME" />
+                <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOY">
+            <EntityTypeMapping TypeName="invModel.EMPLOY">
+              <MappingFragment StoreEntitySet="EMPLOY">
+                <ScalarProperty Name="IN_DATE" ColumnName="IN_DATE" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="AMTM3" ColumnName="AMTM3" />
+                <ScalarProperty Name="AMTM2" ColumnName="AMTM2" />
+                <ScalarProperty Name="AMTM1" ColumnName="AMTM1" />
+                <ScalarProperty Name="AMTMP" ColumnName="AMTMP" />
+                <ScalarProperty Name="AMTPA" ColumnName="AMTPA" />
+                <ScalarProperty Name="AMTP9" ColumnName="AMTP9" />
+                <ScalarProperty Name="AMTP8" ColumnName="AMTP8" />
+                <ScalarProperty Name="AMTP6" ColumnName="AMTP6" />
+                <ScalarProperty Name="AMTP5" ColumnName="AMTP5" />
+                <ScalarProperty Name="AMTP4" ColumnName="AMTP4" />
+                <ScalarProperty Name="AMTP3" ColumnName="AMTP3" />
+                <ScalarProperty Name="AMTP2" ColumnName="AMTP2" />
+                <ScalarProperty Name="AMTP1" ColumnName="AMTP1" />
+                <ScalarProperty Name="SAL_CODE" ColumnName="SAL_CODE" />
+                <ScalarProperty Name="ACC_NO" ColumnName="ACC_NO" />
+                <ScalarProperty Name="REL_TEL" ColumnName="REL_TEL" />
+                <ScalarProperty Name="REL_ADDR" ColumnName="REL_ADDR" />
+                <ScalarProperty Name="RELATION" ColumnName="RELATION" />
+                <ScalarProperty Name="ATTENTION" ColumnName="ATTENTION" />
+                <ScalarProperty Name="L_DATE" ColumnName="L_DATE" />
+                <ScalarProperty Name="A_DATE" ColumnName="A_DATE" />
+                <ScalarProperty Name="JOB" ColumnName="JOB" />
+                <ScalarProperty Name="UNIT" ColumnName="UNIT" />
+                <ScalarProperty Name="EXPERIENC" ColumnName="EXPERIENC" />
+                <ScalarProperty Name="EDUCAT" ColumnName="EDUCAT" />
+                <ScalarProperty Name="TEL2" ColumnName="TEL2" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="BBCALL" ColumnName="BBCALL" />
+                <ScalarProperty Name="TEL1" ColumnName="TEL1" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="MARRY" ColumnName="MARRY" />
+                <ScalarProperty Name="ID_NO" ColumnName="ID_NO" />
+                <ScalarProperty Name="BIRTHDAY" ColumnName="BIRTHDAY" />
+                <ScalarProperty Name="B_PLACE" ColumnName="B_PLACE" />
+                <ScalarProperty Name="BLOOD" ColumnName="BLOOD" />
+                <ScalarProperty Name="SEX" ColumnName="SEX" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACTITEM">
+            <EntityTypeMapping TypeName="invModel.FACTITEM">
+              <MappingFragment StoreEntitySet="FACTITEM">
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+                <ScalarProperty Name="L_QTY" ColumnName="L_QTY" />
+                <ScalarProperty Name="L_PRICE" ColumnName="L_PRICE" />
+                <ScalarProperty Name="L_DATE" ColumnName="L_DATE" />
+                <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
+                <ScalarProperty Name="FACT_CODE" ColumnName="FACT_CODE" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACTORY">
+            <EntityTypeMapping TypeName="invModel.FACTORY">
+              <MappingFragment StoreEntitySet="FACTORY">
+                <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+                <ScalarProperty Name="FOWAMT" ColumnName="FOWAMT" />
+                <ScalarProperty Name="RECAMT" ColumnName="RECAMT" />
+                <ScalarProperty Name="BLAMON" ColumnName="BLAMON" />
+                <ScalarProperty Name="TAXMON" ColumnName="TAXMON" />
+                <ScalarProperty Name="BLAAMT" ColumnName="BLAAMT" />
+                <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+                <ScalarProperty Name="ATTENTION" ColumnName="ATTENTION" />
+                <ScalarProperty Name="UNIFORM" ColumnName="UNIFORM" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="FACT_NAME" ColumnName="FACT_NAME" />
+                <ScalarProperty Name="FACT_CODE" ColumnName="FACT_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INVOICE">
+            <EntityTypeMapping TypeName="invModel.INVOICE">
+              <MappingFragment StoreEntitySet="INVOICE">
+                <ScalarProperty Name="AMO3" ColumnName="AMO3" />
+                <ScalarProperty Name="AMO2" ColumnName="AMO2" />
+                <ScalarProperty Name="AMO1" ColumnName="AMO1" />
+                <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
+                <ScalarProperty Name="TOTAMT" ColumnName="TOTAMT" />
+                <ScalarProperty Name="TAXAMT" ColumnName="TAXAMT" />
+                <ScalarProperty Name="SUMAMT" ColumnName="SUMAMT" />
+                <ScalarProperty Name="SMARK" ColumnName="SMARK" />
+                <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
+                <ScalarProperty Name="ACC_YN" ColumnName="ACC_YN" />
+                <ScalarProperty Name="ACC_DATE" ColumnName="ACC_DATE" />
+                <ScalarProperty Name="REMARK1" ColumnName="REMARK1" />
+                <ScalarProperty Name="TAX" ColumnName="TAX" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+                <ScalarProperty Name="INV_NO" ColumnName="INV_NO" />
+                <ScalarProperty Name="TRN_NO" ColumnName="TRN_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ITEM">
+            <EntityTypeMapping TypeName="invModel.ITEM">
+              <MappingFragment StoreEntitySet="ITEM">
+                <ScalarProperty Name="SQTY" ColumnName="SQTY" />
+                <ScalarProperty Name="SDATE" ColumnName="SDATE" />
+                <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+                <ScalarProperty Name="I_QTY" ColumnName="I_QTY" />
+                <ScalarProperty Name="G_QTY" ColumnName="G_QTY" />
+                <ScalarProperty Name="R_QTY" ColumnName="R_QTY" />
+                <ScalarProperty Name="P_QTY" ColumnName="P_QTY" />
+                <ScalarProperty Name="BLA_QTY" ColumnName="BLA_QTY" />
+                <ScalarProperty Name="S2_QTY" ColumnName="S2_QTY" />
+                <ScalarProperty Name="S1_QTY" ColumnName="S1_QTY" />
+                <ScalarProperty Name="QTY" ColumnName="QTY" />
+                <ScalarProperty Name="UNIT" ColumnName="UNIT" />
+                <ScalarProperty Name="U_PRICE" ColumnName="U_PRICE" />
+                <ScalarProperty Name="C_PRICE" ColumnName="C_PRICE" />
+                <ScalarProperty Name="S_PRICE" ColumnName="S_PRICE" />
+                <ScalarProperty Name="NAME2" ColumnName="NAME2" />
+                <ScalarProperty Name="NAME1" ColumnName="NAME1" />
+                <ScalarProperty Name="CLASS" ColumnName="CLASS" />
+                <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ITRANS">
+            <EntityTypeMapping TypeName="invModel.ITRANS">
+              <MappingFragment StoreEntitySet="ITRANS">
+                <ScalarProperty Name="COST" ColumnName="COST" />
+                <ScalarProperty Name="SAL_CODE" ColumnName="SAL_CODE" />
+                <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
+                <ScalarProperty Name="ST_NO" ColumnName="ST_NO" />
+                <ScalarProperty Name="SHIP_DATE" ColumnName="SHIP_DATE" />
+                <ScalarProperty Name="PRD_NO" ColumnName="PRD_NO" />
+                <ScalarProperty Name="ORD_NO" ColumnName="ORD_NO" />
+                <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+                <ScalarProperty Name="ACC_YN" ColumnName="ACC_YN" />
+                <ScalarProperty Name="ACC_DATE" ColumnName="ACC_DATE" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="QTY" ColumnName="QTY" />
+                <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
+                <ScalarProperty Name="TRN_NO" ColumnName="TRN_NO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MONTOT">
+            <EntityTypeMapping TypeName="invModel.MONTOT">
+              <MappingFragment StoreEntitySet="MONTOT">
+                <ScalarProperty Name="TOT_AMT" ColumnName="TOT_AMT" />
+                <ScalarProperty Name="MON_DATE" ColumnName="MON_DATE" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NCUST">
+            <EntityTypeMapping TypeName="invModel.NCUST">
+              <MappingFragment StoreEntitySet="NCUST">
+                <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+                <ScalarProperty Name="TAX" ColumnName="TAX" />
+                <ScalarProperty Name="PRT_LAB" ColumnName="PRT_LAB" />
+                <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
+                <ScalarProperty Name="FOWAMT" ColumnName="FOWAMT" />
+                <ScalarProperty Name="RECAMT" ColumnName="RECAMT" />
+                <ScalarProperty Name="BLAMON" ColumnName="BLAMON" />
+                <ScalarProperty Name="TAXMON" ColumnName="TAXMON" />
+                <ScalarProperty Name="BLAAMT" ColumnName="BLAAMT" />
+                <ScalarProperty Name="DISC" ColumnName="DISC" />
+                <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
+                <ScalarProperty Name="PAY_DATE" ColumnName="PAY_DATE" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+                <ScalarProperty Name="ATTENTION" ColumnName="ATTENTION" />
+                <ScalarProperty Name="UNIFORM" ColumnName="UNIFORM" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="CUST_NAME" ColumnName="CUST_NAME" />
+                <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAYAMT">
+            <EntityTypeMapping TypeName="invModel.PAYAMT">
+              <MappingFragment StoreEntitySet="PAYAMT">
+                <ScalarProperty Name="REMARK1" ColumnName="REMARK1" />
+                <ScalarProperty Name="OTH_REC" ColumnName="OTH_REC" />
+                <ScalarProperty Name="DISC" ColumnName="DISC" />
+                <ScalarProperty Name="CASH" ColumnName="CASH" />
+                <ScalarProperty Name="CHNO" ColumnName="CHNO" />
+                <ScalarProperty Name="CL_AMT" ColumnName="CL_AMT" />
+                <ScalarProperty Name="REC_AMT" ColumnName="REC_AMT" />
+                <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+                <ScalarProperty Name="REC_MON" ColumnName="REC_MON" />
+                <ScalarProperty Name="FACT_CODE" ColumnName="FACT_CODE" />
+                <ScalarProperty Name="REC_NO" ColumnName="REC_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAYMON">
+            <EntityTypeMapping TypeName="invModel.PAYMON">
+              <MappingFragment StoreEntitySet="PAYMON">
+                <ScalarProperty Name="NANO" ColumnName="NANO" />
+                <ScalarProperty Name="DISC" ColumnName="DISC" />
+                <ScalarProperty Name="AMO3" ColumnName="AMO3" />
+                <ScalarProperty Name="AMO2" ColumnName="AMO2" />
+                <ScalarProperty Name="AMO1" ColumnName="AMO1" />
+                <ScalarProperty Name="BAL1" ColumnName="BAL1" />
+                <ScalarProperty Name="TOT_AMT" ColumnName="TOT_AMT" />
+                <ScalarProperty Name="REC_AMT" ColumnName="REC_AMT" />
+                <ScalarProperty Name="TAX_AMT" ColumnName="TAX_AMT" />
+                <ScalarProperty Name="SAL_AMT" ColumnName="SAL_AMT" />
+                <ScalarProperty Name="MON_DATE" ColumnName="MON_DATE" />
+                <ScalarProperty Name="FACT_CODE" ColumnName="FACT_CODE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHRASE">
+            <EntityTypeMapping TypeName="invModel.PHRASE">
+              <MappingFragment StoreEntitySet="PHRASE">
+                <ScalarProperty Name="PHR_KEYS" ColumnName="PHR_KEYS" />
+                <ScalarProperty Name="PHR_ID" ColumnName="PHR_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PTRANS">
+            <EntityTypeMapping TypeName="invModel.PTRANS">
+              <MappingFragment StoreEntitySet="PTRANS">
+                <ScalarProperty Name="COST" ColumnName="COST" />
+                <ScalarProperty Name="ST_NO" ColumnName="ST_NO" />
+                <ScalarProperty Name="SHIP_DATE" ColumnName="SHIP_DATE" />
+                <ScalarProperty Name="PRD_NO" ColumnName="PRD_NO" />
+                <ScalarProperty Name="ORD_NO" ColumnName="ORD_NO" />
+                <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+                <ScalarProperty Name="ACC_YN" ColumnName="ACC_YN" />
+                <ScalarProperty Name="ACC_DATE" ColumnName="ACC_DATE" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="QTY" ColumnName="QTY" />
+                <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
+                <ScalarProperty Name="TRN_NO" ColumnName="TRN_NO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PURCH">
+            <EntityTypeMapping TypeName="invModel.PURCH">
+              <MappingFragment StoreEntitySet="PURCH">
+                <ScalarProperty Name="AMO3" ColumnName="AMO3" />
+                <ScalarProperty Name="AMO2" ColumnName="AMO2" />
+                <ScalarProperty Name="AMO1" ColumnName="AMO1" />
+                <ScalarProperty Name="TOTAMT" ColumnName="TOTAMT" />
+                <ScalarProperty Name="TAXAMT" ColumnName="TAXAMT" />
+                <ScalarProperty Name="SUMAMT" ColumnName="SUMAMT" />
+                <ScalarProperty Name="PMARK" ColumnName="PMARK" />
+                <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
+                <ScalarProperty Name="ACC_YN" ColumnName="ACC_YN" />
+                <ScalarProperty Name="ACC_DATE" ColumnName="ACC_DATE" />
+                <ScalarProperty Name="TAX" ColumnName="TAX" />
+                <ScalarProperty Name="REMARK1" ColumnName="REMARK1" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+                <ScalarProperty Name="INV_NO" ColumnName="INV_NO" />
+                <ScalarProperty Name="TRN_NO" ColumnName="TRN_NO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECAMT">
+            <EntityTypeMapping TypeName="invModel.RECAMT">
+              <MappingFragment StoreEntitySet="RECAMT">
+                <ScalarProperty Name="REMARK1" ColumnName="REMARK1" />
+                <ScalarProperty Name="RMARK" ColumnName="RMARK" />
+                <ScalarProperty Name="D_NO" ColumnName="D_NO" />
+                <ScalarProperty Name="OTH_REC" ColumnName="OTH_REC" />
+                <ScalarProperty Name="DISC" ColumnName="DISC" />
+                <ScalarProperty Name="CASH" ColumnName="CASH" />
+                <ScalarProperty Name="CHNO" ColumnName="CHNO" />
+                <ScalarProperty Name="CL_AMT" ColumnName="CL_AMT" />
+                <ScalarProperty Name="REC_AMT" ColumnName="REC_AMT" />
+                <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+                <ScalarProperty Name="REC_MON" ColumnName="REC_MON" />
+                <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
+                <ScalarProperty Name="REC_NO" ColumnName="REC_NO" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECMON">
+            <EntityTypeMapping TypeName="invModel.RECMON">
+              <MappingFragment StoreEntitySet="RECMON">
+                <ScalarProperty Name="NANO" ColumnName="NANO" />
+                <ScalarProperty Name="DISC" ColumnName="DISC" />
+                <ScalarProperty Name="AMO3" ColumnName="AMO3" />
+                <ScalarProperty Name="AMO2" ColumnName="AMO2" />
+                <ScalarProperty Name="AMO1" ColumnName="AMO1" />
+                <ScalarProperty Name="BAL1" ColumnName="BAL1" />
+                <ScalarProperty Name="TOT_AMT" ColumnName="TOT_AMT" />
+                <ScalarProperty Name="REC_AMT" ColumnName="REC_AMT" />
+                <ScalarProperty Name="TAX_AMT" ColumnName="TAX_AMT" />
+                <ScalarProperty Name="SAL_AMT" ColumnName="SAL_AMT" />
+                <ScalarProperty Name="MON_DATE" ColumnName="MON_DATE" />
+                <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
