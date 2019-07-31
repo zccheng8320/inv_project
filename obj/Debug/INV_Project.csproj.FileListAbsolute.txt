@@ -95,3 +95,4 @@ C:\inv\INV_Project\bin\EntityFramework.SqlServer.dll
 C:\inv\INV_Project\bin\EntityFramework.xml
 C:\inv\INV_Project\bin\EntityFramework.SqlServer.xml
 C:\inv\INV_Project\bin\zh-Hant\EntityFramework.resources.dll
+C:\inv\INV_Project\bin\zh-Hant\EntityFramework.SqlServer.resources.dll

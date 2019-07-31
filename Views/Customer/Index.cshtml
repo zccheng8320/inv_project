@@ -1,0 +1,156 @@
+﻿@model INV_Project.Models.CUSTOMER
+@{
+    ViewData["Title"] = "客戶基本資料";
+}
+<script>
+    if (navigator.userAgent.indexOf("MSIE") > 0) {
+        //IE
+        document.onkeydown = function () {
+            switch (event.keyCode) {
+                case 49:
+                    window.location.href='/Customer/Search';
+                    break;
+                case 50:
+                    alert('2');
+                    break;
+                case 51:
+                    alert('3');
+                    break;
+                case 52:
+                    alert('4');
+                    break;
+                case 53:
+                    alert('5');
+                    break;
+                case 54:
+                    alert('6');
+                    break;
+                case 65:
+                    alert('A');
+                    break;
+                case 67:
+                    alert('C');
+                    break;
+                case 87:
+                    alert('W');
+                    break;
+                case 85:
+                    alert('U');
+                    break;
+
+            }
+        }
+    }
+    else {
+        window.onkeydown = function () {
+            switch (event.keyCode) {
+                case 49:
+                    window.location.href='/Customer/Search';
+                    break;
+                case 50:
+                    alert('2');
+                    break;
+                case 51:
+                    alert('3');
+                    break;
+                case 52:
+                    alert('4');
+                    break;
+                case 53:
+                    alert('5');
+                    break;
+                case 54:
+                    alert('6');
+                    break;
+                case 65:
+                    alert('A');
+                    break;
+                case 67:
+                    alert('C');
+                    break;
+                case 87:
+                    alert('W');
+                    break;
+                case 85:
+                    alert('U');
+                    break;
+
+
+
+            }
+
+        }
+    }
+</script>
+<main role="main" class="inner cover">
+    <h1>客戶基本資料</h1>
+
+    <table class="table table-hover table-dark">
+        <tbody align="left">
+            <tr>
+                <td colspan="4" class="h1">客戶編號: @Html.DisplayFor(modelItem => modelItem.CUST_CODE)</td>
+
+            </tr>
+            <tr>
+                <td colspan="4" class="h1">客戶名稱: @Html.DisplayFor(modelItem => modelItem.CUST_NAME)</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="h1">公司地址: @Html.DisplayFor(modelItem => modelItem.ADDRESS1)</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="h1">發票地址: @Html.DisplayFor(modelItem => modelItem.ADDRESS2)</td>
+
+            </tr>
+            <tr>
+                <td colspan="2" class="h1">統一編號: @Html.DisplayFor(modelItem => modelItem.UNIFORM)</td>
+                <td colspan="2" class="h1">付款方式: @Html.DisplayFor(modelItem => modelItem.PAY_WAY)</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="h1">聯絡人: @Html.DisplayFor(modelItem => modelItem.ATTENTION)</td>
+                <td class="h1">稅 金: @Html.DisplayFor(modelItem => modelItem.TAX) </td>
+                <td class="h1">% </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="h1">電話: @Html.DisplayFor(modelItem => modelItem.TELEPHONE)</td>
+                <td colspan="2" class="h1">業務編號: @Html.DisplayFor(modelItem => modelItem.SAL_NO)</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="h1">傳真: @Html.DisplayFor(modelItem => modelItem.FAX)</td>
+                <td class="h1">結帳日: @Html.DisplayFor(modelItem => modelItem.PAY_DATE)</td>
+                <td class="h1">標籤列印: @Html.DisplayFor(modelItem => modelItem.PRT_LAB) </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="h1">備註: @Html.DisplayFor(modelItem => modelItem.REMARK)</td>
+                <td class="h1">異動日期: @Html.DisplayFor(modelItem => modelItem.TRN_DATE) </td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+<footer class="mastfoot mt-auto">
+    <div class="inner">
+        <table class="table  table-dark">
+            <tbody align="left">
+                <tr>
+                    <td class="h3">1>查詢</td>
+                    <td class="h3">2>新增</td>
+                    <td class="h3">3>更改</td>
+                    <td class="h3">4>刪除</td>
+                    <td class="h3">5>印表</td>
+                    <td class="h3">6>印信封,掛號單</td>
+                    <td class="h3">7>印出貨標籤</td>
+                </tr>
+                <tr>
+                    <td class="h3">8>成交價</td>
+                    <td class="h3">A>應收帳</td>
+                    <td class="h3">C>複製</td>
+                    <td class="h3">+>下筆</td>
+                    <td class="h3">->上筆</td>
+                    <td class="h3">*>多筆</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</footer>
+
+

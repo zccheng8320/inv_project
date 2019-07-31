@@ -1,0 +1,67 @@
+﻿<hr>
+<div class="input-group input-group-lg">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-lg">搜尋框</span>
+    </div>
+    <input type="text" id="Search" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+</div>
+<hr>
+<table id="click" class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th class="h2">客戶編號</th>
+            <th class="h2">客戶名稱</th>
+            <th colspan="2" class="h2">公司地址</th>
+            <th class="h2">統一編號</th>
+            <th class="h2">電話</th>
+            <th class="h2">傳真</th>
+            <th class="h2">異動日期</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyshow">
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-1.10.2.js"
+        integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Customer";
+
+        function ajaxSearchData(keyword) {
+            $.ajax({
+                url: apiurl + "?search=" + keyword,
+                type: 'GET',
+                success: function (data) {
+                    $("#tbodyshow").empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $("#tbodyshow").append(
+                            '<tr id ="' + data[i].CUST_CODE + '">' +
+                            '<td class="h2">' + data[i].CUST_CODE + '</td>' +
+                            '<td class="h2">' + data[i].CUST_NAME + '</td>' +
+                            '<td colspan="2" class="h2">' + data[i].ADDRESS1 + '</td>' +
+                            '<td class="h2">' + data[i].UNIFORM + '</td>' +
+                            '<td class="h2">' + data[i].TELEPHONE + '</td>' +
+                            '<td class="h2">' + data[i].FAX + '</td>' +
+                            '<td class="h2">' + data[i].TRN_DATE + '</td>' +
+                            "</tr>"
+                        );
+                    }
+                }
+            });
+        }
+
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            ajaxSearchData(searchText);
+            
+        });
+        $(document).on("click","#click tr",function () {
+            var CUST_CODE = $(this).attr("id");
+            if (CUST_CODE) {
+                var href = "/Customer/Index?CUST_CODE=" + CUST_CODE;
+                window.location.href = href;
+            }
+        });
+    });
+</script>

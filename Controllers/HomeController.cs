@@ -14,24 +14,5 @@ namespace INV_Project.Controllers
         {
             return View();
         }
-
-        public ActionResult Customer()
-        {
-            var a = TempData["CUST_CODE"];
-            var p = (from d in db.CUSTOMER select d).OrderByDescending(d => d.CUST_CODE).FirstOrDefault();
-            if (a != null)
-                p = (from d in db.CUSTOMER where d.CUST_CODE == a select d).FirstOrDefault();
-            else
-                TempData["CUST_CODE"] = p.CUST_CODE;
-            Debug.WriteLine(p.CUST_CODE);
-            return View(p);
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
