@@ -14,6 +14,7 @@ namespace INV_Project.Models
     
     public partial class CUSTOMER
     {
+        public int ID { get; set; }
         public string CUST_CODE { get; set; }
         public string CUST_NAME { get; set; }
         public string ADDRESS1 { get; set; }

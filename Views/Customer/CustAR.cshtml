@@ -1,0 +1,75 @@
+﻿@model IEnumerable<INV_Project.Models.CUST_AR>
+
+@{
+    ViewBag.Title = "CustAR";
+}
+
+<h2>CustAR</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.month)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CL_Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TAX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.REC_Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Machine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Material)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.month)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CL_Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TAX)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.REC_Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Discount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Machine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Material)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

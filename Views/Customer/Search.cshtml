@@ -25,6 +25,26 @@
         integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
         crossorigin="anonymous"></script>
 <script>
+    document.getElementById('Search').focus();
+    if (navigator.userAgent.indexOf("MSIE") > 0) {
+        //IE
+        document.onkeydown = function () {
+            switch (event.keyCode) {               
+                case 27:
+                    history.go(-1);
+                    break;
+            }
+        }
+    }
+    else {
+        window.onkeydown = function () {
+            switch (event.keyCode) {
+                case 27:
+                    history.go(-1);
+                    break;
+            }
+        }
+    }
     $(document).ready(function () {
         var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Customer";
 
@@ -36,7 +56,7 @@
                     $("#tbodyshow").empty();
                     for (var i = 0; i < data.length; i++) {
                         $("#tbodyshow").append(
-                            '<tr id ="' + data[i].CUST_CODE + '">' +
+                            '<tr id ="' + data[i].ID + '">' +
                             '<td class="h2">' + data[i].CUST_CODE + '</td>' +
                             '<td class="h2">' + data[i].CUST_NAME + '</td>' +
                             '<td colspan="2" class="h2">' + data[i].ADDRESS1 + '</td>' +
@@ -57,9 +77,13 @@
             
         });
         $(document).on("click","#click tr",function () {
-            var CUST_CODE = $(this).attr("id");
-            if (CUST_CODE) {
-                var href = "/Customer/Index?CUST_CODE=" + CUST_CODE;
+            var ID = $(this).attr("id");
+            if (ID) {
+                 var date = new Date();
+                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+                document.cookie = "ID=" + ID + expires + "; path=/";
+                var href = "/Customer/Index?ID=" + ID;
                 window.location.href = href;
             }
         });

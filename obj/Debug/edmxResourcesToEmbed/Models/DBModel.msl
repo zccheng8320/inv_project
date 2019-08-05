@@ -15,48 +15,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CUSTITEM">
-      <EntityTypeMapping TypeName="invModel.CUSTITEM">
-        <MappingFragment StoreEntitySet="CUSTITEM">
-          <ScalarProperty Name="REMARK" ColumnName="REMARK" />
-          <ScalarProperty Name="COST" ColumnName="COST" />
-          <ScalarProperty Name="L_QTY" ColumnName="L_QTY" />
-          <ScalarProperty Name="L_PRICE" ColumnName="L_PRICE" />
-          <ScalarProperty Name="L_DATE" ColumnName="L_DATE" />
-          <ScalarProperty Name="SAL_CODE" ColumnName="SAL_CODE" />
-          <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
-          <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="CUSTOMER">
-      <EntityTypeMapping TypeName="invModel.CUSTOMER">
-        <MappingFragment StoreEntitySet="CUSTOMER">
-          <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
-          <ScalarProperty Name="TAX" ColumnName="TAX" />
-          <ScalarProperty Name="PRT_LAB" ColumnName="PRT_LAB" />
-          <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
-          <ScalarProperty Name="FOWAMT" ColumnName="FOWAMT" />
-          <ScalarProperty Name="RECAMT" ColumnName="RECAMT" />
-          <ScalarProperty Name="BLAMON" ColumnName="BLAMON" />
-          <ScalarProperty Name="TAXMON" ColumnName="TAXMON" />
-          <ScalarProperty Name="BLAAMT" ColumnName="BLAAMT" />
-          <ScalarProperty Name="DISC" ColumnName="DISC" />
-          <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
-          <ScalarProperty Name="PAY_DATE" ColumnName="PAY_DATE" />
-          <ScalarProperty Name="REMARK" ColumnName="REMARK" />
-          <ScalarProperty Name="FAX" ColumnName="FAX" />
-          <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
-          <ScalarProperty Name="ATTENTION" ColumnName="ATTENTION" />
-          <ScalarProperty Name="UNIFORM" ColumnName="UNIFORM" />
-          <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
-          <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
-          <ScalarProperty Name="CUST_NAME" ColumnName="CUST_NAME" />
-          <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="EMPLOY">
       <EntityTypeMapping TypeName="invModel.EMPLOY">
         <MappingFragment StoreEntitySet="EMPLOY">
@@ -184,29 +142,6 @@
           <ScalarProperty Name="NAME1" ColumnName="NAME1" />
           <ScalarProperty Name="CLASS" ColumnName="CLASS" />
           <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ITRANS">
-      <EntityTypeMapping TypeName="invModel.ITRANS">
-        <MappingFragment StoreEntitySet="ITRANS">
-          <ScalarProperty Name="COST" ColumnName="COST" />
-          <ScalarProperty Name="SAL_CODE" ColumnName="SAL_CODE" />
-          <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
-          <ScalarProperty Name="ST_NO" ColumnName="ST_NO" />
-          <ScalarProperty Name="SHIP_DATE" ColumnName="SHIP_DATE" />
-          <ScalarProperty Name="PRD_NO" ColumnName="PRD_NO" />
-          <ScalarProperty Name="ORD_NO" ColumnName="ORD_NO" />
-          <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
-          <ScalarProperty Name="ACC_YN" ColumnName="ACC_YN" />
-          <ScalarProperty Name="ACC_DATE" ColumnName="ACC_DATE" />
-          <ScalarProperty Name="CODE" ColumnName="CODE" />
-          <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
-          <ScalarProperty Name="PRICE" ColumnName="PRICE" />
-          <ScalarProperty Name="QTY" ColumnName="QTY" />
-          <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
-          <ScalarProperty Name="TRN_NO" ColumnName="TRN_NO" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -369,6 +304,72 @@
           <ScalarProperty Name="SAL_AMT" ColumnName="SAL_AMT" />
           <ScalarProperty Name="MON_DATE" ColumnName="MON_DATE" />
           <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CUSTOMER">
+      <EntityTypeMapping TypeName="invModel.CUSTOMER">
+        <MappingFragment StoreEntitySet="CUSTOMER">
+          <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+          <ScalarProperty Name="TAX" ColumnName="TAX" />
+          <ScalarProperty Name="PRT_LAB" ColumnName="PRT_LAB" />
+          <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
+          <ScalarProperty Name="FOWAMT" ColumnName="FOWAMT" />
+          <ScalarProperty Name="RECAMT" ColumnName="RECAMT" />
+          <ScalarProperty Name="BLAMON" ColumnName="BLAMON" />
+          <ScalarProperty Name="TAXMON" ColumnName="TAXMON" />
+          <ScalarProperty Name="BLAAMT" ColumnName="BLAAMT" />
+          <ScalarProperty Name="DISC" ColumnName="DISC" />
+          <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
+          <ScalarProperty Name="PAY_DATE" ColumnName="PAY_DATE" />
+          <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+          <ScalarProperty Name="ATTENTION" ColumnName="ATTENTION" />
+          <ScalarProperty Name="UNIFORM" ColumnName="UNIFORM" />
+          <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+          <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+          <ScalarProperty Name="CUST_NAME" ColumnName="CUST_NAME" />
+          <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CUSTITEM">
+      <EntityTypeMapping TypeName="invModel.CUSTITEM">
+        <MappingFragment StoreEntitySet="CUSTITEM">
+          <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+          <ScalarProperty Name="COST" ColumnName="COST" />
+          <ScalarProperty Name="L_QTY" ColumnName="L_QTY" />
+          <ScalarProperty Name="L_PRICE" ColumnName="L_PRICE" />
+          <ScalarProperty Name="L_DATE" ColumnName="L_DATE" />
+          <ScalarProperty Name="SAL_CODE" ColumnName="SAL_CODE" />
+          <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
+          <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ITRANS">
+      <EntityTypeMapping TypeName="invModel.ITRANS">
+        <MappingFragment StoreEntitySet="ITRANS">
+          <ScalarProperty Name="COST" ColumnName="COST" />
+          <ScalarProperty Name="SAL_CODE" ColumnName="SAL_CODE" />
+          <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
+          <ScalarProperty Name="ST_NO" ColumnName="ST_NO" />
+          <ScalarProperty Name="SHIP_DATE" ColumnName="SHIP_DATE" />
+          <ScalarProperty Name="PRD_NO" ColumnName="PRD_NO" />
+          <ScalarProperty Name="ORD_NO" ColumnName="ORD_NO" />
+          <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+          <ScalarProperty Name="ACC_YN" ColumnName="ACC_YN" />
+          <ScalarProperty Name="ACC_DATE" ColumnName="ACC_DATE" />
+          <ScalarProperty Name="CODE" ColumnName="CODE" />
+          <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+          <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+          <ScalarProperty Name="QTY" ColumnName="QTY" />
+          <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
+          <ScalarProperty Name="TRN_NO" ColumnName="TRN_NO" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

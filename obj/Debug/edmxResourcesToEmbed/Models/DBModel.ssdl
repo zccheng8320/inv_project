@@ -22,16 +22,17 @@
     <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
     <Property Name="SAL_CODE" Type="varchar" MaxLength="50" />
     <Property Name="L_DATE" Type="varchar" MaxLength="50" />
-    <Property Name="L_PRICE" Type="varchar" MaxLength="50" />
-    <Property Name="L_QTY" Type="varchar" MaxLength="50" />
-    <Property Name="COST" Type="varchar" MaxLength="50" />
+    <Property Name="L_PRICE" Type="float" />
+    <Property Name="L_QTY" Type="float" />
+    <Property Name="COST" Type="float" />
     <Property Name="REMARK" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="CUSTOMER">
     <Key>
-      <PropertyRef Name="CUST_CODE" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="CUST_CODE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="CUST_CODE" Type="varchar" MaxLength="50" />
     <Property Name="CUST_NAME" Type="varchar" MaxLength="50" />
     <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
     <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
@@ -186,8 +187,8 @@
     <Property Name="TRN_NO" Type="varchar" MaxLength="50" />
     <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
     <Property Name="QTY" Type="varchar" MaxLength="50" />
-    <Property Name="PRICE" Type="varchar" MaxLength="50" />
-    <Property Name="AMOUNT" Type="varchar" MaxLength="50" />
+    <Property Name="PRICE" Type="float" />
+    <Property Name="AMOUNT" Type="float" />
     <Property Name="CODE" Type="varchar" MaxLength="50" />
     <Property Name="ACC_DATE" Type="varchar" MaxLength="50" />
     <Property Name="ACC_YN" Type="varchar" MaxLength="50" />

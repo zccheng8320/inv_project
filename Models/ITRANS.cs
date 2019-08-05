@@ -18,8 +18,8 @@ namespace INV_Project.Models
         public string TRN_NO { get; set; }
         public string ITEM_NO { get; set; }
         public string QTY { get; set; }
-        public string PRICE { get; set; }
-        public string AMOUNT { get; set; }
+        public Nullable<double> PRICE { get; set; }
+        public Nullable<double> AMOUNT { get; set; }
         public string CODE { get; set; }
         public string ACC_DATE { get; set; }
         public string ACC_YN { get; set; }

@@ -2,91 +2,11 @@
 @{
     ViewData["Title"] = "客戶基本資料";
 }
-<script>
-    if (navigator.userAgent.indexOf("MSIE") > 0) {
-        //IE
-        document.onkeydown = function () {
-            switch (event.keyCode) {
-                case 49:
-                    window.location.href='/Customer/Search';
-                    break;
-                case 50:
-                    alert('2');
-                    break;
-                case 51:
-                    alert('3');
-                    break;
-                case 52:
-                    alert('4');
-                    break;
-                case 53:
-                    alert('5');
-                    break;
-                case 54:
-                    alert('6');
-                    break;
-                case 65:
-                    alert('A');
-                    break;
-                case 67:
-                    alert('C');
-                    break;
-                case 87:
-                    alert('W');
-                    break;
-                case 85:
-                    alert('U');
-                    break;
-
-            }
-        }
-    }
-    else {
-        window.onkeydown = function () {
-            switch (event.keyCode) {
-                case 49:
-                    window.location.href='/Customer/Search';
-                    break;
-                case 50:
-                    alert('2');
-                    break;
-                case 51:
-                    alert('3');
-                    break;
-                case 52:
-                    alert('4');
-                    break;
-                case 53:
-                    alert('5');
-                    break;
-                case 54:
-                    alert('6');
-                    break;
-                case 65:
-                    alert('A');
-                    break;
-                case 67:
-                    alert('C');
-                    break;
-                case 87:
-                    alert('W');
-                    break;
-                case 85:
-                    alert('U');
-                    break;
-
-
-
-            }
-
-        }
-    }
-</script>
 <main role="main" class="inner cover">
     <h1>客戶基本資料</h1>
 
     <table class="table table-hover table-dark">
-        <tbody align="left">
+        <tbody id="tbodyshow" align="left">
             <tr>
                 <td colspan="4" class="h1">客戶編號: @Html.DisplayFor(modelItem => modelItem.CUST_CODE)</td>
 
@@ -152,5 +72,155 @@
         </table>
     </div>
 </footer>
+<script src="~/Scripts/jquery-1.10.2.js"
+        integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        var id = "@Model.ID";
+        var CCODE = "@Model.CUST_CODE";
+if (navigator.userAgent.indexOf("MSIE") > 0) {
+    //IE
+    document.onkeydown = function () {
+        switch (event.keyCode) {
+            case 49:
+                window.location.href = '/Customer/Search';
+                break;
+            case 50:
+                alert('2');
+                break;
+            case 51:
+                window.location.href = '/Customer/Insert';
+                break;
+            case 52:
+                alert('4');
+                break;
+            case 53:
+                alert('5');
+                break;
+            case 54:
+                alert('6');
+                break;
+            case 55:
+                alert('7');
+                break;
+            case 56:
+                window.location.href = '/Customer/CustItem?CUST_CODE='+CCODE;
+                break;
+            case 65:
+                alert('A');
+                break;
+            case 67:
+                alert('C');
+                break;
+            case 87:
+                alert('W');
+                break;
+            case 85:
+                alert('U');
+                break;
+        }
+    }
+}
+else {
+    window.onkeydown = function () {
+        switch (event.keyCode) {
+            case 49:
+            case 97:
+                window.location.href = '/Customer/Search';
+                break;
+            case 50:
+            case 98:
+                window.location.href = '/Customer/Insert';
+                break;
+            case 51:
+            case 99:
+                window.location.href = '/Customer/Update?id=' + id;
+                break;
+            case 52:
+            case 100:
+                var password = prompt("請輸入密碼", "")
+                if (password != "" && password != null)
+                    window.location.href = '/Customer/Delete?id=' + id + '&password=' + password;
+                break;
+            case 53:
+                alert('5');
+                break;
+            case 54:
+                alert('6');
+                break;
+            case 55:
+                alert('7');
+                break;
+            case 56:
+            case 104:
+                window.location.href = '/Customer/CustItem?CUST_CODE='+CCODE;
+                break;
+            case 65:
+                alert('A');
+                break;
+            case 67:
+                alert('C');
+                break;
+            case 87:
+                alert('W');
+                break;
+            case 85:
+                alert('U');
+                break;
+            case 107:
+                Sajax(0);
+                break;
+            case 109:
+                Sajax(1);
+                break;
+            case 27:
+                history.go(-1);
+                break;
+        }
+    }
+}
+var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Customer";
 
+    function Sajax(tmp) {
+    $.ajax({
+        url: apiurl + "?id=" + id + "&preOrNext=" + tmp,
+        type: 'GET',
+        success: function (data) {
+            if (data != null) {
+                $("#tbodyshow").empty();
+                id = data.ID;
+                CCODE = data.CUST_CODE;
+                $("#tbodyshow").append(
+                    '<tr><td colspan="4" class="h1">客戶編號: ' + data.CUST_CODE + '</td ></tr>' +
+                    '<tr><td colspan = "4" class= "h1" > 客戶名稱: ' + data.CUST_NAME + '</td ></tr>' +
+                    '<tr><td colspan = "4" class= "h1" > 公司地址: ' + data.ADDRESS1 + '</td ></tr>' +
+                    '<tr><td colspan = "4" class= "h1" > 發票地址: ' + data.ADDRESS2 + '</td ></tr>' +
+                    '<tr><td colspan="2" class="h1">統一編號: ' + data.UNIFORM + '</td>' +
+                    '<td colspan="2" class="h1">付款方式: ' + data.PAY_WAY + '</td></tr>' +
+                    '<tr><td colspan="2" class="h1">聯絡人: ' + data.ATTENTION + '</td>' +
+                    '<td class="h1">稅 金: ' + data.TAX + '</td><td class="h1">% </td></tr>' +
+                    '<tr><td colspan="2" class="h1">電話: ' + data.TELEPHONE + '</td>' +
+                    '<td colspan="2" class="h1">業務編號: ' + data.SAL_NO + '</td></tr>' +
+                    '<tr><td colspan="2" class="h1">傳真: ' + data.FAX + '</td>' +
+                    '<td class="h1">結帳日: ' + data.PAY_DATE + '</td>' +
+                    '<td class="h1">標籤列印: ' + data.PRT_LAB + ' </td></tr > ' +
+                    '<tr><td colspan="3" class="h1">備註: ' + data.REMARK + '</td>' +
+                    '<td colspan="2" class="h1">異動日期: ' + data.TRN_DATE + '</td></tr>'
+                );
+                var date = new Date();
+                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+                document.cookie = "ID=" + id + expires + "; path=/";
+            }
+            else {
+                alert("已達最後一筆");
+            }
+                 
+        }
+
+    });
+}
+});
+ </script>
 

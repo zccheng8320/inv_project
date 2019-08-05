@@ -13,7 +13,7 @@ namespace INV_Project.Controllers.API
         // GET: api/CUSTOMER
         public List<CUSTOMER> Get(string search)
         {
-
+            // 查詢
             var p = db.CUSTOMER.Where(m => 
             m.CUST_CODE.Contains(search)
             ||m.CUST_NAME.Contains(search)
@@ -21,14 +21,24 @@ namespace INV_Project.Controllers.API
             || m.UNIFORM.Contains(search)
             || m.TELEPHONE.Contains(search)
             || m.FAX.Contains(search)
-            || m.TRN_DATE.Contains(search));
+            || m.TRN_DATE.Contains(search)).Take(200);
             return p.ToList();
         }
 
         // GET: api/CUSTOMER/5
-        public string Get(int id)
+
+        public CUSTOMER Get(int id,int preOrNext)
         {
-            return "value";
+            if(preOrNext==0)
+            {
+                var search = (from d in db.CUSTOMER where d.ID < id select d).OrderByDescending(d => d.ID).FirstOrDefault();
+                return search;
+            }
+            else
+            {
+                var search = (from d in db.CUSTOMER where d.ID > id select d).OrderBy(d => d.ID).FirstOrDefault();
+                return search;
+            }
         }
 
         // POST: api/CUSTOMER

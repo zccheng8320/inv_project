@@ -1,0 +1,106 @@
+﻿@model INV_Project.Models.CUSTOMER
+@{
+    ViewData["Title"] = "客戶基本資料";
+    var year = DateTime.Now.Year - 1911;
+    var month = "" + DateTime.Now.Month;
+    var day = "" + DateTime.Now.Day;
+    if (DateTime.Now.Month < 10)
+    { month = "0" + month; }
+    if (DateTime.Now.Day < 10)
+    { day = "0" + day; }
+    var today = year + "." + month + "." + day;
+}
+<style>
+    input {
+        padding: 0px 5px;
+        background: #ccc;
+        border: 2px black solid;
+        color: forestgreen;
+        max-width: 1000px;
+        width: 100%;
+    }
+</style>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "target" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ID, new { style = "width:300px" })
+    <main role="main" class="inner cover">
+        <h1>客戶基本資料</h1>
+        <div class="form-group">
+            <table class="table table-hover table-dark">
+                <tbody align="left">
+                    <tr>
+                        <td colspan="4" class="h1">客戶編號: @Html.TextBoxFor(model => model.CUST_CODE, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="h1">客戶名稱: @Html.TextBoxFor(modelItem => modelItem.CUST_NAME, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="h1">公司地址: @Html.TextBoxFor(modelItem => modelItem.ADDRESS1)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="h1">發票地址: @Html.TextBoxFor(modelItem => modelItem.ADDRESS2)</td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="h1">統一編號: @Html.TextBoxFor(modelItem => modelItem.UNIFORM, new { style = "width:300px" })</td>
+                        <td colspan="2" class="h1">付款方式: @Html.TextBoxFor(modelItem => modelItem.PAY_WAY, new { style = "width:200px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="h1">聯絡人: @Html.TextBoxFor(modelItem => modelItem.ATTENTION, new { style = "width:300px" })</td>
+                        <td class="h1">稅 金: @Html.TextBoxFor(modelItem => modelItem.TAX, new { style = "width:200px",@Value=0.00 }) </td>
+                        <td class="h1">% </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="h1">電話: @Html.TextBoxFor(modelItem => modelItem.TELEPHONE, new { style = "width:300px" })</td>
+                        <td colspan="2" class="h1">業務編號: @Html.TextBoxFor(modelItem => modelItem.SAL_NO, new { style = "width:200px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="h1">傳真: @Html.TextBoxFor(modelItem => modelItem.FAX, new { style = "width:300px" })</td>
+                        <td class="h1">結帳日: @Html.TextBoxFor(modelItem => modelItem.PAY_DATE, new { style = "width:200px" })</td>
+                        <td class="h1">標籤列印: @Html.TextBoxFor(modelItem => modelItem.PRT_LAB, new { style = "width:200px" }) </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="h1">備註: @Html.TextBoxFor(modelItem => modelItem.REMARK, new { style = "width:300px" })</td>
+                        <td class="h1">異動日期: @Html.TextBoxFor(modelItem => modelItem.TRN_DATE, new { style = "width:250px",@Value=today }) </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="儲存" class="btn btn-default" accesskey="s" />
+        </div>
+    </main>
+}
+<script>
+    document.getElementById('CUST_CODE').focus();
+    if (navigator.userAgent.indexOf("MSIE") > 0) {
+        //IE
+        document.onkeydown = function () {
+            switch (event.keyCode) {
+                case 13:
+                    $("#target").submit();
+                    break;
+                case 27:
+                    history.go(-1);
+                    break;
+            }
+        }
+    }
+    else {
+        window.onkeydown = function () {
+            switch (event.keyCode) {
+                case 13:
+                    $("#target").submit();
+                    break;
+                case 27:
+                    history.go(-1);
+                    break;
+            }
+
+        }
+    }
+</script>
+
+
+
