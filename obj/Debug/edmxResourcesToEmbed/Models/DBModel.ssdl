@@ -114,9 +114,10 @@
   </EntityType>
   <EntityType Name="FACTORY">
     <Key>
-      <PropertyRef Name="FACT_CODE" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="FACT_CODE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FACT_CODE" Type="varchar" MaxLength="50" />
     <Property Name="FACT_NAME" Type="varchar" MaxLength="50" />
     <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
     <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
@@ -135,25 +136,26 @@
   </EntityType>
   <EntityType Name="INVOICE">
     <Key>
-      <PropertyRef Name="TRN_NO" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="TRN_NO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TRN_NO" Type="varchar" MaxLength="50" />
     <Property Name="INV_NO" Type="varchar" MaxLength="50" />
     <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
     <Property Name="CODE" Type="varchar" MaxLength="50" />
-    <Property Name="TAX" Type="varchar" MaxLength="50" />
+    <Property Name="TAX" Type="float" />
     <Property Name="REMARK1" Type="varchar" MaxLength="50" />
     <Property Name="ACC_DATE" Type="varchar" MaxLength="50" />
     <Property Name="ACC_YN" Type="varchar" MaxLength="50" />
     <Property Name="PAY_WAY" Type="varchar" MaxLength="50" />
     <Property Name="SMARK" Type="varchar" MaxLength="50" />
-    <Property Name="SUMAMT" Type="varchar" MaxLength="50" />
-    <Property Name="TAXAMT" Type="varchar" MaxLength="50" />
-    <Property Name="TOTAMT" Type="varchar" MaxLength="50" />
+    <Property Name="SUMAMT" Type="float" />
+    <Property Name="TAXAMT" Type="float" />
+    <Property Name="TOTAMT" Type="float" />
     <Property Name="SAL_NO" Type="varchar" MaxLength="50" />
-    <Property Name="AMO1" Type="varchar" MaxLength="50" />
-    <Property Name="AMO2" Type="varchar" MaxLength="50" />
-    <Property Name="AMO3" Type="varchar" MaxLength="50" />
+    <Property Name="AMO1" Type="float" />
+    <Property Name="AMO2" Type="float" />
+    <Property Name="AMO3" Type="float" />
   </EntityType>
   <EntityType Name="ITEM">
     <Key>
@@ -328,10 +330,10 @@
     <Property Name="REC_MON" Type="varchar" MaxLength="50" />
     <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
     <Property Name="REC_AMT" Type="varchar" MaxLength="50" />
-    <Property Name="CL_AMT" Type="varchar" MaxLength="50" />
+    <Property Name="CL_AMT" Type="float" />
     <Property Name="CHNO" Type="varchar" MaxLength="50" />
     <Property Name="CASH" Type="varchar" MaxLength="50" />
-    <Property Name="DISC" Type="varchar" MaxLength="50" />
+    <Property Name="DISC" Type="float" />
     <Property Name="OTH_REC" Type="varchar" MaxLength="50" />
     <Property Name="D_NO" Type="varchar" MaxLength="50" />
     <Property Name="RMARK" Type="varchar" MaxLength="50" />
@@ -339,9 +341,9 @@
   </EntityType>
   <EntityType Name="RECMON">
     <Key>
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CUST_CODE" Type="varchar" MaxLength="50" />
     <Property Name="MON_DATE" Type="varchar" MaxLength="50" />
     <Property Name="SAL_AMT" Type="varchar" MaxLength="50" />

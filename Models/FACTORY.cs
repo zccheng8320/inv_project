@@ -14,6 +14,7 @@ namespace INV_Project.Models
     
     public partial class FACTORY
     {
+        public int ID { get; set; }
         public string FACT_CODE { get; set; }
         public string FACT_NAME { get; set; }
         public string ADDRESS1 { get; set; }

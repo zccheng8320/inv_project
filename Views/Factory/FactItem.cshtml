@@ -1,7 +1,7 @@
-﻿@model IEnumerable<INV_Project.Models.CUST_ItemWithName>
+﻿@model IEnumerable<INV_Project.Models.FACT_ItemWithName>
 
 @{
-    ViewBag.Title = "CustItem";
+    ViewBag.Title = "廠商成交價";
 }
     <style>
         table {
@@ -18,8 +18,8 @@
             background-color: darkslateblue;
         }
     </style>
-<h1>客戶編號 : @TempData["CUST_CODE"]</h1>
-<h1>客戶名稱 : @TempData["CUST_NAME"]</h1>
+<h1>廠商編號 : @TempData["FACT_CODE"]</h1>
+<h1>廠商名稱 : @TempData["FACT_NAME"]</h1>
 <table class="table table-hover table-dark">
     <thead>
         <tr>
@@ -37,16 +37,7 @@
             </th>
             <th class="h2">
                 成交量
-            </th>
-            <th class="h2">
-                註
-            </th>
-            <th class="h2">
-                成本
-            </th>
-            <th class="h2">
-                ％
-            </th>
+            </th>    
             <th class="h2">
                備註
             </th>
@@ -54,9 +45,7 @@
         </tr>
     </thead>
         @foreach (var item in Model)
-        {
-            double? Earn = ((item.L_PRICE - item.COST) / item.COST)*100;
-            string e_s = Convert.ToDouble(Earn).ToString("00.00");
+        {            
             <tr>
                 <td class="h2">
                     @Html.DisplayFor(modelItem => item.ITEM_NO)
@@ -72,15 +61,6 @@
                 </td>
                 <td class="h2">
                     @Html.DisplayFor(modelItem => item.L_QTY)
-                </td>
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.SAL_CODE)
-                </td>
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.COST)
-                </td>
-                <td class="h2">
-                    @e_s
                 </td>
                 <td class="h2">
                     @Html.DisplayFor(modelItem => item.REMARK)
@@ -116,7 +96,7 @@
   {
     var msg = "確定要刪除?\n"; 
     if (confirm(msg)==true){ 
-        window.location.href = '/Customer/CustItemDel?id='+id;
+        window.location.href = '/Factory/FactItemDel?id='+id;
     }
     else
     { 

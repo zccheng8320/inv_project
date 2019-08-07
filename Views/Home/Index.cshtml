@@ -4,13 +4,13 @@
 <script>
     if (navigator.userAgent.indexOf("MSIE") > 0) {
         //IE
-        document.onkeydown = function () {
+        document.onkeyup = function () {
             switch (event.keyCode) {
                 case 49:
                     window.location.href='/Customer/Index';
                     break;
                 case 50:
-                    alert('2');
+                    window.location.href='/Factory/Index';
                     break;
                 case 51:
                     alert('3');
@@ -41,13 +41,13 @@
         }
     }
     else {
-        window.onkeydown = function () {
+        window.onkeyup = function () {
             switch (event.keyCode) {
                 case 49:
                     window.location.href='/Customer/Index';
                     break;
                 case 50:
-                    alert('2');
+                     window.location.href='/Factory/Index';
                     break;
                 case 51:
                     alert('3');
@@ -73,9 +73,6 @@
                 case 85:
                     alert('U');
                     break;
-
-
-
             }
 
         }

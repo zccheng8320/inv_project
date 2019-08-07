@@ -12,17 +12,17 @@ namespace INV_Project.Controllers
     {
         private invEntities db = new invEntities();
         // GET: Customer
-        public ActionResult Index(int ID=1)
+        public ActionResult Index(int ID=0)
         {
             try {
                 ID = int.Parse(Request.Cookies["ID"].Value.ToString());
             }
             catch(Exception e)
             {
-                ID = 1;
+                ID = 0;
             }
             var p = (from d in db.CUSTOMER where d.ID == ID select d).FirstOrDefault();
-            if (ID != 1)
+            if (ID != 0)
             {
                 HttpCookie Cookie = new HttpCookie("ID", p.ID.ToString());
                 Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
@@ -47,7 +47,7 @@ namespace INV_Project.Controllers
         }
         [HttpPost]
         public ActionResult Insert(string CUST_CODE, string CUST_NAME, string ADDRESS1, string ADDRESS2, string UNIFORM, string PAY_WAY, string ATTENTION
-            , string TELEPHONE, string SAL_NO, string FAX, string PAY_DATE, string PRT_LAB, string REMARK, string TRN_DATE)
+            , string TELEPHONE, string SAL_NO, string FAX, string PAY_DATE, string PRT_LAB, string REMARK)
         {
             if (CUST_CODE != "")
             {
@@ -68,7 +68,6 @@ namespace INV_Project.Controllers
                 p.PAY_DATE = PAY_DATE;
                 p.PRT_LAB = PRT_LAB;
                 p.REMARK = REMARK;
-                p.TRN_DATE = TRN_DATE;
                 db.CUSTOMER.Add(p);
                 db.SaveChanges();
                 HttpCookie Cookie = new HttpCookie("ID", p.ID.ToString());
@@ -85,7 +84,7 @@ namespace INV_Project.Controllers
         }
         [HttpPost]
         public ActionResult Update(int id,string CUST_CODE,string CUST_NAME,string ADDRESS1,string ADDRESS2,string UNIFORM,string PAY_WAY,string ATTENTION
-            ,string TELEPHONE,string SAL_NO,string FAX,string PAY_DATE,string PRT_LAB,string REMARK,string TRN_DATE)
+            ,string TELEPHONE,string SAL_NO,string FAX,string PAY_DATE,string PRT_LAB,string REMARK)
         {
             var p = db.CUSTOMER.Where(m => m.ID == id).FirstOrDefault();
             p.CUST_CODE=CUST_CODE;
@@ -101,7 +100,6 @@ namespace INV_Project.Controllers
             p.PAY_DATE = PAY_DATE;
             p.PRT_LAB = PRT_LAB;
             p.REMARK = REMARK;
-            p.TRN_DATE = TRN_DATE;
             HttpCookie Cookie = new HttpCookie("ID", p.ID.ToString());
             Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
             HttpContext.Response.Cookies.Add(Cookie);
@@ -129,6 +127,9 @@ namespace INV_Project.Controllers
         }
         public ActionResult CustItem(string CUST_CODE)
         {
+            var CUST_NAME = (from ci in db.CUSTOMER where ci.CUST_CODE == CUST_CODE select ci.CUST_NAME).FirstOrDefault();
+            TempData["CUST_CODE"] = CUST_CODE;
+            TempData["CUST_NAME"] = CUST_NAME;
             var p = from ci in db.CUSTITEM
                     join i in db.ITEM on ci.ITEM_NO equals i.ITEM_NO
                     join c in db.CUSTOMER on ci.CUST_CODE equals c.CUST_CODE where ci.CUST_CODE == CUST_CODE orderby ci.L_DATE descending
@@ -156,47 +157,40 @@ namespace INV_Project.Controllers
             db.SaveChanges();
             return RedirectToAction("CustItem", new { CUST_CODE = CUST_CODE });
         }
-        public ActionResult CustAR(string CODE)
+        public ActionResult CustREC(string CODE)
         {
-            double TAX = Convert.ToDouble(db.CUSTOMER.Where(m => m.CUST_CODE == CODE).FirstOrDefault().TAX);
-            var ACC_DATE = db.ITRANS.Where(m => m.CODE == CODE).Select(m=>m.ACC_DATE).Distinct().ToList();
-            List<CUST_AR> CA_List = new List<CUST_AR>();
-            for(var i=0;i<ACC_DATE.Count();i++)
-            {
-                CUST_AR ar = new CUST_AR();
-                ar.id = i;
-                ar.month = ACC_DATE[i];
-                ar.Machine = 0;
-                ar.Material = 0;
-                ar.Service = 0;
-                ar.Discount = 0;
-                ar.CL_Amount = 0; ;
-                var p = db.ITRANS.Where(m => m.CODE == CODE && m.ACC_DATE == ar.month).ToList();
-                foreach(var a in p)
-                {
-                    if (a.ITEM_NO[0] == '1')
-                        ar.Machine += (double)a.AMOUNT;
-                    else if (a.ITEM_NO[0] == '2')
-                        ar.Material += (double)a.AMOUNT;
-                    else if (a.ITEM_NO[0] == '3')
-                        ar.Service += (double)a.AMOUNT;
-                }
-                ar.REC_Amount = ar.Machine + ar.Material + ar.Service;
-                ar.TAX = Math.Ceiling((double)ar.REC_Amount * (TAX / 100));
-                var r= db.RECAMT.Where(m => m.CUST_CODE == CODE && m.REC_MON == ar.month).FirstOrDefault();
-                if(r!=null)
-                {
-                    ar.CL_Amount = double.Parse(r.CL_AMT);
-                    ar.Discount = double.Parse(r.DISC);
-                }
-                Debug.WriteLine("銷貨金額"+ar.REC_Amount);
-                Debug.WriteLine("稅金" + ar.TAX);
-                Debug.WriteLine("沖帳金額" + ar.CL_Amount);
-                Debug.WriteLine("折抵" + ar.Discount);
-                Debug.WriteLine("----------------------------");
-                CA_List.Append(ar);
-            }
-            return View(CA_List);
+            var np=db.CUSTOMER.Where(m => m.CUST_CODE == CODE).FirstOrDefault();
+            var CUST_NAME = np.CUST_NAME;
+            TempData["CUST_CODE"] = CODE;
+            TempData["CUST_NAME"] = CUST_NAME;
+            var t1 = from c in db.RECMON
+                    where c.CUST_CODE == CODE
+                    select c;
+            var t2 = from c in db.RECAMT where c.CUST_CODE == CODE select c;
+            var p = from c1 in t1
+                    join c2 in t2 on c1.MON_DATE equals c2.REC_MON into g
+                    from c2 in g.DefaultIfEmpty() orderby c1.MON_DATE descending
+                    select new CustREC
+                    {
+                        CUST_CODE = c1.CUST_CODE,
+                        MON_DATE = c1.MON_DATE,
+                        SAL_AMT = c1.SAL_AMT,
+                        TAX_AMT = c1.TAX_AMT,
+                        REC_AMT = c1.REC_AMT,
+                        TOT_AMT = c1.TOT_AMT,
+                        BAL1 = c1.BAL1,
+                        AMO1 = c1.AMO1,
+                        AMO2 = c1.AMO2,
+                        AMO3 = c1.AMO3,
+                        DISC = c1.DISC,
+                        NANO = c1.NANO,
+                        REC_NO = c2.REC_NO,
+                        TRN_DATE = c2.TRN_DATE,
+                        CHNO = c2.CHNO,
+                        CASH = c2.CASH,
+                        D_NO = c2.D_NO,
+                    };
+            return View(p.ToList());
         }
 
     }

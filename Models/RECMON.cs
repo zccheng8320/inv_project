@@ -14,7 +14,7 @@ namespace INV_Project.Models
     
     public partial class RECMON
     {
-        public int ID { get; set; }
+        public int id { get; set; }
         public string CUST_CODE { get; set; }
         public string MON_DATE { get; set; }
         public string SAL_AMT { get; set; }

@@ -14,22 +14,23 @@ namespace INV_Project.Models
     
     public partial class INVOICE
     {
+        public int ID { get; set; }
         public string TRN_NO { get; set; }
         public string INV_NO { get; set; }
         public string TRN_DATE { get; set; }
         public string CODE { get; set; }
-        public string TAX { get; set; }
+        public Nullable<double> TAX { get; set; }
         public string REMARK1 { get; set; }
         public string ACC_DATE { get; set; }
         public string ACC_YN { get; set; }
         public string PAY_WAY { get; set; }
         public string SMARK { get; set; }
-        public string SUMAMT { get; set; }
-        public string TAXAMT { get; set; }
-        public string TOTAMT { get; set; }
+        public Nullable<double> SUMAMT { get; set; }
+        public Nullable<double> TAXAMT { get; set; }
+        public Nullable<double> TOTAMT { get; set; }
         public string SAL_NO { get; set; }
-        public string AMO1 { get; set; }
-        public string AMO2 { get; set; }
-        public string AMO3 { get; set; }
+        public Nullable<double> AMO1 { get; set; }
+        public Nullable<double> AMO2 { get; set; }
+        public Nullable<double> AMO3 { get; set; }
     }
 }

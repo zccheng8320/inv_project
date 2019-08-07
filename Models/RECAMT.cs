@@ -20,10 +20,10 @@ namespace INV_Project.Models
         public string REC_MON { get; set; }
         public string TRN_DATE { get; set; }
         public string REC_AMT { get; set; }
-        public string CL_AMT { get; set; }
+        public Nullable<double> CL_AMT { get; set; }
         public string CHNO { get; set; }
         public string CASH { get; set; }
-        public string DISC { get; set; }
+        public Nullable<double> DISC { get; set; }
         public string OTH_REC { get; set; }
         public string D_NO { get; set; }
         public string RMARK { get; set; }

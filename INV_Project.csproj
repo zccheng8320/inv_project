@@ -144,7 +144,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\CUSTOMERController.cs" />
+    <Compile Include="Controllers\API\FactoryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\FactoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -158,7 +160,9 @@
     <Compile Include="Models\CUSTOMER.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CUST_AR.cs" />
+    <Compile Include="Models\CustREC.cs" />
+    <Compile Include="Models\FactREC.cs" />
+    <Compile Include="Models\FACT_ItemWithName.cs" />
     <Compile Include="Models\CUST_ItemWithName.cs" />
     <Compile Include="Models\DBModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -304,7 +308,13 @@
     <Content Include="Views\Customer\Update.cshtml" />
     <Content Include="Views\Customer\Insert.cshtml" />
     <Content Include="Views\Customer\CustItem.cshtml" />
-    <Content Include="Views\Customer\CustAR.cshtml" />
+    <Content Include="Views\Customer\CustREC.cshtml" />
+    <Content Include="Views\Factory\Index.cshtml" />
+    <Content Include="Views\Factory\Search.cshtml" />
+    <Content Include="Views\Factory\Insert.cshtml" />
+    <Content Include="Views\Factory\Update.cshtml" />
+    <Content Include="Views\Factory\FactItem.cshtml" />
+    <Content Include="Views\Factory\FactREC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

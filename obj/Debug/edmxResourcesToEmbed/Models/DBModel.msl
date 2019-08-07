@@ -75,51 +75,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="FACTORY">
-      <EntityTypeMapping TypeName="invModel.FACTORY">
-        <MappingFragment StoreEntitySet="FACTORY">
-          <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
-          <ScalarProperty Name="FOWAMT" ColumnName="FOWAMT" />
-          <ScalarProperty Name="RECAMT" ColumnName="RECAMT" />
-          <ScalarProperty Name="BLAMON" ColumnName="BLAMON" />
-          <ScalarProperty Name="TAXMON" ColumnName="TAXMON" />
-          <ScalarProperty Name="BLAAMT" ColumnName="BLAAMT" />
-          <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
-          <ScalarProperty Name="REMARK" ColumnName="REMARK" />
-          <ScalarProperty Name="FAX" ColumnName="FAX" />
-          <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
-          <ScalarProperty Name="ATTENTION" ColumnName="ATTENTION" />
-          <ScalarProperty Name="UNIFORM" ColumnName="UNIFORM" />
-          <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
-          <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
-          <ScalarProperty Name="FACT_NAME" ColumnName="FACT_NAME" />
-          <ScalarProperty Name="FACT_CODE" ColumnName="FACT_CODE" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="INVOICE">
-      <EntityTypeMapping TypeName="invModel.INVOICE">
-        <MappingFragment StoreEntitySet="INVOICE">
-          <ScalarProperty Name="AMO3" ColumnName="AMO3" />
-          <ScalarProperty Name="AMO2" ColumnName="AMO2" />
-          <ScalarProperty Name="AMO1" ColumnName="AMO1" />
-          <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
-          <ScalarProperty Name="TOTAMT" ColumnName="TOTAMT" />
-          <ScalarProperty Name="TAXAMT" ColumnName="TAXAMT" />
-          <ScalarProperty Name="SUMAMT" ColumnName="SUMAMT" />
-          <ScalarProperty Name="SMARK" ColumnName="SMARK" />
-          <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
-          <ScalarProperty Name="ACC_YN" ColumnName="ACC_YN" />
-          <ScalarProperty Name="ACC_DATE" ColumnName="ACC_DATE" />
-          <ScalarProperty Name="REMARK1" ColumnName="REMARK1" />
-          <ScalarProperty Name="TAX" ColumnName="TAX" />
-          <ScalarProperty Name="CODE" ColumnName="CODE" />
-          <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
-          <ScalarProperty Name="INV_NO" ColumnName="INV_NO" />
-          <ScalarProperty Name="TRN_NO" ColumnName="TRN_NO" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ITEM">
       <EntityTypeMapping TypeName="invModel.ITEM">
         <MappingFragment StoreEntitySet="ITEM">
@@ -269,45 +224,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="RECAMT">
-      <EntityTypeMapping TypeName="invModel.RECAMT">
-        <MappingFragment StoreEntitySet="RECAMT">
-          <ScalarProperty Name="REMARK1" ColumnName="REMARK1" />
-          <ScalarProperty Name="RMARK" ColumnName="RMARK" />
-          <ScalarProperty Name="D_NO" ColumnName="D_NO" />
-          <ScalarProperty Name="OTH_REC" ColumnName="OTH_REC" />
-          <ScalarProperty Name="DISC" ColumnName="DISC" />
-          <ScalarProperty Name="CASH" ColumnName="CASH" />
-          <ScalarProperty Name="CHNO" ColumnName="CHNO" />
-          <ScalarProperty Name="CL_AMT" ColumnName="CL_AMT" />
-          <ScalarProperty Name="REC_AMT" ColumnName="REC_AMT" />
-          <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
-          <ScalarProperty Name="REC_MON" ColumnName="REC_MON" />
-          <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
-          <ScalarProperty Name="REC_NO" ColumnName="REC_NO" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RECMON">
-      <EntityTypeMapping TypeName="invModel.RECMON">
-        <MappingFragment StoreEntitySet="RECMON">
-          <ScalarProperty Name="NANO" ColumnName="NANO" />
-          <ScalarProperty Name="DISC" ColumnName="DISC" />
-          <ScalarProperty Name="AMO3" ColumnName="AMO3" />
-          <ScalarProperty Name="AMO2" ColumnName="AMO2" />
-          <ScalarProperty Name="AMO1" ColumnName="AMO1" />
-          <ScalarProperty Name="BAL1" ColumnName="BAL1" />
-          <ScalarProperty Name="TOT_AMT" ColumnName="TOT_AMT" />
-          <ScalarProperty Name="REC_AMT" ColumnName="REC_AMT" />
-          <ScalarProperty Name="TAX_AMT" ColumnName="TAX_AMT" />
-          <ScalarProperty Name="SAL_AMT" ColumnName="SAL_AMT" />
-          <ScalarProperty Name="MON_DATE" ColumnName="MON_DATE" />
-          <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="CUSTOMER">
       <EntityTypeMapping TypeName="invModel.CUSTOMER">
         <MappingFragment StoreEntitySet="CUSTOMER">
@@ -370,6 +286,92 @@
           <ScalarProperty Name="QTY" ColumnName="QTY" />
           <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
           <ScalarProperty Name="TRN_NO" ColumnName="TRN_NO" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RECAMT">
+      <EntityTypeMapping TypeName="invModel.RECAMT">
+        <MappingFragment StoreEntitySet="RECAMT">
+          <ScalarProperty Name="REMARK1" ColumnName="REMARK1" />
+          <ScalarProperty Name="RMARK" ColumnName="RMARK" />
+          <ScalarProperty Name="D_NO" ColumnName="D_NO" />
+          <ScalarProperty Name="OTH_REC" ColumnName="OTH_REC" />
+          <ScalarProperty Name="DISC" ColumnName="DISC" />
+          <ScalarProperty Name="CASH" ColumnName="CASH" />
+          <ScalarProperty Name="CHNO" ColumnName="CHNO" />
+          <ScalarProperty Name="CL_AMT" ColumnName="CL_AMT" />
+          <ScalarProperty Name="REC_AMT" ColumnName="REC_AMT" />
+          <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+          <ScalarProperty Name="REC_MON" ColumnName="REC_MON" />
+          <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
+          <ScalarProperty Name="REC_NO" ColumnName="REC_NO" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="INVOICE">
+      <EntityTypeMapping TypeName="invModel.INVOICE">
+        <MappingFragment StoreEntitySet="INVOICE">
+          <ScalarProperty Name="AMO3" ColumnName="AMO3" />
+          <ScalarProperty Name="AMO2" ColumnName="AMO2" />
+          <ScalarProperty Name="AMO1" ColumnName="AMO1" />
+          <ScalarProperty Name="SAL_NO" ColumnName="SAL_NO" />
+          <ScalarProperty Name="TOTAMT" ColumnName="TOTAMT" />
+          <ScalarProperty Name="TAXAMT" ColumnName="TAXAMT" />
+          <ScalarProperty Name="SUMAMT" ColumnName="SUMAMT" />
+          <ScalarProperty Name="SMARK" ColumnName="SMARK" />
+          <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
+          <ScalarProperty Name="ACC_YN" ColumnName="ACC_YN" />
+          <ScalarProperty Name="ACC_DATE" ColumnName="ACC_DATE" />
+          <ScalarProperty Name="REMARK1" ColumnName="REMARK1" />
+          <ScalarProperty Name="TAX" ColumnName="TAX" />
+          <ScalarProperty Name="CODE" ColumnName="CODE" />
+          <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+          <ScalarProperty Name="INV_NO" ColumnName="INV_NO" />
+          <ScalarProperty Name="TRN_NO" ColumnName="TRN_NO" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RECMON">
+      <EntityTypeMapping TypeName="invModel.RECMON">
+        <MappingFragment StoreEntitySet="RECMON">
+          <ScalarProperty Name="NANO" ColumnName="NANO" />
+          <ScalarProperty Name="DISC" ColumnName="DISC" />
+          <ScalarProperty Name="AMO3" ColumnName="AMO3" />
+          <ScalarProperty Name="AMO2" ColumnName="AMO2" />
+          <ScalarProperty Name="AMO1" ColumnName="AMO1" />
+          <ScalarProperty Name="BAL1" ColumnName="BAL1" />
+          <ScalarProperty Name="TOT_AMT" ColumnName="TOT_AMT" />
+          <ScalarProperty Name="REC_AMT" ColumnName="REC_AMT" />
+          <ScalarProperty Name="TAX_AMT" ColumnName="TAX_AMT" />
+          <ScalarProperty Name="SAL_AMT" ColumnName="SAL_AMT" />
+          <ScalarProperty Name="MON_DATE" ColumnName="MON_DATE" />
+          <ScalarProperty Name="CUST_CODE" ColumnName="CUST_CODE" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FACTORY">
+      <EntityTypeMapping TypeName="invModel.FACTORY">
+        <MappingFragment StoreEntitySet="FACTORY">
+          <ScalarProperty Name="TRN_DATE" ColumnName="TRN_DATE" />
+          <ScalarProperty Name="FOWAMT" ColumnName="FOWAMT" />
+          <ScalarProperty Name="RECAMT" ColumnName="RECAMT" />
+          <ScalarProperty Name="BLAMON" ColumnName="BLAMON" />
+          <ScalarProperty Name="TAXMON" ColumnName="TAXMON" />
+          <ScalarProperty Name="BLAAMT" ColumnName="BLAAMT" />
+          <ScalarProperty Name="PAY_WAY" ColumnName="PAY_WAY" />
+          <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+          <ScalarProperty Name="ATTENTION" ColumnName="ATTENTION" />
+          <ScalarProperty Name="UNIFORM" ColumnName="UNIFORM" />
+          <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+          <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+          <ScalarProperty Name="FACT_NAME" ColumnName="FACT_NAME" />
+          <ScalarProperty Name="FACT_CODE" ColumnName="FACT_CODE" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

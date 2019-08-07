@@ -1,18 +1,18 @@
-﻿@model INV_Project.Models.CUSTOMER
+﻿@model INV_Project.Models.FACTORY
 @{
-    ViewData["Title"] = "客戶基本資料";
+    ViewData["Title"] = "廠商基本資料";
 }
 <main role="main" class="inner cover">
-    <h1>客戶基本資料</h1>
+    <h1>廠商基本資料</h1>
 
     <table class="table table-hover table-dark">
         <tbody id="tbodyshow" align="left">
             <tr>
-                <td colspan="4" class="h1">客戶編號: @Html.DisplayFor(modelItem => modelItem.CUST_CODE)</td>
+                <td colspan="4" class="h1">廠商編號: @Html.DisplayFor(modelItem => modelItem.FACT_CODE)</td>
 
             </tr>
             <tr>
-                <td colspan="4" class="h1">客戶名稱: @Html.DisplayFor(modelItem => modelItem.CUST_NAME)</td>
+                <td colspan="4" class="h1">廠商名稱: @Html.DisplayFor(modelItem => modelItem.FACT_NAME)</td>
             </tr>
             <tr>
                 <td colspan="4" class="h1">公司地址: @Html.DisplayFor(modelItem => modelItem.ADDRESS1)</td>
@@ -26,18 +26,13 @@
                 <td colspan="2" class="h1">付款方式: @Html.DisplayFor(modelItem => modelItem.PAY_WAY)</td>
             </tr>
             <tr>
-                <td colspan="2" class="h1">聯絡人: @Html.DisplayFor(modelItem => modelItem.ATTENTION)</td>
-                <td class="h1">稅 金: @Html.DisplayFor(modelItem => modelItem.TAX) </td>
-                <td class="h1">% </td>
+                <td colspan="4" class="h1">聯絡人: @Html.DisplayFor(modelItem => modelItem.ATTENTION)</td>
             </tr>
             <tr>
-                <td colspan="2" class="h1">電話: @Html.DisplayFor(modelItem => modelItem.TELEPHONE)</td>
-                <td colspan="2" class="h1">業務編號: @Html.DisplayFor(modelItem => modelItem.SAL_NO)</td>
+                <td colspan="4" class="h1">電話: @Html.DisplayFor(modelItem => modelItem.TELEPHONE)</td>
             </tr>
             <tr>
-                <td colspan="2" class="h1">傳真: @Html.DisplayFor(modelItem => modelItem.FAX)</td>
-                <td class="h1">結帳日: @Html.DisplayFor(modelItem => modelItem.PAY_DATE)</td>
-                <td class="h1">標籤列印: @Html.DisplayFor(modelItem => modelItem.PRT_LAB) </td>
+                <td colspan="4" class="h1">傳真: @Html.DisplayFor(modelItem => modelItem.FAX)</td>
             </tr>
             <tr>
                 <td colspan="3" class="h1">備註: @Html.DisplayFor(modelItem => modelItem.REMARK)</td>
@@ -57,15 +52,15 @@
                     <td class="h3">4>刪除</td>
                     <td class="h3">5>印表</td>
                     <td class="h3">6>印信封,掛號單</td>
-                    <td class="h3">7>印出貨標籤</td>
+                    <td class="h3">8>成交價</td>
                 </tr>
                 <tr>
-                    <td class="h3">8>成交價</td>
-                    <td class="h3">A>應收帳</td>
+                    <td class="h3">A>應付帳</td>
                     <td class="h3">C>複製</td>
                     <td class="h3">+>下筆</td>
                     <td class="h3">->上筆</td>
                     <td class="h3">*>多筆</td>
+                    <td></td>
                     <td></td>
                 </tr>
             </tbody>
@@ -78,19 +73,20 @@
 <script>
     $(document).ready(function () {
         var id = "@Model.ID";
-        var CCODE = "@Model.CUST_CODE";
+        var FCODE = "@Model.FACT_CODE";
+        var page = "Factory";
 if (navigator.userAgent.indexOf("MSIE") > 0) {
     //IE
     document.onkeyup = function () {
         switch (event.keyCode) {
             case 49:
-                window.location.href = '/Customer/Search';
+                window.location.href = '/'+page+'/Search';
                 break;
             case 50:
                 alert('2');
                 break;
             case 51:
-                window.location.href = '/Customer/Insert';
+                window.location.href = '/'+page+'/Insert';
                 break;
             case 52:
                 alert('4');
@@ -105,7 +101,7 @@ if (navigator.userAgent.indexOf("MSIE") > 0) {
                 alert('7');
                 break;
             case 56:
-                window.location.href = '/Customer/CustItem?CUST_CODE='+CCODE;
+                window.location.href = '/'+page+'/FactItem?FACT_CODE='+FCODE;
                 break;
             case 65:
                 alert('A');
@@ -123,25 +119,25 @@ if (navigator.userAgent.indexOf("MSIE") > 0) {
     }
 }
 else {
-    window.onkeyup = function () {
+    window.onkeyup= function () {
         switch (event.keyCode) {
             case 49:
             case 97:
-                window.location.href = '/Customer/Search';
+                window.location.href = '/'+page+'/Search';
                 break;
             case 50:
             case 98:
-                window.location.href = '/Customer/Insert';
+                window.location.href = '/'+page+'/Insert';
                 break;
             case 51:
             case 99:
-                window.location.href = '/Customer/Update?id=' + id;
+                window.location.href = '/'+page+'/Update?id=' + id;
                 break;
             case 52:
             case 100:
                 var password = prompt("請輸入密碼", "")
                 if (password != "" && password != null)
-                    window.location.href = '/Customer/Delete?id=' + id + '&password=' + password;
+                    window.location.href = '/'+page+'/Delete?id=' + id + '&password=' + password;
                 break;
             case 53:
                 alert('5');
@@ -154,10 +150,10 @@ else {
                 break;
             case 56:
             case 104:
-                window.location.href = '/Customer/CustItem?CUST_CODE='+CCODE;
+                window.location.href = '/'+page+'/FactItem?FACT_CODE='+FCODE;
                 break;
             case 65:
-                window.location.href = '/Customer/CustREC?CODE='+CCODE;
+                window.location.href = '/'+page+'/FactRec?CODE='+FCODE;
                 break;
             case 67:
                 alert('C');
@@ -175,12 +171,13 @@ else {
                 Sajax(1);
                 break;
             case 27:
-                window.location.href = '/Home/Index'; // Navigate to URL
+                window.location.href = '/Home/Index';
                 break;
+
         }
     }
-}
-var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Customer";
+        }
+        var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/" + page;
 
     function Sajax(tmp) {
     $.ajax({
@@ -190,28 +187,24 @@ var apiurl = location.protocol + "//" + location.hostname + ":" + location.port 
             if (data != null) {
                 $("#tbodyshow").empty();
                 id = data.ID;
-                CCODE = data.CUST_CODE;
+                FCODE = data.FACT_CODE;
                 $("#tbodyshow").append(
-                    '<tr><td colspan="4" class="h1">客戶編號: ' + data.CUST_CODE + '</td ></tr>' +
-                    '<tr><td colspan = "4" class= "h1" > 客戶名稱: ' + data.CUST_NAME + '</td ></tr>' +
+                    '<tr><td colspan="4" class="h1">廠商編號: ' + data.FACT_CODE + '</td ></tr>' +
+                    '<tr><td colspan = "4" class= "h1" > 廠商名稱: ' + data.FACT_NAME + '</td ></tr>' +
                     '<tr><td colspan = "4" class= "h1" > 公司地址: ' + data.ADDRESS1 + '</td ></tr>' +
                     '<tr><td colspan = "4" class= "h1" > 發票地址: ' + data.ADDRESS2 + '</td ></tr>' +
                     '<tr><td colspan="2" class="h1">統一編號: ' + data.UNIFORM + '</td>' +
                     '<td colspan="2" class="h1">付款方式: ' + data.PAY_WAY + '</td></tr>' +
-                    '<tr><td colspan="2" class="h1">聯絡人: ' + data.ATTENTION + '</td>' +
-                    '<td class="h1">稅 金: ' + data.TAX + '</td><td class="h1">% </td></tr>' +
-                    '<tr><td colspan="2" class="h1">電話: ' + data.TELEPHONE + '</td>' +
-                    '<td colspan="2" class="h1">業務編號: ' + data.SAL_NO + '</td></tr>' +
-                    '<tr><td colspan="2" class="h1">傳真: ' + data.FAX + '</td>' +
-                    '<td class="h1">結帳日: ' + data.PAY_DATE + '</td>' +
-                    '<td class="h1">標籤列印: ' + data.PRT_LAB + ' </td></tr > ' +
+                    '<tr><td colspan="4" class="h1">聯絡人: ' + data.ATTENTION + '</td></tr>' +
+                    '<tr><td colspan="4" class="h1">電話: ' + data.TELEPHONE + '</td></tr>' +
+                    '<tr><td colspan="4" class="h1">傳真: ' + data.FAX + '</td></tr >' +
                     '<tr><td colspan="3" class="h1">備註: ' + data.REMARK + '</td>' +
                     '<td colspan="2" class="h1">異動日期: ' + data.TRN_DATE + '</td></tr>'
                 );
                 var date = new Date();
                 date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
                 var expires = "; expires=" + date.toGMTString();
-                document.cookie = "ID=" + id + expires + "; path=/";
+                document.cookie = "FID=" + id + expires + "; path=/";
             }
             else {
                 alert("已達最後一筆");

@@ -85,7 +85,6 @@ C:\inv\INV_Project\bin\zh-Hant\System.Web.WebPages.Razor.resources.dll
 C:\inv\INV_Project\bin\zh-Hant\System.Net.Http.Formatting.resources.dll
 C:\inv\INV_Project\bin\zh-Hant\System.Web.Http.resources.dll
 C:\inv\INV_Project\bin\zh-Hant\System.Web.Http.WebHost.resources.dll
-C:\inv\INV_Project\obj\Debug\INV_Project.csprojAssemblyReference.cache
 C:\inv\INV_Project\obj\Debug\INV_Project.csproj.CoreCompileInputs.cache
 C:\inv\INV_Project\obj\Debug\INV_Project.csproj.CopyComplete
 C:\inv\INV_Project\obj\Debug\INV_Project.dll
@@ -96,3 +95,4 @@ C:\inv\INV_Project\bin\EntityFramework.xml
 C:\inv\INV_Project\bin\EntityFramework.SqlServer.xml
 C:\inv\INV_Project\bin\zh-Hant\EntityFramework.resources.dll
 C:\inv\INV_Project\bin\zh-Hant\EntityFramework.SqlServer.resources.dll
+C:\inv\INV_Project\obj\Debug\INV_Project.csprojAssemblyReference.cache
