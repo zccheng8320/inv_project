@@ -1,0 +1,95 @@
+﻿<hr>
+<div class="input-group input-group-lg">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-lg">搜尋框</span>
+    </div>
+    <input type="text" id="Search" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+</div>
+<hr>
+<table id="click" class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th class="h2">產品號碼</th>
+            <th colspan="2" class="h2">品名規格</th>
+            <th class="h2">單位</th>
+            <th class="h2">類別</th>
+            <th class="h2">現存量</th>
+            <th class="h2">售價</th>
+            <th class="h2">進價</th>
+            <th class="h2">異動日期</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyshow">
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-1.10.2.js"
+        integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
+        crossorigin="anonymous"></script>
+<script>
+    var page='Item';
+    document.getElementById('Search').focus();
+    var href = "/" + page + "/Index";
+    if (navigator.userAgent.indexOf("MSIE") > 0) {
+        //IE
+        document.onkeyup = function () {
+            switch (event.keyCode) {               
+                case 27:                  
+                    whistory.go(-1);
+                    break;
+            }
+        }
+    }
+    else {
+        window.onkeyup = function () {
+            switch (event.keyCode) {
+                case 27:
+                    history.go(-1);
+                    break;
+            }
+        }
+    }
+    $(document).ready(function () {
+        var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Item";
+
+        function ajaxSearchData(keyword) {
+            $.ajax({
+                url: apiurl + "?search=" + keyword,
+                type: 'GET',
+                success: function (data) {
+                    $("#tbodyshow").empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $("#tbodyshow").append(
+                            '<tr id ="' + data[i].ID + '">' +
+                            '<td class="h2">' + data[i].ITEM_NO + '</td>' +
+                            '<td class="h2" class="h2">' + data[i].NAME1 + '</td>' +
+                            '<td colspan="2">' + data[i].UNIT + '</td>' +
+                            '<td class="h2">' + data[i].CLASS + '</td>' +
+                            '<td class="h2">' + data[i].QTY + '</td>' +
+                            '<td class="h2">' + data[i].S_PRICE + '</td>' +
+                            '<td class="h2">' + data[i].U_PRICE + '</td>' +
+                            '<td class="h2">' + data[i].TRN_DATE + '</td>' +
+                            "</tr>"
+                        );
+                    }
+                }
+            });
+        }
+
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            ajaxSearchData(searchText);
+            
+        });
+        $(document).on("click","#click tr",function () {
+            var ID = $(this).attr("id");
+            if (ID) {
+                 var date = new Date();
+                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+                document.cookie = "IID=" + ID + expires + "; path=/";
+                var href = "/"+page+"/Index?ID=" + ID;
+                window.location.href = href;
+            }
+        });
+    });
+</script>

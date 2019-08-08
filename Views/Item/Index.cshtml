@@ -1,0 +1,277 @@
+﻿@model INV_Project.Models.ITEM
+@{
+
+    ViewData["Title"] = "產品基本管理";
+    if (TempData["Inser_Code"] != null)
+    {
+        <script type="text/javascript">
+            alert("新增失敗，產品邊號重複");
+        </script>
+    }
+}
+<main role="main" class="inner cover">
+    <h1>產品基本管理</h1>
+    <div class="container">
+        <table style="border:3px #808080 solid;padding:5px;" class="table table-borderless table-dark">
+            <tbody id="tbodyshow" align="left">
+                <tr style="border-bottom:3px #808080 dashed;padding:5px;">
+                    <td class="h2">產品號碼: @Html.DisplayFor(modelItem => modelItem.ITEM_NO)</td>
+                    <td class="h2">成本別: @Html.DisplayFor(modelItem => modelItem.CLASS)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="h2">品名規格: @Html.DisplayFor(modelItem => modelItem.NAME1)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="h2">補充說明: @Html.DisplayFor(modelItem => modelItem.NAME2)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="h2">單&emsp;&emsp;位: @Html.DisplayFor(modelItem => modelItem.UNIT)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="h2">現有存量: @Html.DisplayFor(modelItem => modelItem.QTY)</td>
+                </tr>
+                <tr>
+                    <td class="h2">平均成本: @Html.DisplayFor(modelItem => modelItem.C_PRICE)</td>
+                    <td class="h2">採購數量: @Html.DisplayFor(modelItem => modelItem.S1_QTY)</td>
+                </tr>
+                <tr>
+                    <td class="h2">售&emsp;&emsp;價: @Html.DisplayFor(modelItem => modelItem.S_PRICE)</td>
+                    <td class="h2">安全數量: @Html.DisplayFor(modelItem => modelItem.S2_QTY)</td>
+                </tr>
+                <tr>
+                    <td class="h2">進&emsp;&emsp;價: @Html.DisplayFor(modelItem => modelItem.U_PRICE)</td>
+                    @{var jjm = Model.U_PRICE * Model.QTY; }
+                    <td class="h2">結存金額: @jjm</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="h2">發票存量: @Html.DisplayFor(modelItem => modelItem.SQTY)</td>
+                </tr>
+                <tr style="border-bottom:3px #808080 dashed;padding:5px;">
+                    <td colspan="2" class="h2">異動日期: @Html.DisplayFor(modelItem => modelItem.TRN_DATE)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="h2">前期結存: @Html.DisplayFor(modelItem => modelItem.BLA_QTY)</td>
+                </tr>
+                <tr>
+                    <td class="h2">本月進量: @Html.DisplayFor(modelItem => modelItem.P_QTY)</td>
+                    <td class="h2">本月入量: @Html.DisplayFor(modelItem => modelItem.R_QTY)</td>
+                </tr>
+                <tr>
+                    <td class="h2">本月領量: @Html.DisplayFor(modelItem => modelItem.G_QTY)</td>
+                    <td class="h2">本月銷量: @Html.DisplayFor(modelItem => modelItem.I_QTY)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer class="mastfoot mt-auto">
+    <div class="inner">
+        <table class="table table-borderless  table-dark">
+            <tbody align="left">
+                <tr>
+                    <td class="h3">1>查詢</td>
+                    <td class="h3">2>新增</td>
+                    <td class="h3">3>更改</td>
+                    <td class="h3">4>刪除</td>
+                    <td class="h3">5>印產品資料</td>
+                    <td class="h3">7>廠商成交價</td>
+                    <td class="h3">8>客戶成交價</td>
+                </tr>
+                <tr>
+                    <td class="h3">C>複製</td>
+                    <td class="h3">+>下筆</td>
+                    <td class="h3">->上筆</td>
+                    <td class="h3">*>多筆</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</footer>
+<script src="~/Scripts/jquery-1.10.2.js"
+        integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        var id = "@Model.ID";
+        var ITEM_NO = "@Model.ITEM_NO";
+        var page = "Item";
+if (navigator.userAgent.indexOf("MSIE") > 0) {
+    //IE
+    document.onkeyup = function () {
+        switch (event.keyCode) {
+            case 49:
+                window.location.href = '/'+page+'/Search';
+                break;
+            case 50:
+                alert('2');
+                break;
+            case 51:
+                window.location.href = '/'+page+'/Insert';
+                break;
+            case 52:
+                alert('4');
+                break;
+            case 53:
+                alert('5');
+                break;
+            case 54:
+                alert('6');
+                break;
+            case 55:
+                alert('7');
+                break;
+            case 56:
+                window.location.href = '/'+page+'/Item?ITEM_NO='+FCODE;
+                break;
+            case 65:
+                alert('A');
+                break;
+            case 67:
+                alert('C');
+                break;
+            case 87:
+                alert('W');
+                break;
+            case 85:
+                alert('U');
+                break;
+        }
+    }
+}
+else {
+    window.onkeyup= function () {
+        switch (event.keyCode) {
+            case 49:
+            case 97:
+                window.location.href = '/'+page+'/Search';
+                break;
+            case 50:
+            case 98:
+                window.location.href = '/'+page+'/Insert';
+                break;
+            case 51:
+            case 99:
+                window.location.href = '/'+page+'/Update?id=' + id;
+                break;
+            case 52:
+            case 100:
+                var password = prompt("請輸入密碼", "")
+                if (password != "" && password != null)
+                    window.location.href = '/'+page+'/Delete?id=' + id + '&password=' + password;
+                break;
+            case 53:
+                alert('5');
+                break;
+            case 54:
+                alert('6');
+                break;
+            case 55:
+                window.location.href = '/'+page+'/Ptrans?ITEM_NO='+ITEM_NO;
+                break;
+            case 56:
+                window.location.href = '/' + page + '/Itrans?ITEM_NO=' + ITEM_NO;
+                break;
+            case 104:
+                window.location.href = '/'+page+'/FactItem?FACT_CODE='+FCODE;
+                break;
+            case 65:
+                break;
+            case 67:
+                alert('C');
+                break;
+            case 87:
+                alert('W');
+                break;
+            case 85:
+                alert('U');
+                break;
+            case 109:
+                Sajax(0);
+                break;
+            case 107:
+                Sajax(1);
+                break;
+            case 27:
+                window.location.href = '/Home/Index';
+                break;
+
+        }
+    }
+        }
+        var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/" + page;
+
+    function Sajax(tmp) {
+    $.ajax({
+        url: apiurl + "?id=" + id + "&preOrNext=" + tmp,
+        type: 'GET',
+        success: function (data) {
+            if (data != null) {
+                $("#tbodyshow").empty();
+                id = data.ID;
+                ITEM_NO = data.ITEM_NO;
+                $("#tbodyshow").append(
+                    '<tr style="border-bottom:3px #808080 dashed;padding:5px;">' +
+                        '<td class="h2">產品號碼: ' + data.ITEM_NO + '</td>'+
+                        '<td class="h2">成本別: '+ data.CLASS+'</td>'+
+                    '</tr > ' +
+                    ' <tr > '+
+                    '<td colspan="2" class="h2">品名規格: '+ data.NAME1+'</td>'+
+                    '</tr>' +
+                    ' <tr > '+
+                    '<td colspan="2" class="h2">補充說明: '+ data.NAME2+'</td>'+
+                    '</tr>' +
+                    ' <tr > '+
+                    '<td colspan="2" class="h2">單&emsp;&emsp;位: '+ data.UNIT+'</td>'+
+                    '</tr>' +
+                    ' <tr > '+
+                    '<td colspan="2" class="h2">現有存量: '+ data.QTY+'</td>'+
+                    '</tr>' +
+                    '<tr>' +
+                        '<td class="h2">平均成本: ' + data.C_PRICE + '</td>'+
+                        '<td class="h2">採購數量: '+ data.S1_QTY+'</td>'+
+                    '</tr > ' +
+                    '<tr>' +
+                        '<td class="h2">售&emsp;&emsp;價: ' + data.S_PRICE + '</td>'+
+                        '<td class="h2">安全數量: '+ data.S2_QTY+'</td>'+
+                    '</tr > ' +
+                    '<tr>' +
+                    '<td class="h2">進&emsp;&emsp;價: ' + data.U_PRICE + '</td>' +
+                    '<td class="h2">結存數量: ' + data.U_PRICE * data.QTY + '</td>' +
+                    '</tr > ' +
+                    ' <tr> '+
+                         '<td colspan="2" class="h2">發票存量: '+ data.SQTY+'</td>'+
+                    '</tr>' +
+                    ' <tr style="border-bottom:3px #808080 dashed;padding:5px;"> '+
+                         '<td colspan="2" class="h2">異動日期: '+ data.TRN_DATE+'</td>'+
+                    '</tr>' +
+                     ' <tr> '+
+                         '<td colspan="2" class="h2">前期結存: '+ data.BLA_QTY+'</td>'+
+                    '</tr>' +
+                    '<tr>' +
+                        '<td class="h2">本月進量: ' + data.P_QTY + '</td>'+
+                        '<td class="h2">本月入量: '+ data.R_QTY+'</td>'+
+                    '</tr > ' +
+                    '<tr>' +
+                        '<td class="h2">本月領量: ' + data.G_QTY + '</td>'+
+                        '<td class="h2">本月銷量: '+ data.I_QTY+'</td>'+
+                    '</tr > '
+
+                );
+                var date = new Date();
+                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+                document.cookie = "IID=" + id + expires + "; path=/";
+            }
+            else {
+                alert("已達最後一筆");
+            }
+
+        }
+
+    });
+}
+});
+</script>
+

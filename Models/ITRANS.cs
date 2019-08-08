@@ -30,6 +30,6 @@ namespace INV_Project.Models
         public string ST_NO { get; set; }
         public string SAL_NO { get; set; }
         public string SAL_CODE { get; set; }
-        public string COST { get; set; }
+        public Nullable<double> COST { get; set; }
     }
 }

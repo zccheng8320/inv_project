@@ -21,11 +21,17 @@ namespace INV_Project
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.bundle.js"));
+            bundles.Add(new ScriptBundle("~/bundles/MDB").Include(
+                      "~/Scripts/mdb.js"));
+            bundles.Add(new ScriptBundle("~/bundles/popper").Include(
+                      "~/Scripts/popper.js"));
+
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",      
+                      "~/Content/bootstrap.css",
                       "~/Content/cover.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css"
+                      ));
         }
     }
 }

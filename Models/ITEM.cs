@@ -14,24 +14,25 @@ namespace INV_Project.Models
     
     public partial class ITEM
     {
+        public int ID { get; set; }
         public string ITEM_NO { get; set; }
         public string CLASS { get; set; }
         public string NAME1 { get; set; }
         public string NAME2 { get; set; }
-        public string S_PRICE { get; set; }
-        public string C_PRICE { get; set; }
-        public string U_PRICE { get; set; }
+        public double S_PRICE { get; set; }
+        public double C_PRICE { get; set; }
+        public double U_PRICE { get; set; }
         public string UNIT { get; set; }
-        public string QTY { get; set; }
-        public string S1_QTY { get; set; }
-        public string S2_QTY { get; set; }
-        public string BLA_QTY { get; set; }
-        public string P_QTY { get; set; }
-        public string R_QTY { get; set; }
-        public string G_QTY { get; set; }
-        public string I_QTY { get; set; }
+        public double QTY { get; set; }
+        public double S1_QTY { get; set; }
+        public double S2_QTY { get; set; }
+        public double BLA_QTY { get; set; }
+        public double P_QTY { get; set; }
+        public double R_QTY { get; set; }
+        public double G_QTY { get; set; }
+        public double I_QTY { get; set; }
         public string TRN_DATE { get; set; }
         public string SDATE { get; set; }
-        public string SQTY { get; set; }
+        public double SQTY { get; set; }
     }
 }

@@ -30,9 +30,10 @@
   <EntityType Name="CUSTOMER">
     <Key>
       <PropertyRef Name="ID" />
+      <PropertyRef Name="CUST_CODE" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
-    <Property Name="CUST_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CUST_CODE" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="CUST_NAME" Type="varchar" MaxLength="50" />
     <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
     <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
@@ -115,9 +116,10 @@
   <EntityType Name="FACTORY">
     <Key>
       <PropertyRef Name="ID" />
+      <PropertyRef Name="FACT_CODE" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FACT_CODE" Type="varchar" MaxLength="50" />
+    <Property Name="FACT_CODE" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="FACT_NAME" Type="varchar" MaxLength="50" />
     <Property Name="ADDRESS1" Type="varchar" MaxLength="50" />
     <Property Name="ADDRESS2" Type="varchar" MaxLength="50" />
@@ -159,27 +161,29 @@
   </EntityType>
   <EntityType Name="ITEM">
     <Key>
+      <PropertyRef Name="ID" />
       <PropertyRef Name="ITEM_NO" />
     </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ITEM_NO" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="CLASS" Type="varchar" MaxLength="50" />
     <Property Name="NAME1" Type="varchar" MaxLength="50" />
     <Property Name="NAME2" Type="varchar" MaxLength="50" />
-    <Property Name="S_PRICE" Type="varchar" MaxLength="50" />
-    <Property Name="C_PRICE" Type="varchar" MaxLength="50" />
-    <Property Name="U_PRICE" Type="varchar" MaxLength="50" />
+    <Property Name="S_PRICE" Type="float" Nullable="false" />
+    <Property Name="C_PRICE" Type="float" Nullable="false" />
+    <Property Name="U_PRICE" Type="float" Nullable="false" />
     <Property Name="UNIT" Type="varchar" MaxLength="50" />
-    <Property Name="QTY" Type="varchar" MaxLength="50" />
-    <Property Name="S1_QTY" Type="varchar" MaxLength="50" />
-    <Property Name="S2_QTY" Type="varchar" MaxLength="50" />
-    <Property Name="BLA_QTY" Type="varchar" MaxLength="50" />
-    <Property Name="P_QTY" Type="varchar" MaxLength="50" />
-    <Property Name="R_QTY" Type="varchar" MaxLength="50" />
-    <Property Name="G_QTY" Type="varchar" MaxLength="50" />
-    <Property Name="I_QTY" Type="varchar" MaxLength="50" />
+    <Property Name="QTY" Type="float" Nullable="false" />
+    <Property Name="S1_QTY" Type="float" Nullable="false" />
+    <Property Name="S2_QTY" Type="float" Nullable="false" />
+    <Property Name="BLA_QTY" Type="float" Nullable="false" />
+    <Property Name="P_QTY" Type="float" Nullable="false" />
+    <Property Name="R_QTY" Type="float" Nullable="false" />
+    <Property Name="G_QTY" Type="float" Nullable="false" />
+    <Property Name="I_QTY" Type="float" Nullable="false" />
     <Property Name="TRN_DATE" Type="varchar" MaxLength="50" />
     <Property Name="SDATE" Type="varchar" MaxLength="50" />
-    <Property Name="SQTY" Type="varchar" MaxLength="50" />
+    <Property Name="SQTY" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="ITRANS">
     <Key>
@@ -201,7 +205,7 @@
     <Property Name="ST_NO" Type="varchar" MaxLength="50" />
     <Property Name="SAL_NO" Type="varchar" MaxLength="50" />
     <Property Name="SAL_CODE" Type="varchar" MaxLength="50" />
-    <Property Name="COST" Type="varchar" MaxLength="50" />
+    <Property Name="COST" Type="float" />
   </EntityType>
   <EntityType Name="MONTOT">
     <Key>

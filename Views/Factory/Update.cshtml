@@ -12,7 +12,7 @@
         width: 100%;
     }
 </style>
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "target",onsubmit="return checkForm(this)" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "target" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.ID, new { style = "width:300px" })
@@ -23,7 +23,7 @@
                 <tbody align="left">
                     <tr>
                         <td colspan="4" class="h1">
-                            廠商編號: @Html.TextBoxFor(model => model.FACT_CODE, new { style = "width:300px" })
+                            廠商編號: @Html.DisplayFor(model => model.FACT_CODE, new { style = "width:300px" })
 
                         </td>
                     </tr>
@@ -66,8 +66,8 @@
         integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
         crossorigin="anonymous"></script>
 <script>
-    document.getElementById('FACT_CODE').focus();
-    function checkForm() {
+    document.getElementById('FACT_NAME').focus();
+    /*function checkForm() {
         var searchText = $("#FACT_CODE").val().toString();
         if (searchText == "") {
             alert("廠商編號不得為空!")
@@ -77,7 +77,7 @@
             return true;
 
         }
-    }
+    }*/
         if (navigator.userAgent.indexOf("MSIE") > 0) {
             //IE
             document.onkeyup = function () {

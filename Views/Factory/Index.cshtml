@@ -1,6 +1,12 @@
 ﻿@model INV_Project.Models.FACTORY
 @{
     ViewData["Title"] = "廠商基本資料";
+    if (TempData["Inser_Code"]!=null)
+    {
+        <script type="text/javascript">
+            alert("新增失敗，廠商編號重複");
+        </script>
+    }
 }
 <main role="main" class="inner cover">
     <h1>廠商基本資料</h1>
@@ -209,11 +215,11 @@ else {
             else {
                 alert("已達最後一筆");
             }
-                 
+
         }
 
     });
 }
 });
- </script>
+</script>
 

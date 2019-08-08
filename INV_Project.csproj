@@ -145,9 +145,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\CUSTOMERController.cs" />
     <Compile Include="Controllers\API\FactoryController.cs" />
+    <Compile Include="Controllers\API\ItemController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FactoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,6 +199,7 @@
     <Compile Include="Models\ITRANS.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ITRANSWithName.cs" />
     <Compile Include="Models\MONTOT.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -215,6 +218,7 @@
     <Compile Include="Models\PTRANS.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PTRANSwithName.cs" />
     <Compile Include="Models\PURCH.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -315,6 +319,12 @@
     <Content Include="Views\Factory\Update.cshtml" />
     <Content Include="Views\Factory\FactItem.cshtml" />
     <Content Include="Views\Factory\FactREC.cshtml" />
+    <Content Include="Views\Item\Index.cshtml" />
+    <Content Include="Views\Item\Search.cshtml" />
+    <Content Include="Views\Item\Insert.cshtml" />
+    <Content Include="Views\Item\Update.cshtml" />
+    <Content Include="Views\Item\Ptrans.cshtml" />
+    <Content Include="Views\Item\Itrans.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

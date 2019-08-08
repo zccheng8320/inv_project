@@ -7,16 +7,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-   </head>
+</head>
 
 <body class="text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="masthead mb-auto">
 
             <div class="pos-f-t">
-                <nav class="navbar navbar-dark bg-dark">
+                <nav class="navbar fixed-top navbar-dark bg-dark ">
                     <div class="navbar-toggle">
                         <a class="nav-link dropdown-toggle h3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             常用功能選單
@@ -48,6 +50,8 @@
         </header>
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/MDB")
+        @Scripts.Render("~/bundles/popper")
         @RenderSection("scripts", required: false)
         @RenderBody()
         <hr />

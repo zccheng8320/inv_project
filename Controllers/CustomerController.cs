@@ -11,11 +11,12 @@ namespace INV_Project.Controllers
     public class CustomerController : Controller
     {
         private invEntities db = new invEntities();
+        private string CookieID = "ID";
         // GET: Customer
         public ActionResult Index(int ID=0)
         {
             try {
-                ID = int.Parse(Request.Cookies["ID"].Value.ToString());
+                ID = int.Parse(Request.Cookies[CookieID].Value.ToString());
             }
             catch(Exception e)
             {
@@ -24,14 +25,14 @@ namespace INV_Project.Controllers
             var p = (from d in db.CUSTOMER where d.ID == ID select d).FirstOrDefault();
             if (ID != 0)
             {
-                HttpCookie Cookie = new HttpCookie("ID", p.ID.ToString());
+                HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
                 Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
                 HttpContext.Response.Cookies.Add(Cookie);
             }              
             else
             {
                 p = (from d in db.CUSTOMER select d).OrderByDescending(d => d.ID).FirstOrDefault();
-                HttpCookie Cookie = new HttpCookie("ID", p.ID.ToString());
+                HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
                 Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
                 HttpContext.Response.Cookies.Add(Cookie);
             }      
@@ -49,7 +50,8 @@ namespace INV_Project.Controllers
         public ActionResult Insert(string CUST_CODE, string CUST_NAME, string ADDRESS1, string ADDRESS2, string UNIFORM, string PAY_WAY, string ATTENTION
             , string TELEPHONE, string SAL_NO, string FAX, string PAY_DATE, string PRT_LAB, string REMARK)
         {
-            if (CUST_CODE != "")
+            var check = db.CUSTOMER.Where(m => m.CUST_CODE == CUST_CODE).FirstOrDefault();
+            if (check==null && CUST_CODE != "")
             {
                 var search = (from d in db.CUSTOMER select d).OrderByDescending(d => d.ID).FirstOrDefault();
                 int id = search.ID + 1;
@@ -68,12 +70,16 @@ namespace INV_Project.Controllers
                 p.PAY_DATE = PAY_DATE;
                 p.PRT_LAB = PRT_LAB;
                 p.REMARK = REMARK;
+                p.TRN_DATE = "";
                 db.CUSTOMER.Add(p);
                 db.SaveChanges();
-                HttpCookie Cookie = new HttpCookie("ID", p.ID.ToString());
+                HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
                 Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
                 HttpContext.Response.Cookies.Add(Cookie);
-            }         
+                // 0 代表失敗
+            }
+            else
+                TempData["Inser_Code"] = 1;
             return RedirectToAction("Index");
         }
         public ActionResult Update(int id)
@@ -83,11 +89,11 @@ namespace INV_Project.Controllers
 
         }
         [HttpPost]
-        public ActionResult Update(int id,string CUST_CODE,string CUST_NAME,string ADDRESS1,string ADDRESS2,string UNIFORM,string PAY_WAY,string ATTENTION
+        public ActionResult Update(int id,string CUST_NAME,string ADDRESS1,string ADDRESS2,string UNIFORM,string PAY_WAY,string ATTENTION
             ,string TELEPHONE,string SAL_NO,string FAX,string PAY_DATE,string PRT_LAB,string REMARK)
         {
+            
             var p = db.CUSTOMER.Where(m => m.ID == id).FirstOrDefault();
-            p.CUST_CODE=CUST_CODE;
             p.CUST_NAME = CUST_NAME;
             p.ADDRESS1 = ADDRESS1;
             p.ADDRESS2 = ADDRESS2;
@@ -100,10 +106,11 @@ namespace INV_Project.Controllers
             p.PAY_DATE = PAY_DATE;
             p.PRT_LAB = PRT_LAB;
             p.REMARK = REMARK;
-            HttpCookie Cookie = new HttpCookie("ID", p.ID.ToString());
+            HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
             Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
             HttpContext.Response.Cookies.Add(Cookie);
             db.SaveChanges();
+                     
             return RedirectToAction("Index");
 
         }
@@ -115,7 +122,7 @@ namespace INV_Project.Controllers
                 db.CUSTOMER.Remove(p);
                 db.SaveChanges();
                 var search = (from d in db.CUSTOMER where d.ID < id select d).OrderByDescending(d => d.ID).FirstOrDefault();
-                HttpCookie Cookie = new HttpCookie("ID", search.ID.ToString());
+                HttpCookie Cookie = new HttpCookie(CookieID, search.ID.ToString());
                 Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
                 HttpContext.Response.Cookies.Add(Cookie);
                 return RedirectToAction("Index");

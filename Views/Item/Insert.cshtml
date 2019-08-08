@@ -1,0 +1,112 @@
+﻿@model INV_Project.Models.ITEM
+
+@{
+    ViewBag.Title = "產品資料管理-新增";
+}
+@{
+    ViewData["Title"] = "產品資料管理";
+    var year = DateTime.Now.Year - 1911;
+    var month = "" + DateTime.Now.Month;
+    var day = "" + DateTime.Now.Day;
+    if (DateTime.Now.Month < 10)
+    { month = "0" + month; }
+    if (DateTime.Now.Day < 10)
+    { day = "0" + day; }
+    var today = year + "." + month + "." + day;
+}
+<style>
+    input {
+        padding: 0px 5px;
+        background: #ccc;
+        border: 2px black solid;
+        color: forestgreen;
+        max-width: 1000px;
+        width: 100%;
+    }
+</style>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "target" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ID, new { style = "width:300px" })
+    <main role="main" class="inner cover">
+        <h1>產品資料管理</h1>
+        <div class="container">
+            <table style="border:3px #808080 solid;padding:5px;" class="table table-borderless table-dark">
+                <tbody align="left">
+                    <tr style="border-bottom:3px #808080 dashed;padding:5px;">
+                        <td class="h2">產品號碼: @Html.TextBoxFor(model => model.ITEM_NO, new { style = "width:300px" })</td>
+                        <td class="h2">成本別: @Html.TextBoxFor(model => model.CLASS, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="h2">品名規格: @Html.TextBoxFor(model => model.NAME1, new { style = "width:400px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="h2">補充說明: @Html.TextBoxFor(model => model.NAME2, new { style = "width:400px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="h2">單&emsp;&emsp;位: @Html.TextBoxFor(model => model.UNIT, new { style = "width:200px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="h2">現有存量: @Html.TextBoxFor(model => model.QTY, new { type = "number", style = "width:130px",@Value="0" })</td>
+                    </tr>
+                    <tr>
+                        <td class="h2">平均成本: @Html.TextBoxFor(model => model.C_PRICE, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                        <td class="h2">採購數量: @Html.TextBoxFor(model => model.S1_QTY, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                    </tr>
+                    <tr>
+                        <td class="h2">售&emsp;&emsp;價: @Html.TextBoxFor(model => model.S_PRICE, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                        <td class="h2">安全數量: @Html.TextBoxFor(model => model.S2_QTY, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                    </tr>
+                    <tr>
+                        <td class="h2">進&emsp;&emsp;價: @Html.TextBoxFor(model => model.U_PRICE, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                        <td class="h2">結存金額: </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="h2">發票存量: @Html.TextBoxFor(model => model.SQTY, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                    </tr>
+                    <tr style="border-bottom:3px #808080 dashed;padding:5px;">
+                        <td colspan="2" class="h2">異動日期: </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="h2">前期結存: @Html.TextBoxFor(model => model.BLA_QTY, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                    </tr>
+                    <tr>
+                        <td class="h2">本月進量: @Html.TextBoxFor(model => model.P_QTY, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                        <td class="h2">本月入量: @Html.TextBoxFor(model => model.R_QTY, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                    </tr>
+                    <tr>
+                        <td class="h2">本月領量: @Html.TextBoxFor(model => model.G_QTY, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                        <td class="h2">本月銷量: @Html.TextBoxFor(model => model.I_QTY, new { type = "number", style = "width:130px",@Value="0"  })</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="儲存" class="btn btn-danger btn-lg" accesskey="s" />
+        </div>
+    </main>
+}
+<script>
+    document.getElementById('ITEM_NO').focus();
+    if (navigator.userAgent.indexOf("MSIE") > 0) {
+        //IE
+        document.onkeyup = function () {
+            switch (event.keyCode) {
+                case 27:
+                    history.go(-1);
+                    break;
+            }
+        }
+    }
+    else {
+        window.onkeyup = function () {
+            switch (event.keyCode) {
+                case 27:
+                    history.go(-1);
+                    break;
+            }
+
+        }
+    }
+</script>
+

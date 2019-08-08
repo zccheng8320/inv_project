@@ -5,10 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="228fa4de09384fde8e2b8f469d793ad9" Name="Diagram1" >
-        <EntityTypeShape EntityType="invModel.CLASS" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="invModel.EMPLOY" Width="1.5" PointX="1.75" PointY="3.5" />
-        <EntityTypeShape EntityType="invModel.FACTITEM" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="invModel.ITEM" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="invModel.CLASS" Width="1.5" PointX="3.625" PointY="0.75" />
+        <EntityTypeShape EntityType="invModel.EMPLOY" Width="1.5" PointX="0.875" PointY="3.375" />
+        <EntityTypeShape EntityType="invModel.FACTITEM" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="invModel.MONTOT" Width="1.5" PointX="4.75" PointY="9.75" />
         <EntityTypeShape EntityType="invModel.NCUST" Width="1.5" PointX="10.75" PointY="0.75" />
         <EntityTypeShape EntityType="invModel.PAYAMT" Width="1.5" PointX="10.75" PointY="6.75" />
@@ -16,13 +15,14 @@
         <EntityTypeShape EntityType="invModel.PHRASE" Width="1.5" PointX="6.75" PointY="11.75" />
         <EntityTypeShape EntityType="invModel.PTRANS" Width="1.5" PointX="12.75" PointY="0.75" />
         <EntityTypeShape EntityType="invModel.PURCH" Width="1.5" PointX="2.75" PointY="12.75" />
-        <EntityTypeShape EntityType="invModel.CUSTOMER" Width="1.5" PointX="5.375" PointY="13.25" />
-        <EntityTypeShape EntityType="invModel.CUSTITEM" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="invModel.ITRANS" Width="1.5" PointX="7.375" PointY="14.75" />
+        <EntityTypeShape EntityType="invModel.CUSTITEM" Width="1.5" PointX="0.5" PointY="0.5" />
         <EntityTypeShape EntityType="invModel.RECAMT" Width="1.5" PointX="13.375" PointY="5.75" />
         <EntityTypeShape EntityType="invModel.INVOICE" Width="1.5" PointX="15.375" PointY="0.75" />
         <EntityTypeShape EntityType="invModel.RECMON" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="invModel.CUSTOMER" Width="1.5" PointX="9" PointY="10.5" />
         <EntityTypeShape EntityType="invModel.FACTORY" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="invModel.ITEM" Width="1.5" PointX="13.375" PointY="10.75" />
+        <EntityTypeShape EntityType="invModel.ITRANS" Width="1.5" PointX="5.375" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

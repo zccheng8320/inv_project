@@ -9,12 +9,13 @@ namespace INV_Project.Controllers
     public class FactoryController : Controller
     {
         private invEntities db = new invEntities();
+        private string CookieID = "FID";
         // GET: Factory
         public ActionResult Index(int FID=0)
         {
             try
             {
-                FID = int.Parse(Request.Cookies["FID"].Value.ToString());
+                FID = int.Parse(Request.Cookies[CookieID].Value.ToString());
             }
             catch (Exception e)
             {
@@ -23,14 +24,14 @@ namespace INV_Project.Controllers
             var p = (from d in db.FACTORY where d.ID == FID select d).FirstOrDefault();
             if (FID != 0)
             {
-                HttpCookie Cookie = new HttpCookie("FID", p.ID.ToString());
+                HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
                 Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
                 HttpContext.Response.Cookies.Add(Cookie);
             }
             else
             {
                 p = (from d in db.FACTORY select d).OrderByDescending(d => d.ID).FirstOrDefault();
-                HttpCookie Cookie = new HttpCookie("FID", p.ID.ToString());
+                HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
                 Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
                 HttpContext.Response.Cookies.Add(Cookie);
             }
@@ -48,7 +49,8 @@ namespace INV_Project.Controllers
         public ActionResult Insert(string FACT_CODE, string FACT_NAME, string ADDRESS1, string ADDRESS2, string UNIFORM, string PAY_WAY, string ATTENTION
             , string TELEPHONE, string FAX, string REMARK, string TRN_DATE)
         {
-            if (FACT_CODE != "")
+            var check = db.FACTORY.Where(m => m.FACT_CODE == FACT_CODE).FirstOrDefault();
+            if (check== null && FACT_CODE != "")
             {
                 var search = (from d in db.FACTORY select d).OrderByDescending(d => d.ID).FirstOrDefault();
                 int id = search.ID + 1;
@@ -64,13 +66,17 @@ namespace INV_Project.Controllers
                 p.TELEPHONE = TELEPHONE;
                 p.FAX = FAX;
                 p.REMARK = REMARK;
-                p.TRN_DATE = TRN_DATE;
+                p.TRN_DATE = "";
                 db.FACTORY.Add(p);
                 db.SaveChanges();
-                HttpCookie Cookie = new HttpCookie("FID", p.ID.ToString());
+                HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
                 Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
                 HttpContext.Response.Cookies.Add(Cookie);
+                // 成功
+                
             }
+            else
+                TempData["Inser_Code"] = 1;
             return RedirectToAction("Index");
         }
         public ActionResult Update(int id)
@@ -80,11 +86,10 @@ namespace INV_Project.Controllers
 
         }
         [HttpPost]
-        public ActionResult Update(int id, string FACT_CODE, string FACT_NAME, string ADDRESS1, string ADDRESS2, string UNIFORM, string PAY_WAY, string ATTENTION
+        public ActionResult Update(int id, string FACT_NAME, string ADDRESS1, string ADDRESS2, string UNIFORM, string PAY_WAY, string ATTENTION
             , string TELEPHONE,  string FAX,  string REMARK)
-        {
-            var p = db.FACTORY.Where(m => m.ID == id).FirstOrDefault();
-            p.FACT_CODE = FACT_CODE;
+        {        
+            var p = db.FACTORY.Where(m => m.ID == id).FirstOrDefault();             
             p.FACT_NAME = FACT_NAME;
             p.ADDRESS1 = ADDRESS1;
             p.ADDRESS2 = ADDRESS2;
@@ -94,10 +99,10 @@ namespace INV_Project.Controllers
             p.TELEPHONE = TELEPHONE;
             p.FAX = FAX;
             p.REMARK = REMARK;
-            HttpCookie Cookie = new HttpCookie("FID", p.ID.ToString());
+            HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
             Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
             HttpContext.Response.Cookies.Add(Cookie);
-            db.SaveChanges();
+            db.SaveChanges();                      
             return RedirectToAction("Index");
         }
         public ActionResult Delete(int id, int password)
@@ -108,7 +113,7 @@ namespace INV_Project.Controllers
                 db.FACTORY.Remove(p);
                 db.SaveChanges();
                 var search = (from d in db.FACTORY where d.ID < id select d).OrderByDescending(d => d.ID).FirstOrDefault();
-                HttpCookie Cookie = new HttpCookie("FID", search.ID.ToString());
+                HttpCookie Cookie = new HttpCookie(CookieID, search.ID.ToString());
                 Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
                 HttpContext.Response.Cookies.Add(Cookie);
                 return RedirectToAction("Index");
