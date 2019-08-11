@@ -18,19 +18,21 @@ namespace INV_Project
             // 準備好可進行生產時，請使用 https://modernizr.com 的建置工具，只挑選您需要的測試。
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-
+            bundles.Add(new ScriptBundle("~/bundles/popper").Include(
+                     "~/Scripts/umd/popper.js"));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.bundle.js"));
             bundles.Add(new ScriptBundle("~/bundles/MDB").Include(
                       "~/Scripts/mdb.js"));
-            bundles.Add(new ScriptBundle("~/bundles/popper").Include(
-                      "~/Scripts/popper.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap-table").Include(
+                      "~/Scripts/bootstrap-table.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/site.css",
                       "~/Content/cover.css",
-                      "~/Content/site.css"
+                       "~/Content/all.css",
+                        "~/Content/bootstrap-table.min.css"
                       ));
         }
     }

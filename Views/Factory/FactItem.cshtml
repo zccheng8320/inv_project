@@ -3,73 +3,64 @@
 @{
     ViewBag.Title = "廠商成交價";
 }
-    <style>
-        table {
-            table-layout: fixed;
-            width: 100%;
-        }
-
-        thead tr th {
-            position: sticky;
-            top: 0;
-        }
-
-        th {
-            background-color: darkslateblue;
-        }
-    </style>
 <h1>廠商編號 : @TempData["FACT_CODE"]</h1>
 <h1>廠商名稱 : @TempData["FACT_NAME"]</h1>
-<table class="table table-hover table-dark">
-    <thead>
+<table id="table"
+       data class="table table-hover table-dark"
+       data-toggle="table"
+       data-show-columns="true"
+       data-sort-class="table-active"
+       data-sortable="true"
+       data-height="700">
+    <thead class="bg-primary">
         <tr>
-            <th class="h2">
+            <th class="h2" data-field="ITEM_NO" data-sortable="true">
                 產品號碼
             </th>
-            <th class="h2" colspan="2">
+            <th class="h2" data-field="ITEM_NAME" data-sortable="true">
                 品名規格
             </th>
-            <th class="h2">
+            <th class="h2" data-field="L_DATE" data-sortable="true">
                 成交日
             </th>
-            <th class="h2">
+            <th class="h2" data-field="L_PRICE" data-sortable="true">
                 成交價
             </th>
-            <th class="h2">
+            <th class="h2" data-field="L_QTY" data-sortable="true">
                 成交量
-            </th>    
-            <th class="h2">
-               備註
+            </th>
+            <th class="h2" data-field="REMARK" data-sortable="true">
+                備註
             </th>
             <th></th>
         </tr>
     </thead>
-        @foreach (var item in Model)
-        {            
-            <tr>
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.ITEM_NO)
-                </td>
-                <td class="h2" colspan="2">
-                    @Html.DisplayFor(modelItem => item.ITEM_NAME)
-                </td>
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.L_DATE)
-                </td>
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.L_PRICE)
-                </td>
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.L_QTY)
-                </td>
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.REMARK)
-                </td>
-                <td class="h2">
-                    <button id="@item.id" onClick="del(this.id)" type="button" class="btn btn-danger btn-lg">刪除</button>
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.ITEM_NO)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.ITEM_NAME)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.L_DATE)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.L_PRICE)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.L_QTY)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.REMARK)
+            </td>
+            <td class="h2">
+                <button id="@item.id" onClick="del(this.id)" type="button" class="btn btn-danger btn-lg">刪除</button>
+            </td>
+        </tr>
+    }
 </table>
 <script type="text/javascript">
     if (navigator.userAgent.indexOf("MSIE") > 0) {
@@ -77,7 +68,7 @@
         document.onkeyup = function () {
             switch (event.keyCode) {           
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Factory/Index';
                     break;
             }
         }
@@ -86,7 +77,7 @@
         window.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Factory/Index';
                     break;
             }
 

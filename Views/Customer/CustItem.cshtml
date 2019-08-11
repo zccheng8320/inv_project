@@ -2,66 +2,58 @@
 
 @{
     ViewBag.Title = "CustItem";
-}
-    <style>
-        table {
-            table-layout: fixed;
-            width: 100%;
-        }
-
-        thead tr th {
-            position: sticky;
-            top: 0;
-        }
-
-        th {
-            background-color: darkslateblue;
-        }
-    </style>
+}   
 <h1>客戶編號 : @TempData["CUST_CODE"]</h1>
 <h1>客戶名稱 : @TempData["CUST_NAME"]</h1>
-<table class="table table-hover table-dark">
-    <thead>
+<table id="table"
+       data class="table table-hover table-dark"
+       data-toggle="table"
+       data-show-columns="true"
+       data-sort-class="table-active"
+       data-sortable="true"
+       data-height="700">
+    <thead class="bg-primary">
         <tr>
-            <th class="h2">
+            <th data-field="ITEM_NO" data-sortable="true" class="h2">
                 產品號碼
             </th>
-            <th class="h2" colspan="2">
+            <th data-field="ITEM_NAME"  class="h2" >
                 品名規格
             </th>
-            <th class="h2">
+            <th data-field="L_DATE" data-sortable="true" class="h2">
                 成交日
             </th>
-            <th class="h2">
+            <th data-field="L_PRICE" data-sortable="true" class="h2">
                 成交價
             </th>
-            <th class="h2">
+            <th data-field="L_QTY" data-sortable="true" class="h2">
                 成交量
             </th>
-            <th class="h2">
+            <th data-field="SAL_CODE" class="h2">
                 註
             </th>
-            <th class="h2">
+            <th data-field="COST" data-sortable="true" class="h2">
                 成本
             </th>
-            <th class="h2">
+            <th data-field="ES" data-sortable="true" class="h2">
                 ％
             </th>
-            <th class="h2">
+            <th data-field="REMARK" class="h2">
                備註
             </th>
             <th></th>
         </tr>
     </thead>
+    <tbody>
         @foreach (var item in Model)
         {
-            double? Earn = ((item.L_PRICE - item.COST) / item.COST)*100;
+            double? Earn = ((item.L_PRICE - item.COST) / item.COST) * 100;
             string e_s = Convert.ToDouble(Earn).ToString("00.00");
             <tr>
                 <td class="h2">
                     @Html.DisplayFor(modelItem => item.ITEM_NO)
                 </td>
-                <td class="h2" colspan="2">
+                <td class="h2" >
                     @Html.DisplayFor(modelItem => item.ITEM_NAME)
                 </td>
                 <td class="h2">
@@ -90,6 +82,7 @@
                 </td>
             </tr>
         }
+    </tbody>
 </table>
 <script type="text/javascript">
     if (navigator.userAgent.indexOf("MSIE") > 0) {
@@ -97,7 +90,7 @@
         document.onkeyup = function () {
             switch (event.keyCode) {           
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Customer/Index';
                     break;
             }
         }
@@ -106,7 +99,7 @@
         window.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Customer/Index';
                     break;
             }
 

@@ -9,93 +9,57 @@
     var id = TempData["FACT_CODE"];
     var name = TempData["FACT_NAME"];
 }
-<style>
-    table {
-        position: relative;
-        overflow: hidden;
-        border-collapse: collapse;
-        
-    }
-    /*thead*/
-    thead {
-        position: relative;
-        display: block; /*seperates the header from the body allowing it to be positioned*/
-        width: 700px;
-        overflow: visible;
-    }
-
-        thead th {
-            min-width: 180px;
-            height: 32px;
-        }
-
-            thead th:nth-child(1) { /*first cell in the header*/
-                position: relative;
-                /*seperates the first cell in the header from the header*/
-                height: 60px;
-                background-color: #343a40;
-            }
-    /*tbody*/
-    tbody {
-        position: relative;
-        display: block; /*seperates the tbody from the header*/
-        width: 1880px;
-        height: 600px;
-        overflow: scroll;
-    }
-
-        tbody td {
-            min-width: 180px;
-        }
-
-        tbody tr td:nth-child(1) { /*the first cell in each tr*/
-            position: relative;
-            height: 60px;
-            background-color: #343a40;
-        }
-</style>
 <h1>廠商編號 : @id</h1>
 <h1>廠商名稱 : @name</h1>
-<table id="table" class="table table-hover table-bordered table-dark">
-    <thead>
+<div id="toolbar">
+    <button id="hidebtn" class="btn btn-lg btn-primary">顯示沖帳明細(C)</button>
+</div>
+<table id="table"
+       data class="table table-hover table-dark"
+       data-toggle="table"
+       data-show-columns="true"
+       data-sort-class="table-active"
+       data-sortable="true"
+       data-height="700">
+    <thead class="bg-primary">
         <tr>
-            <th class="h2">
+            <th class="h2" data-field="MON_DATE" data-sortable="true">
                 月份
             </th>
-            <th class="h2" colspan="2">
+            <th class="h2" data-field="SAL_AMT" data-sortable="true">
                 進貨金額
             </th>
-            <th class="h2">
+            <th class="h2" data-field="TAX_AMT" data-sortable="true">
                 稅金
             </th>
-            <th class="h2">
+            <th class="h2" data-field="REC_AMT" data-sortable="true">
                 沖帳金額
             </th>
-            <th class="h2">
+            <th class="h2" data-field="DISC" data-sortable="true">
                 折讓
             </th>
-            <th class="h2">
-                應付餘額
+            <th class="h2" data-field="TOT_AMT" data-sortable="true">
+                應收餘額
             </th>
-            <th class="h2">
+            <th class="h2" data-field="AMO1" data-sortable="true">
                 機器
             </th>
-            <th class="h2">
+            <th class="h2" data-field="AMO2" data-sortable="true">
                 材料
             </th>
-            <th class="h2 ">
+            <th class="h2 " data-field="AMO3" data-sortable="true">
                 服務
             </th>
-            <th class="h2 text-warning">
+            <th class="h2 text-warning" data-visible="false" data-field="REC_NO" data-sortable="true">
                 付款單
             </th>
-            <th class="h2 text-warning">
+            <th class="h2 text-warning" data-visible="false" data-field="TRN_DATE" data-sortable="true">
                 日期
             </th>
-            <th class="h2 text-warning">
+            <th class="h2 text-warning" data-visible="false" data-field="CHNO" data-sortable="true">
                 票據號碼
             </th>
-            <th class="h2 text-warning">
+            <th class="h2 text-warning" data-visible="false" data-field="CASH" data-sortable="true">
                 兌現日期
             </th>
         </tr>
@@ -109,8 +73,8 @@
                 <td class="h2">
                     @Html.DisplayFor(modelItem => item.MON_DATE)
                 </td>
-                <td class="h2" colspan="2">                
-                        @Html.DisplayFor(modelItem => item.SAL_AMT)
+                <td class="h2" >
+                    @Html.DisplayFor(modelItem => item.SAL_AMT)
                 </td>
                 <td class="h2">
                     @Html.DisplayFor(modelItem => item.TAX_AMT)
@@ -151,24 +115,50 @@
     }
 </table>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('tbody').scroll().focus();
-  $('tbody').scroll(function(e) { //detect a scroll event on the tbody
-  	/*
-    Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement
-    of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.    
-    */
-    $('thead').css("left", -$("tbody").scrollLeft()); //fix the thead relative to the body scrolling
-    $('thead th:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first cell of the header
-    $('tbody td:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first column of tdbody
-  });
-});
+     $(document).keydown(function(event){
+    if(event.keyCode == '67'){           
+            $('#hidebtn').click();
+        }
+    }); 
+    var $table = $('#table')
+    var $button = $('#hidebtn')
+    var tmp = 1;
+  $(function() {
+      $button.click(function () {
+          if (tmp == 1) {
+              // 隱藏服務機器材料
+              $table.bootstrapTable('hideColumn', 'AMO1')
+              $table.bootstrapTable('hideColumn', 'AMO2')
+              $table.bootstrapTable('hideColumn', 'AMO3')
+              // 顯示沖帳明細
+              $table.bootstrapTable('showColumn', 'REC_NO')
+              $table.bootstrapTable('showColumn', 'TRN_DATE')
+              $table.bootstrapTable('showColumn', 'CHNO')
+              $table.bootstrapTable('showColumn', 'CASH')
+              tmp = 0
+          }
+          else if (tmp == 0) {
+              // 隱藏沖帳明細
+              $table.bootstrapTable('hideColumn', 'REC_NO')
+              $table.bootstrapTable('hideColumn', 'TRN_DATE')
+              $table.bootstrapTable('hideColumn', 'CHNO')
+              $table.bootstrapTable('hideColumn', 'CASH')
+              // 顯示服務機器材料
+              $table.bootstrapTable('showColumn', 'AMO1')
+              $table.bootstrapTable('showColumn', 'AMO2')
+              $table.bootstrapTable('showColumn', 'AMO3')
+              tmp = 1
+          }
+       
+
+    })  
+  })
     if (navigator.userAgent.indexOf("MSIE") > 0) {
         //IE
         document.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Factory/Index';
                     break;
             }
         }
@@ -177,7 +167,7 @@
         window.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Factory/Index';
                     break;
             }
 

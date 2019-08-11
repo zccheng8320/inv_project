@@ -9,91 +9,60 @@
     var id = TempData["CUST_CODE"];
     var name = TempData["CUST_NAME"];
 }
-<style>
-table {
-  position: relative;
-  overflow: hidden;
-  border-collapse: collapse;
-}
-/*thead*/
-thead {
-  position: relative;
-  display: block; /*seperates the header from the body allowing it to be positioned*/
-  width: 700px;
-  overflow: visible;
-}
-thead th {
-  min-width: 180px;
-  height: 32px;
-}
-thead th:nth-child(1) {/*first cell in the header*/
-  position: relative;
-   /*seperates the first cell in the header from the header*/
-  height: 60px;
-  background-color: #343a40;
-}
-/*tbody*/
-tbody {
-  position: relative;
-  display: block; /*seperates the tbody from the header*/
-  width:1880px;
-  height: 600px;
-  overflow: scroll;
-}
-tbody td {
-  min-width: 180px;
-}
-tbody tr td:nth-child(1) {  /*the first cell in each tr*/
-  position: relative;
-  height: 60px;
-  background-color: #343a40;
-}
-    </style>
 <h1>客戶編號 : @id</h1>
 <h1>客戶名稱 : @name</h1>
-<table class="table-dark table-bordered table-hover">
-    <thead>
+<div id="toolbar">
+    <button id="hidebtn" class="btn btn-lg btn-primary">顯示沖帳明細(C)</button>
+</div>
+<table id="table"
+       data class="table table-hover table-dark"
+       data-toggle="table"
+       data-show-columns="true"
+       data-sort-class="table-active"
+       data-sortable="true"
+       data-height="700">
+    <thead class="bg-primary">
         <tr>
-            <th class="h2">
+            <th class="h2" data-field="MON_DATE" data-sortable="true">
                 月份
             </th>
-            <th class="h2" colspan="2">
+            <th class="h2" data-field="SAL_AMT" data-sortable="true">
                 銷貨金額
             </th>
-            <th class="h2">
+            <th class="h2" data-field="TAX_AMT" data-sortable="true">
                 稅金
             </th>
-            <th class="h2" colspan="2">
+            <th class="h2" data-field="REC_AMT" data-sortable="true">
                 沖帳金額
             </th>
-            <th class="h2">
+            <th class="h2" data-field="DISC" data-sortable="true">
                 折讓
             </th>
-            <th class="h2" colspan="2">
+            <th class="h2" data-field="TOT_AMT" data-sortable="true">
                 應收餘額
             </th>
-            <th class="h2">
+            <th class="h2" data-field="AMO1" data-sortable="true">
                 機器
             </th>
-            <th class="h2">
+            <th class="h2" data-field="AMO2" data-sortable="true">
                 材料
             </th>
-            <th class="h2 ">
+            <th class="h2 " data-field="AMO3" data-sortable="true">
                 服務
             </th>
-            <th class="h2 text-warning">
+            <th class="h2 text-warning" data-visible="false" data-field="REC_NO" data-sortable="true">
                 收款單
             </th>
-            <th class="h2 text-warning">
+            <th class="h2 text-warning" data-visible="false" data-field="TRN_DATE" data-sortable="true">
                 日期
             </th>
-            <th class="h2 text-warning" colspan="2">
+            <th class="h2 text-warning" data-visible="false" data-field="CHNO" data-sortable="true">
                 票據號碼
             </th>
-            <th class="h2 text-warning" colspan="2">
+            <th class="h2 text-warning" data-visible="false" data-field="CASH" data-sortable="true">
                 兌現日期
             </th>
-            <th class="h2 text-warning">
+            <th class="h2 text-warning" data-visible="false" data-field="D_NO" data-sortable="true">
                 款
             </th>
         </tr>
@@ -108,19 +77,19 @@ tbody tr td:nth-child(1) {  /*the first cell in each tr*/
                     <td class="h2">
                         @Html.DisplayFor(modelItem => item.MON_DATE)
                     </td>
-                    <td class="h2" colspan="2">
+                    <td class="h2" >
                         @Html.DisplayFor(modelItem => item.SAL_AMT)
                     </td>
                     <td class="h2">
                         @Html.DisplayFor(modelItem => item.TAX_AMT)
                     </td>
-                    <td class="h2" colspan="2">
+                    <td class="h2" >
                         @Html.DisplayFor(modelItem => item.REC_AMT)
                     </td>
                     <td class="h2">
                         @Html.DisplayFor(modelItem => item.DISC)
                     </td>
-                    <td class="h2" colspan="2">
+                    <td class="h2" >
                         @Html.DisplayFor(modelItem => item.TOT_AMT)
                     </td>
                     <td class="h2">
@@ -138,10 +107,10 @@ tbody tr td:nth-child(1) {  /*the first cell in each tr*/
                     <td class="h2 text-warning">
                         @Html.DisplayFor(modelItem => item.TRN_DATE)
                     </td>
-                    <td class="h2 text-warning" colspan="2">
+                    <td class="h2 text-warning" >
                         @Html.DisplayFor(modelItem => item.CHNO)
                     </td>
-                    <td class="h2 text-warning" colspan="2">
+                    <td class="h2 text-warning" >
                         @Html.DisplayFor(modelItem => item.CASH)
                     </td>
                     <td class="h2 text-warning">
@@ -152,27 +121,116 @@ tbody tr td:nth-child(1) {  /*the first cell in each tr*/
 
         }
     </tbody>
-    
+
 </table>
+<button href="#myModal" id="openBtn" data-toggle="modal" class="btn btn-default">Modal</button>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Big Title</h3>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-center">Hello. Some text here.</h5>
+                <table class="table table-striped" id="tblGrid">
+                    <thead id="tblHead">
+                        <tr>
+                            <th>Location</th>
+                            <th>Points</th>
+                            <th class="text-right">Mean</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Long Island, NY, USA</td>
+                            <td>3</td>
+                            <td class="text-right">45001</td>
+                        </tr>
+                        <tr>
+                            <td>Chicago, Illinois, USA</td>
+                            <td>5</td>
+                            <td class="text-right">76455</td>
+                        </tr>
+                        <tr>
+                            <td>New York, New York, USA</td>
+                            <td>10</td>
+                            <td class="text-right">39097</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <input type="button" class="btn btn-warning btn-sm pull-right" value="Reset">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save Changes</button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script type="text/javascript">
+    $(document).keydown(function(event){
+    if(event.keyCode == '67'){           
+            $('#hidebtn').click();
+        }
+    }); 
+    var $table = $('#table')
+    var $button = $('#hidebtn')
+    var tmp = 1;
+  $(function() {
+      $button.click(function () {
+          if (tmp == 1) {
+              // 隱藏服務機器材料
+              $table.bootstrapTable('hideColumn', 'AMO1')
+              $table.bootstrapTable('hideColumn', 'AMO2')
+              $table.bootstrapTable('hideColumn', 'AMO3')
+              // 顯示沖帳明細
+              $table.bootstrapTable('showColumn', 'REC_NO')
+              $table.bootstrapTable('showColumn', 'TRN_DATE')
+              $table.bootstrapTable('showColumn', 'CHNO')
+              $table.bootstrapTable('showColumn', 'CASH')
+              $table.bootstrapTable('showColumn', 'D_NO')
+              tmp = 0
+          }
+          else if (tmp == 0) {
+              // 隱藏沖帳明細
+              $table.bootstrapTable('hideColumn', 'REC_NO')
+              $table.bootstrapTable('hideColumn', 'TRN_DATE')
+              $table.bootstrapTable('hideColumn', 'CHNO')
+              $table.bootstrapTable('hideColumn', 'CASH')
+              $table.bootstrapTable('hideColumn', 'D_NO')
+              // 顯示服務機器材料
+              $table.bootstrapTable('showColumn', 'AMO1')
+              $table.bootstrapTable('showColumn', 'AMO2')
+              $table.bootstrapTable('showColumn', 'AMO3')
+              tmp = 1
+          }
+       
+
+    })  
+  })
     $(document).ready(function () {
-  $('tbody').scroll().focus();
-  $('tbody').scroll(function(e) { //detect a scroll event on the tbody
-  	/*
-    Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement
-    of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.    
-    */
-    $('thead').css("left", -$("tbody").scrollLeft()); //fix the thead relative to the body scrolling
-    $('thead th:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first cell of the header
-    $('tbody td:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first column of tdbody
-  });
-});
+        $('tbody').scroll().focus();
+        $('tbody').scroll(function (e) { //detect a scroll event on the tbody
+            /*
+        Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement
+        of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.
+        */
+            $('thead').css("left", -$("tbody").scrollLeft()); //fix the thead relative to the body scrolling
+            $('thead th:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first cell of the header
+            $('tbody td:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first column of tdbody
+        });
+    });
     if (navigator.userAgent.indexOf("MSIE") > 0) {
         //IE
         document.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Customer/Index';
                     break;
             }
         }
@@ -181,7 +239,7 @@ tbody tr td:nth-child(1) {  /*the first cell in each tr*/
         window.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Customer/Index';
                     break;
             }
 
