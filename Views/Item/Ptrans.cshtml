@@ -5,46 +5,54 @@
 }
 
 <h2>廠商歷史價</h2>
-<table class="table table-hover table-dark">
-    <tr>
-        <th class="h1">
-            廠商號碼
-        </th>
-        <th class="h1">
-            廠商名稱
-        </th>
-        <th class="h1">
-            成交日
-        </th>
-        <th class="h1">
-            成交價
-        </th>
-        <th class="h1">
-            成交量
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table id="table"
+       data class="table table-hover table-dark"
+       data-toggle="table"
+       data-show-columns="true"
+       data-sort-class="table-active"
+       data-sortable="true"
+       data-height="800">
+    <thead class="bg-primary">
         <tr>
-            <td class="h1">
-                @Html.DisplayFor(modelItem => item.CODE)
-            </td>
-            <td class="h1">
-                @Html.DisplayFor(modelItem => item.NAME)
-            </td>
-            <td class="h1">
-                @Html.DisplayFor(modelItem => item.TRN_DATE)
-            </td>
-            <td class="h1">
-                @Html.DisplayFor(modelItem => item.PRICE)
-            </td>
-            <td class="h1">
-                @Html.DisplayFor(modelItem => item.QTY)
-            </td>
+            <th data-field="CODE" data-sortable="true" class="h1">
+                廠商號碼
+            </th>
+            <th data-field="NAME" class="h1">
+                廠商名稱
+            </th>
+            <th data-field="TNR_DATE" data-sortable="true" class="h1">
+                成交日
+            </th>
+            <th data-field="PRICE" data-sortable="true" class="h1">
+                成交價
+            </th>
+            <th data-field="QTY" data-sortable="true" class="h1">
+                成交量
+            </th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="h1">
+                    @Html.DisplayFor(modelItem => item.CODE)
+                </td>
+                <td class="h1">
+                    @Html.DisplayFor(modelItem => item.NAME)
+                </td>
+                <td class="h1">
+                    @Html.DisplayFor(modelItem => item.TRN_DATE)
+                </td>
+                <td class="h1">
+                    @Html.DisplayFor(modelItem => item.PRICE)
+                </td>
+                <td class="h1">
+                    @Html.DisplayFor(modelItem => item.QTY)
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 <script>
     if (navigator.userAgent.indexOf("MSIE") > 0) {
@@ -52,7 +60,7 @@
         document.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Item/Index';
                     break;
             }
         }
@@ -61,7 +69,7 @@
         window.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Item/Index';
                     break;
             }
 

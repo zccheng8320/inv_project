@@ -145,7 +145,7 @@ else {
         switch (event.keyCode) {
             case 49:
             case 97:
-                window.location.href = '/'+page+'/Search';
+                window.location.href = '/'+page+'/Search?id=' + id;
                 break;
             case 50:
             case 98:
@@ -168,9 +168,11 @@ else {
                 alert('6');
                 break;
             case 55:
+            case 103:
                 window.location.href = '/'+page+'/Ptrans?ITEM_NO='+ITEM_NO;
                 break;
             case 56:
+            case 104:
                 window.location.href = '/' + page + '/Itrans?ITEM_NO=' + ITEM_NO;
                 break;
             case 104:

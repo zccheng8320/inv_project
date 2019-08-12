@@ -144,9 +144,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\CUSTOMERController.cs" />
+    <Compile Include="Controllers\API\EmployController.cs" />
     <Compile Include="Controllers\API\FactoryController.cs" />
     <Compile Include="Controllers\API\ItemController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\EmployController.cs" />
     <Compile Include="Controllers\FactoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
@@ -333,6 +335,10 @@
     <Content Include="Views\Item\Update.cshtml" />
     <Content Include="Views\Item\Ptrans.cshtml" />
     <Content Include="Views\Item\Itrans.cshtml" />
+    <Content Include="Views\Employ\Index.cshtml" />
+    <Content Include="Views\Employ\Search.cshtml" />
+    <Content Include="Views\Employ\Insert.cshtml" />
+    <Content Include="Views\Employ\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -38,9 +38,12 @@ namespace INV_Project.Controllers
             }      
             return View(p);
         }
-        public ActionResult Search()
+        public ActionResult Search(int id=0)
         {
-            return View();
+            var search = (from d in db.CUSTOMER where d.ID < id select d).OrderByDescending(d => d.ID).Take(30);
+            var search2 = (from d in db.CUSTOMER where d.ID > id select d).OrderBy(d => d.ID).Take(30);
+            var p = search2.Union(search);
+            return View(p.ToList());
         }
         public ActionResult Insert()
         {
@@ -51,35 +54,39 @@ namespace INV_Project.Controllers
             , string TELEPHONE, string SAL_NO, string FAX, string PAY_DATE, string PRT_LAB, string REMARK)
         {
             var check = db.CUSTOMER.Where(m => m.CUST_CODE == CUST_CODE).FirstOrDefault();
-            if (check==null && CUST_CODE != "")
+            if ( CUST_CODE != "")
             {
-                var search = (from d in db.CUSTOMER select d).OrderByDescending(d => d.ID).FirstOrDefault();
-                int id = search.ID + 1;
-                CUSTOMER p = new CUSTOMER();
-                p.ID = id;
-                p.CUST_CODE = CUST_CODE;
-                p.CUST_NAME = CUST_NAME;
-                p.ADDRESS1 = ADDRESS1;
-                p.ADDRESS2 = ADDRESS2;
-                p.UNIFORM = UNIFORM;
-                p.PAY_WAY = PAY_WAY;
-                p.ATTENTION = ATTENTION;
-                p.TELEPHONE = TELEPHONE;
-                p.SAL_NO = SAL_NO;
-                p.FAX = FAX;
-                p.PAY_DATE = PAY_DATE;
-                p.PRT_LAB = PRT_LAB;
-                p.REMARK = REMARK;
-                p.TRN_DATE = "";
-                db.CUSTOMER.Add(p);
-                db.SaveChanges();
-                HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
-                Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
-                HttpContext.Response.Cookies.Add(Cookie);
-                // 0 代表失敗
+                if (check == null)
+                {
+                    var search = (from d in db.CUSTOMER select d).OrderByDescending(d => d.ID).FirstOrDefault();
+                    int id = search.ID + 1;
+                    CUSTOMER p = new CUSTOMER();
+                    p.ID = id;
+                    p.CUST_CODE = CUST_CODE;
+                    p.CUST_NAME = CUST_NAME;
+                    p.ADDRESS1 = ADDRESS1;
+                    p.ADDRESS2 = ADDRESS2;
+                    p.UNIFORM = UNIFORM;
+                    p.PAY_WAY = PAY_WAY;
+                    p.ATTENTION = ATTENTION;
+                    p.TELEPHONE = TELEPHONE;
+                    p.SAL_NO = SAL_NO;
+                    p.FAX = FAX;
+                    p.PAY_DATE = PAY_DATE;
+                    p.PRT_LAB = PRT_LAB;
+                    p.REMARK = REMARK;
+                    p.TRN_DATE = "";
+                    db.CUSTOMER.Add(p);
+                    db.SaveChanges();
+                    HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
+                    Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
+                    HttpContext.Response.Cookies.Add(Cookie);
+                    // 0 代表失敗
+                }
+                else
+                    TempData["Inser_Code"] = 1;
             }
-            else
-                TempData["Inser_Code"] = 1;
+            
             return RedirectToAction("Index");
         }
         public ActionResult Update(int id)

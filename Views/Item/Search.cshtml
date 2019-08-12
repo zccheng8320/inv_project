@@ -1,4 +1,5 @@
-﻿<hr>
+﻿@model IEnumerable<INV_Project.Models.ITEM>
+<hr>
 <div class="input-group input-group-lg">
     <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-lg">搜尋框</span>
@@ -7,7 +8,7 @@
 </div>
 <hr>
 <table id="click" class="table table-hover table-dark">
-    <thead>
+    <thead class="bg-primary">
         <tr>
             <th class="h2">產品號碼</th>
             <th colspan="2" class="h2">品名規格</th>
@@ -19,6 +20,37 @@
             <th class="h2">異動日期</th>
         </tr>
     </thead>
+    <tbody id="defaultValue">
+        @foreach (var item in Model)
+        {
+        <tr id="@item.ID">
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.ITEM_NO)
+            </td>
+            <td class="h2" colspan="2">
+                @Html.DisplayFor(modelItem => item.NAME1)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.UNIT)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.CLASS)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.QTY)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.S_PRICE)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.U_PRICE)
+            </td>
+            <td class="h2">
+                @Html.DisplayFor(modelItem => item.TRN_DATE)
+            </td>
+        </tr>
+        }
+    </tbody>
     <tbody id="tbodyshow">
     </tbody>
 </table>
@@ -26,15 +58,15 @@
         integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
         crossorigin="anonymous"></script>
 <script>
-    var page='Item';
+    var page = 'Item';
     document.getElementById('Search').focus();
     var href = "/" + page + "/Index";
     if (navigator.userAgent.indexOf("MSIE") > 0) {
         //IE
         document.onkeyup = function () {
-            switch (event.keyCode) {               
-                case 27:                  
-                    whistory.go(-1);
+            switch (event.keyCode) {
+                case 27:
+                    window.location.href = '/' + page + '/Index';
                     break;
             }
         }
@@ -43,7 +75,7 @@
         window.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/' + page + '/Index';
                     break;
             }
         }
@@ -77,17 +109,23 @@
 
         $("#Search").keyup(function () {
             var searchText = $("#Search").val().toLowerCase();
-            ajaxSearchData(searchText);
-            
+            if (searchText != "") {
+                $("#defaultValue").hide();
+                ajaxSearchData(searchText);
+            }
+            else {
+                $("#defaultValue").show();
+            }
+
         });
-        $(document).on("click","#click tr",function () {
+        $(document).on("click", "#click tr", function () {
             var ID = $(this).attr("id");
             if (ID) {
-                 var date = new Date();
+                var date = new Date();
                 date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
                 var expires = "; expires=" + date.toGMTString();
                 document.cookie = "IID=" + ID + expires + "; path=/";
-                var href = "/"+page+"/Index?ID=" + ID;
+                var href = "/" + page + "/Index?ID=" + ID;
                 window.location.href = href;
             }
         });

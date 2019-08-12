@@ -1,0 +1,264 @@
+﻿@model INV_Project.Models.EMPLOY
+@{
+    ViewData["Title"] = "業務基本資料";
+    if (TempData["Inser_Code"]!=null)
+    {
+        <script type="text/javascript">
+        alert("新增失敗，業務編號重複");
+        </script>
+    }
+}
+<main role="main" class="inner cover">
+    <h1>業務基本資料</h1>
+
+    <table class="table table-hover table-dark">
+        <tbody id="tbodyshow" align="left">
+            <tr>
+                <td colspan="1" class="h1">業務編號: @Html.DisplayFor(modelItem => modelItem.SAL_NO)</td>
+                <td colspan="2" class="h1">&emsp;&emsp;&emsp;姓名: @Html.DisplayFor(modelItem => modelItem.NAME)</td>
+            </tr>
+            <tr>
+                <td colspan="1" class="h1">&emsp;&emsp;姓別: @Html.DisplayFor(modelItem => modelItem.SEX)</td>
+                <td colspan="1" class="h1">&emsp;&emsp;&emsp;血型: @Html.DisplayFor(modelItem => modelItem.BLOOD)</td>
+                <td colspan="1" class="h1">&emsp;籍貫: @Html.DisplayFor(modelItem => modelItem.B_PLACE)</td>
+            </tr>
+            <tr>
+                <td colspan="1" class="h1">出生日期: @Html.DisplayFor(modelItem => modelItem.BIRTHDAY)</td>
+                <td colspan="1" class="h1">身分證字號: @Html.DisplayFor(modelItem => modelItem.ID_NO)</td>
+                <td colspan="1" class="h1">&emsp;婚別: @Html.DisplayFor(modelItem => modelItem.MARRY)</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="h1">&emsp;通訊處: @Html.DisplayFor(modelItem => modelItem.ADDRESS1)</td>
+            </tr>
+            <tr>
+                <td colspan="1" class="h1">聯絡電話: @Html.DisplayFor(modelItem => modelItem.TEL1)</td>
+                <td colspan="2" class="h1">&emsp;行動電話: @Html.DisplayFor(modelItem => modelItem.BBCALL)</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="h1">戶籍地址: @Html.DisplayFor(modelItem => modelItem.ADDRESS2)</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="h1">戶籍電話: @Html.DisplayFor(modelItem => modelItem.TEL2)</td>
+            </tr>
+            <tr>
+                <td colspan="1" class="h1">&emsp;&emsp;學歷: @Html.DisplayFor(modelItem => modelItem.EDUCAT)</td>
+                <td colspan="1" class="h1">&emsp;&emsp;&emsp;經歷: @Html.DisplayFor(modelItem => modelItem.EXPERIENC)</td>
+                <td colspan="1" class="h1">&emsp;部門: @Html.DisplayFor(modelItem => modelItem.UNIT)</td>
+            </tr>
+            <tr>
+                <td colspan="1" class="h1">&emsp;&emsp;職別: @Html.DisplayFor(modelItem => modelItem.JOB)</td>
+                <td colspan="1" class="h1">&emsp;&emsp;到職日: @Html.DisplayFor(modelItem => modelItem.A_DATE)</td>
+                <td colspan="1" class="h1">離職日: @Html.DisplayFor(modelItem => modelItem.L_DATE)</td>
+            </tr>
+            <tr>
+                <td colspan="1" class="h1">&emsp;聯絡人: @Html.DisplayFor(modelItem => modelItem.ATTENTION)</td>
+                <td colspan="3" class="h1">&emsp;&emsp;&emsp;關係: @Html.DisplayFor(modelItem => modelItem.RELATION)</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="h1">聯絡地址: @Html.DisplayFor(modelItem => modelItem.REL_ADDR)</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="h1">聯絡電話: @Html.DisplayFor(modelItem => modelItem.REL_TEL)</td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+<footer class="mastfoot mt-auto">
+    <div class="inner">
+        <table class="table  table-dark">
+            <tbody align="left">
+                <tr>
+                    <td class="h3">1>查詢</td>
+                    <td class="h3">2>新增</td>
+                    <td class="h3">3>更改</td>
+                    <td class="h3">4>刪除</td>
+                    <td class="h3">C>複製</td>
+                    <td class="h3">6>印表</td>
+                    <td class="h3">+>下筆</td>
+                    <td class="h3">->上筆</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</footer>
+<script src="~/Scripts/jquery-1.10.2.js"
+        integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        var SAL_NO = "@Model.SAL_NO";
+if (navigator.userAgent.indexOf("MSIE") > 0) {
+    //IE
+    document.onkeyup = function () {
+        switch (event.keyCode) {
+            case 49:
+                window.location.href = '/Employ/Search';
+                break;
+            case 50:
+                alert('2');
+                break;
+            case 51:
+                window.location.href = '/Employ/Insert';
+                break;
+            case 52:
+                alert('4');
+                break;
+            case 53:
+                alert('5');
+                break;
+            case 54:
+                alert('6');
+                break;
+            case 55:
+                alert('7');
+                break;
+            case 56:
+                window.location.href = '/Employ/CustItem?CUST_CODE='+CCODE;
+                break;
+            case 65:
+                alert('A');
+                break;
+            case 67:
+                alert('C');
+                break;
+            case 87:
+                alert('W');
+                break;
+            case 85:
+                alert('U');
+                break;
+        }
+    }
+}
+else {
+    window.onkeyup = function () {
+        switch (event.keyCode) {
+            case 49:
+            case 97:
+                window.location.href = '/Employ/Search';
+                break;
+            case 50:
+            case 98:
+                window.location.href = '/Employ/Insert';
+                break;
+            case 51:
+            case 99:
+                window.location.href = '/Employ/Update?SAL_NO=' + SAL_NO;
+                break;
+            case 52:
+            case 100:
+                var password = prompt("請輸入密碼", "")
+                if (password != "" && password != null)
+                    window.location.href = '/Employ/Delete?SAL_NO=' + SAL_NO + '&password=' + password;
+                break;
+            case 53:
+                alert('5');
+                break;
+            case 54:
+                alert('6');
+                break;
+            case 55:
+                alert('7');
+                break;
+            case 56:
+            case 104:
+                window.location.href = '/Employ/CustItem?CUST_CODE='+CCODE;
+                break;
+            case 65:
+                window.location.href = '/Employ/CustREC?CODE='+CCODE;
+                break;
+            case 67:
+                alert('C');
+                break;
+            case 87:
+                alert('W');
+                break;
+            case 85:
+                alert('U');
+                break;
+            case 109:
+                Sajax(0);
+                break;
+            case 107:
+                Sajax(1);
+                break;
+            case 27:
+                window.location.href = '/Home/Index'; // Navigate to URL
+                break;
+        }
+    }
+        }
+
+var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Employ";
+
+    function Sajax(tmp) {
+    $.ajax({
+        url: apiurl + "?SAL_NO=" + SAL_NO + "&preOrNext=" + tmp,
+        type: 'GET',
+        success: function (data) {
+            if (data != null) {
+                $("#tbodyshow").empty();
+                SAL_NO = data.SAL_NO;
+                $("#tbodyshow").append(
+                    '<tr><td colspan="1" class="h1">業務編號: ' + data.SAL_NO + '</td >' +
+                    '<td colspan="2" class="h1">&emsp;&emsp;&emsp;姓名: '+ data.NAME + '</td></tr>' +
+                    '<tr>' +
+                    '<td colspan="1" class="h1">&emsp;&emsp;姓別:' + data.SEX + '</td>' +
+                    '<td colspan="1" class="h1">&emsp;&emsp;&emsp;血型:' + data.BLOOD + '</td>' +
+                    '<td colspan="1" class="h1">&emsp;籍貫:' + data.B_PLACE + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td colspan="1" class="h1">出生日期:' + data.BIRTHDAY + '</td>' +
+                    '<td colspan="1" class="h1">身分證字號:' + data.ID_NO + '</td>' +
+                    '<td colspan="1" class="h1">&emsp;婚別:' + data.MARRY + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td colspan="3" class="h1">&emsp;通訊處:' + data.ADDRESS1 + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td colspan="1" class="h1">聯絡電話:' + data.TEL1 + '</td>' +
+                    '<td colspan="2" class="h1">&emsp;行動電話:' + data.BBCALL + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td colspan="3" class="h1">戶籍地址:' + data.ADDRESS2 + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td colspan="3" class="h1">戶籍電話:' + data.TEL2 + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td colspan="1" class="h1">&emsp;&emsp;學歷:' + data.EDUCAT + '</td>' +
+                    '<td colspan="1" class="h1">&emsp;&emsp;&emsp;經歷:' + data.EXPERIENC + '</td>' +
+                    '<td colspan="1" class="h1">&emsp;部門:' + data.UNIT + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td colspan="1" class="h1">&emsp;&emsp;職別:' + data.JOB + '</td>' +
+                    '<td colspan="1" class="h1">&emsp;&emsp;到職日:' + data.A_DATE + '</td>' +
+                    '<td colspan="1" class="h1">離職日:' + data.L_DATE + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td colspan="1" class="h1">&emsp;聯絡人:' + data.ATTENTION + '</td>' +
+                    '<td colspan="3" class="h1">&emsp;&emsp;&emsp;關係:' + data.RELATION + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td colspan="3" class="h1">聯絡地址:' + data.REL_ADDR + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td colspan="3" class="h1">聯絡電話:' + data.REL_TEL + '</td>' +
+                    '</tr>'
+                );
+                var date = new Date();
+                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+                document.cookie = "SAL_NO=" + SAL_NO + expires + "; path=/";
+            }
+            else {
+                alert("已達最後一筆");
+            }
+
+        }
+
+    });
+}
+});
+</script>
+

@@ -1,0 +1,112 @@
+﻿@model INV_Project.Models.EMPLOY
+@{
+    ViewData["Title"] = "業務基本資料";
+    var year = DateTime.Now.Year - 1911;
+    var month = "" + DateTime.Now.Month;
+    var day = "" + DateTime.Now.Day;
+    if (DateTime.Now.Month < 10)
+    { month = "0" + month; }
+    if (DateTime.Now.Day < 10)
+    { day = "0" + day; }
+    var today = year + "." + month + "." + day;
+}
+<style>
+    input {
+        padding: 0px 5px;
+        background: #ccc;
+        border: 2px black solid;
+        color: forestgreen;
+        max-width: 1000px;
+        width: 100%;
+    }
+</style>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "target" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.SAL_NO)
+    <main role="main" class="inner cover">
+        <h1>客戶基本資料</h1>
+        <div class="form-group">
+            <table class="table table-hover table-dark">
+                <tbody id="tbodyshow" align="left">
+                    <tr>
+                        <td colspan="1" class="h1">業務編號: @Html.DisplayFor(modelItem => modelItem.SAL_NO)</td>
+                        <td colspan="2" class="h1">&emsp;&emsp;&emsp;姓名: @Html.TextBoxFor(modelItem => modelItem.NAME, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="h1">&emsp;&emsp;姓別: @Html.TextBoxFor(modelItem => modelItem.SEX, new { style = "width:300px" })</td>
+                        <td colspan="1" class="h1">&emsp;&emsp;&emsp;血型: @Html.TextBoxFor(modelItem => modelItem.BLOOD, new { style = "width:300px" })</td>
+                        <td colspan="1" class="h1">&emsp;籍貫: @Html.TextBoxFor(modelItem => modelItem.B_PLACE, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="h1">出生日期: @Html.TextBoxFor(modelItem => modelItem.BIRTHDAY, new { style = "width:300px" })</td>
+                        <td colspan="1" class="h1">身分證字號: @Html.TextBoxFor(modelItem => modelItem.ID_NO, new { style = "width:300px" })</td>
+                        <td colspan="1" class="h1">&emsp;婚別: @Html.TextBoxFor(modelItem => modelItem.MARRY, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="h1">&emsp;通訊處: @Html.TextBoxFor(modelItem => modelItem.ADDRESS1, new { style = "width:800px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="h1">聯絡電話: @Html.TextBoxFor(modelItem => modelItem.TEL1, new { style = "width:300px" })</td>
+                        <td colspan="2" class="h1">&emsp;行動電話: @Html.TextBoxFor(modelItem => modelItem.BBCALL, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="h1">戶籍地址: @Html.TextBoxFor(modelItem => modelItem.ADDRESS2, new { style = "width:800px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="h1">戶籍電話: @Html.TextBoxFor(modelItem => modelItem.TEL2, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="h1">&emsp;&emsp;學歷: @Html.TextBoxFor(modelItem => modelItem.EDUCAT, new { style = "width:300px" })</td>
+                        <td colspan="1" class="h1">&emsp;&emsp;&emsp;經歷: @Html.TextBoxFor(modelItem => modelItem.EXPERIENC, new { style = "width:300px" })</td>
+                        <td colspan="1" class="h1">&emsp;部門: @Html.TextBoxFor(modelItem => modelItem.UNIT, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="h1">&emsp;&emsp;職別: @Html.TextBoxFor(modelItem => modelItem.JOB, new { style = "width:300px" })</td>
+                        <td colspan="1" class="h1">&emsp;&emsp;到職日: @Html.TextBoxFor(modelItem => modelItem.A_DATE, new { style = "width:300px" })</td>
+                        <td colspan="1" class="h1">離職日: @Html.TextBoxFor(modelItem => modelItem.L_DATE, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="h1">&emsp;聯絡人: @Html.TextBoxFor(modelItem => modelItem.ATTENTION, new { style = "width:300px" })</td>
+                        <td colspan="3" class="h1">&emsp;&emsp;&emsp;關係: @Html.TextBoxFor(modelItem => modelItem.RELATION, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="h1">聯絡地址: @Html.TextBoxFor(modelItem => modelItem.REL_ADDR, new { style = "width:300px" })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="h1">聯絡電話: @Html.TextBoxFor(modelItem => modelItem.REL_TEL, new { style = "width:300px" })</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="儲存" class="btn btn-danger btn-lg" accesskey="s" />
+        </div>
+    </main>
+}
+<script>
+    document.getElementById('NAME').focus();
+    if (navigator.userAgent.indexOf("MSIE") > 0) {
+        //IE
+        document.onkeyup = function () {
+            switch (event.keyCode) {
+                case 27:
+                    window.location.href = '/Employ/Index';
+                    break;
+            }
+        }
+    }
+    else {
+        window.onkeyup = function () {
+            switch (event.keyCode) {
+                case 27:
+                    window.location.href = '/Employ/Index';
+                    break;
+            }
+
+        }
+    }
+</script>
+
+
+

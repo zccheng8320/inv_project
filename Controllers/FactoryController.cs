@@ -37,9 +37,12 @@ namespace INV_Project.Controllers
             }
             return View(p);
         }
-        public ActionResult Search()
+        public ActionResult Search(int id=0)
         {
-            return View();
+            var search = (from d in db.FACTORY where d.ID < id select d).OrderByDescending(d => d.ID).Take(30);
+            var search2 = (from d in db.FACTORY where d.ID > id select d).OrderBy(d => d.ID).Take(30);
+            var p = search2.Union(search);
+            return View(p.ToList());
         }
         public ActionResult Insert()
         {
@@ -50,33 +53,37 @@ namespace INV_Project.Controllers
             , string TELEPHONE, string FAX, string REMARK, string TRN_DATE)
         {
             var check = db.FACTORY.Where(m => m.FACT_CODE == FACT_CODE).FirstOrDefault();
-            if (check== null && FACT_CODE != "")
+            if ( FACT_CODE != "")
             {
-                var search = (from d in db.FACTORY select d).OrderByDescending(d => d.ID).FirstOrDefault();
-                int id = search.ID + 1;
-                FACTORY p = new FACTORY();
-                p.ID = id;
-                p.FACT_CODE = FACT_CODE;
-                p.FACT_NAME = FACT_NAME;
-                p.ADDRESS1 = ADDRESS1;
-                p.ADDRESS2 = ADDRESS2;
-                p.UNIFORM = UNIFORM;
-                p.PAY_WAY = PAY_WAY;
-                p.ATTENTION = ATTENTION;
-                p.TELEPHONE = TELEPHONE;
-                p.FAX = FAX;
-                p.REMARK = REMARK;
-                p.TRN_DATE = "";
-                db.FACTORY.Add(p);
-                db.SaveChanges();
-                HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
-                Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
-                HttpContext.Response.Cookies.Add(Cookie);
-                // 成功
-                
+                if (check == null)
+                {
+                    var search = (from d in db.FACTORY select d).OrderByDescending(d => d.ID).FirstOrDefault();
+                    int id = search.ID + 1;
+                    FACTORY p = new FACTORY();
+                    p.ID = id;
+                    p.FACT_CODE = FACT_CODE;
+                    p.FACT_NAME = FACT_NAME;
+                    p.ADDRESS1 = ADDRESS1;
+                    p.ADDRESS2 = ADDRESS2;
+                    p.UNIFORM = UNIFORM;
+                    p.PAY_WAY = PAY_WAY;
+                    p.ATTENTION = ATTENTION;
+                    p.TELEPHONE = TELEPHONE;
+                    p.FAX = FAX;
+                    p.REMARK = REMARK;
+                    p.TRN_DATE = "";
+                    db.FACTORY.Add(p);
+                    db.SaveChanges();
+                    HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
+                    Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
+                    HttpContext.Response.Cookies.Add(Cookie);
+                    // 成功
+
+                }
+                else
+                    TempData["Inser_Code"] = 1;
             }
-            else
-                TempData["Inser_Code"] = 1;
+            
             return RedirectToAction("Index");
         }
         public ActionResult Update(int id)

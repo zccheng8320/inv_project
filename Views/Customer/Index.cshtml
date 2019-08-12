@@ -50,6 +50,7 @@
                 <td class="h1">異動日期: @Html.DisplayFor(modelItem => modelItem.TRN_DATE) </td>
             </tr>
         </tbody>
+
     </table>
 </main>
 <footer class="mastfoot mt-auto">
@@ -71,7 +72,6 @@
                     <td class="h3">C>複製</td>
                     <td class="h3">+>下筆</td>
                     <td class="h3">->上筆</td>
-                    <td class="h3">*>多筆</td>
                     <td></td>
                 </tr>
             </tbody>
@@ -90,7 +90,7 @@ if (navigator.userAgent.indexOf("MSIE") > 0) {
     document.onkeyup = function () {
         switch (event.keyCode) {
             case 49:
-                window.location.href = '/Customer/Search';
+                window.location.href = '/Customer/Search?CUST_CODE='+CCODE;
                 break;
             case 50:
                 alert('2');
@@ -133,7 +133,7 @@ else {
         switch (event.keyCode) {
             case 49:
             case 97:
-                window.location.href = '/Customer/Search';
+                window.location.href = '/Customer/Search?id='+id;
                 break;
             case 50:
             case 98:

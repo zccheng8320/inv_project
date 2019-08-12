@@ -4,72 +4,82 @@
     ViewBag.Title = "產品交易";
 }
 
-    <h2>產品交易</h2>
-<table class="table table-hover table-dark">
+<h2>產品交易</h2>
+<table id="table"
+       data class="table table-hover table-dark"
+       data-toggle="table"
+       data-show-columns="true"
+       data-sort-class="table-active"
+       data-sortable="true"
+       data-height="800">
+<thead class="bg-primary">
     <tr>
-        <th class="h1">
+        <th data-field="CODE" data-sortable="true" class="h1">
             客戶號碼
         </th>
-        <th class="h1">
+        <th data-field="NAME" data-sortable="true" class="h1">
             客戶名稱
         </th>
-        <th class="h1">
+        <th data-field="TRN_)DATE" data-sortable="true" class="h1">
             成交日
         </th>
-        <th class="h1">
+        <th data-field="PRICE" data-sortable="true" class="h1">
             成交價
         </th>
-        <th class="h1">
+        <th data-field="QTY" data-sortable="true" class="h1">
             成交量
         </th>
-        <th class="h1">
+        <th data-field="COST" data-sortable="true" class="h1">
             成本
         </th>
-        <th class="h1">
+        <th data-field="SAL_CODE" class="h1">
             註
         </th>
-        <th class="h1">
+        <th data-field="ES" data-sortable="true" class="h1">
             %
         </th>
-        <th class="h1">
+        <th data-field="ORD_NO" class="h1">
             備註
         </th>
     </tr>
-
+</thead>
+<tbody>
     @foreach (var item in Model)
     {
-        double? Earn = ((item.PRICE - item.COST) / item.COST)*100;
+        double? Earn = ((item.PRICE - item.COST) / item.COST) * 100;
         string e_s = Convert.ToDouble(Earn).ToString("00.00");
-<tr>
-    <td class="h1">
-        @Html.DisplayFor(modelItem => item.CODE)
-    </td>
-    <td class="h1">
-        @Html.DisplayFor(modelItem => item.NAME)
-    </td>
-    <td class="h1">
-        @Html.DisplayFor(modelItem => item.TRN_DATE)
-    </td>
-    <td class="h1">
-        @Html.DisplayFor(modelItem => item.PRICE)
-    </td>
-    <td class="h1">
-        @Html.DisplayFor(modelItem => item.QTY)
-    </td>
-    <td class="h1">
-        @Html.DisplayFor(modelItem => item.COST)
-    </td>
-    <td class="h1">
-        @Html.DisplayFor(modelItem => item.SAL_CODE)
-    </td>
-    <td class="h1">
-        @e_s
-    </td>
-    <td class="h1">
-        @Html.DisplayFor(modelItem => item.ORD_NO)
-    </td>
-</tr>
+        <tr>
+            <td class="h1">
+                @Html.DisplayFor(modelItem => item.CODE)
+            </td>
+            <td class="h1">
+                @Html.DisplayFor(modelItem => item.NAME)
+            </td>
+            <td class="h1">
+                @Html.DisplayFor(modelItem => item.TRN_DATE)
+            </td>
+            <td class="h1">
+                @Html.DisplayFor(modelItem => item.PRICE)
+            </td>
+            <td class="h1">
+                @Html.DisplayFor(modelItem => item.QTY)
+            </td>
+            <td class="h1">
+                @Html.DisplayFor(modelItem => item.COST)
+            </td>
+            <td class="h1">
+                @Html.DisplayFor(modelItem => item.SAL_CODE)
+            </td>
+            <td class="h1">
+                @e_s
+            </td>
+            <td class="h1">
+                @Html.DisplayFor(modelItem => item.ORD_NO)
+            </td>
+        </tr>
     }
+</tbody>
+
 
 </table>
 <script>
@@ -78,7 +88,7 @@
         document.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                   window.location.href = '/Item/Index';
                     break;
             }
         }
@@ -87,7 +97,7 @@
         window.onkeyup = function () {
             switch (event.keyCode) {
                 case 27:
-                    history.go(-1);
+                    window.location.href = '/Item/Index';
                     break;
             }
 

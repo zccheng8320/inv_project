@@ -37,9 +37,12 @@ namespace INV_Project.Controllers
             }
             return View(p);
         }
-        public ActionResult Search()
+        public ActionResult Search(int id=0)
         {
-            return View();
+            var search = (from d in db.ITEM where d.ID < id select d).OrderByDescending(d => d.ID).Take(30);
+            var search2 = (from d in db.ITEM where d.ID > id select d).OrderBy(d => d.ID).Take(30);
+            var p = search2.Union(search);
+            return View(p.ToList());
         }
         public ActionResult Insert()
         {
@@ -50,40 +53,43 @@ namespace INV_Project.Controllers
             , double BLA_QTY, double P_QTY, double R_QTY, double G_QTY, double I_QTY, double SQTY)
         {
             var check = db.ITEM.Where(m => m.ITEM_NO == ITEM_NO).FirstOrDefault();
-            if(check==null && ITEM_NO != "")
+            if(ITEM_NO != "")
             {
-                var search = (from d in db.ITEM select d).OrderByDescending(d => d.ID).FirstOrDefault();
-                int id = search.ID + 1;
-                ITEM p = new ITEM();
-                p.ID = id;
-                p.ITEM_NO = ITEM_NO;
-                p.CLASS = CLASS;
-                p.NAME1 = NAME1;
-                p.NAME2 = NAME2;
-                p.S_PRICE = S_PRICE;
-                p.C_PRICE = C_PRICE;
-                p.U_PRICE = U_PRICE;
-                p.UNIT = UNIT;
-                p.QTY = QTY;
-                p.S1_QTY = S1_QTY;
-                p.S2_QTY = S2_QTY;
-                p.BLA_QTY = BLA_QTY;
-                p.P_QTY = P_QTY;
-                p.R_QTY = R_QTY;
-                p.I_QTY = I_QTY;
-                p.SQTY = SQTY;
-                p.TRN_DATE = "";
-                p.SDATE = "";
-                db.ITEM.Add(p);
-                db.SaveChanges();
-                HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
-                Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
-                HttpContext.Response.Cookies.Add(Cookie);
-            }
-            else
-            {
-                TempData["Inser_Code"] = 1;
-            }
+                if (check == null)
+                {
+                    var search = (from d in db.ITEM select d).OrderByDescending(d => d.ID).FirstOrDefault();
+                    int id = search.ID + 1;
+                    ITEM p = new ITEM();
+                    p.ID = id;
+                    p.ITEM_NO = ITEM_NO;
+                    p.CLASS = CLASS;
+                    p.NAME1 = NAME1;
+                    p.NAME2 = NAME2;
+                    p.S_PRICE = S_PRICE;
+                    p.C_PRICE = C_PRICE;
+                    p.U_PRICE = U_PRICE;
+                    p.UNIT = UNIT;
+                    p.QTY = QTY;
+                    p.S1_QTY = S1_QTY;
+                    p.S2_QTY = S2_QTY;
+                    p.BLA_QTY = BLA_QTY;
+                    p.P_QTY = P_QTY;
+                    p.R_QTY = R_QTY;
+                    p.I_QTY = I_QTY;
+                    p.SQTY = SQTY;
+                    p.TRN_DATE = "";
+                    p.SDATE = "";
+                    db.ITEM.Add(p);
+                    db.SaveChanges();
+                    HttpCookie Cookie = new HttpCookie(CookieID, p.ID.ToString());
+                    Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
+                    HttpContext.Response.Cookies.Add(Cookie);
+                }
+                else
+                {
+                    TempData["Inser_Code"] = 1;
+                }
+            }          
             return RedirectToAction("Index");
         }
         public ActionResult Update(int id)
