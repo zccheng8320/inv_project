@@ -152,6 +152,7 @@
     <Compile Include="Controllers\FactoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\PSIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -339,6 +340,8 @@
     <Content Include="Views\Employ\Search.cshtml" />
     <Content Include="Views\Employ\Insert.cshtml" />
     <Content Include="Views\Employ\Update.cshtml" />
+    <Content Include="Views\PSI\Index.cshtml" />
+    <Content Include="Views\PSI\Sales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

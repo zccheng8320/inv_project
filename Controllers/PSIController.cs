@@ -1,27 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using INV_Project.Models;
+
 namespace INV_Project.Controllers
 {
-    public class HomeController : Controller
+    public class PSIController : Controller
     {
-        private invEntities db = new invEntities();
+        // GET: PSI
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Contact()
-        {
-            return View();
-        }
-        public ActionResult PSMS()
+        public ActionResult Sales()
         {
             return View();
         }
     }
-
 }

@@ -26,13 +26,16 @@ namespace INV_Project
                       "~/Scripts/mdb.js"));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap-table").Include(
                       "~/Scripts/bootstrap-table.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                      "~/Scripts/select2.full.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/cover.css",
                        "~/Content/all.css",
-                        "~/Content/bootstrap-table.min.css"
+                        "~/Content/bootstrap-table.min.css",
+                        "~/Content/select2.css"
                       ));
         }
     }

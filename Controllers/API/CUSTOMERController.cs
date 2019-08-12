@@ -9,6 +9,11 @@ namespace INV_Project.Controllers.API
 {
     public class CUSTOMERController : ApiController
     {
+        public class Select2Ajax
+        {
+            public string id { get; set; }
+            public string text { get; set; }
+        }
         private invEntities db = new invEntities();
         // GET: api/CUSTOMER
         public List<CUSTOMER> Get(string search)
@@ -41,9 +46,17 @@ namespace INV_Project.Controllers.API
             }
         }
 
+
         // POST: api/CUSTOMER
-        public void Post([FromBody]string value)
+        [HttpPost]
+        public List<Select2Ajax> Post([FromBody]Select2Ajax select2Ajax)
         {
+            var p = (from c in db.CUSTOMER select new Select2Ajax { id = c.CUST_CODE, text = c.CUST_CODE+"("+c.CUST_NAME+")" }).Take(20);
+            if (select2Ajax != null)
+            {
+                p = from c in db.CUSTOMER where c.CUST_CODE.StartsWith(select2Ajax.text) || c.CUST_NAME.StartsWith(select2Ajax.text) select new Select2Ajax { id = c.CUST_CODE, text = c.CUST_CODE + "(" + c.CUST_NAME+")" };
+            }
+            return p.ToList();
         }
 
         // PUT: api/CUSTOMER/5

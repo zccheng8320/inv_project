@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "進出單據管理";
 }
 <script>
     if (navigator.userAgent.indexOf("MSIE") > 0) {
@@ -33,9 +33,9 @@
                 case 87:
                     alert('W');
                     break;
-                case 85:
-                    alert('U');
-                
+                case 27:
+                    window.location.href='/Home/Index';
+                    break;
 
             }
         }
@@ -66,7 +66,7 @@
                     alert('6');
                     break;
                 case 65:
-                    window.location.href='/PSI/Index';
+                    window.location.href='/Home/PSMS';
                     break;
                 case 67:
                     alert('C');
@@ -77,6 +77,9 @@
                 case 85:
                     alert('U');
                     break;
+                case 27:
+                    window.location.href='/Home/Index';
+                    break;
             }
 
         }
@@ -84,41 +87,35 @@
 </script>
 <script type="text/javascript" src="admin_js/addAdminCheck.js?randomId=<%=Math.random()%>"></script>
 <main role="main" class="inner cover">
-    
 
     <table class="table table-borderless table-dark">
         <tbody style="border:3px #808080 solid;padding:5px;">
             <tr style="border-bottom:3px #808080 solid;padding:5px;">
-                <td class="h1" colspan="3">♢♦♢&nbsp;庫&nbsp;存&nbsp;管&nbsp;理&nbsp;系&nbsp;統&nbsp;♢♦♢</td>
+                <td class="h1" colspan="3">✰✰✰&nbsp;進&nbsp;出&nbsp;單&nbsp;據&nbsp;管&nbsp;理&nbsp;✰✰✰</td>
             </tr>
             <tr>
-                <td class="h1"><a href="/Customer/Index">1. 客戶資料管理</a></td>
-                <td class="h1">A. 進出單據管理</td>
-                <td class="h1">W. 應收帳結算管理</td>
+                <td class="h1"><a href="/Customer/Index">1. 銷貨管理系統&emsp;&emsp;</a></td>
+                <td class="h1">A. 進貨管理系統&emsp;&emsp;</td>
+                <td class="h1">M. 領料管理系統</td>
             </tr>
             <tr>
-                <td class="h1">2. 廠商資料管理</td>
-                <td class="h1">C. 進銷報表列印</td>
-                <td class="h1">U. 庫存月結管理&emsp;</td>
+                <td class="h1">2. 銷售日報表&emsp;&emsp;&emsp;</td>
+                <td class="h1">B. 進貨日報表&emsp;&emsp;&emsp;</td>
+                <td class="h1">N. 入庫管理系統</td>
             </tr>
             <tr>
-                <td class="h1">3. 產品資料管理</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="h1">4. 業務資料管理</td>
-                <td></td>
+                <td class="h1">3. 銷貨金額查詢&emsp;&emsp;</td>
+                <td class="h1">C. 進貨金額查詢&emsp;&emsp;</td>
                 <td></td>
             </tr>
             <tr>
-                <td class="h1">5. 產品類別管理</td>
-                <td></td>
+                <td class="h1">4. 銷貨轉應收帳(輔)</td>
+                <td class="h1">D. 進貨轉應付帳(輔)</td>
                 <td></td>
             </tr>
             <tr>
-                <td class="h1">6. 客戶開發管理</td>
-                <td></td>
+                <td class="h1">5. 收款沖帳管理&emsp;&emsp;</td>
+                <td class="h1">E. 付款沖帳管理&emsp;&emsp;</td>
                 <td></td>
             </tr>
         </tbody>

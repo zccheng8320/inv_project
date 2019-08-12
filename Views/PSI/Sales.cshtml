@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Sales";
+}
+<h2>Sales</h2>
+<style>
+    .select2-selection__rendered {
+        line-height: 50px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 50px !important;
+    }
+
+    .select2-selection__arrow {
+        height: 50px !important;
+    }
+
+    .myFont {
+        font-size: 25px;
+        color: black;
+    }
+</style>
+<select id="itemCode" class="itemCode form-control" style="width:500px"></select>
+<script>
+    $(document).ready(function () {
+        var data = [
+            {
+                id: 0,
+                text: '請輸入編號',              
+            }
+        ];
+        $(".itemCode").on('select2:select', function (e) {
+            var data = e.params.data;
+            alert(data.text);
+        });
+        $(".itemCode").select2({
+            data: data,
+            dropdownCssClass: "myFont",
+            containerCssClass: "myFont",
+            maximumInputLength: 10,
+            minimumInputLength: 1,
+            ajax: {
+                url: "/api/Customer",
+                dataType: 'json',
+                delay: 250,
+                type:'post',
+                data: function (params) {
+                    return {
+                        text: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page | 1;
+                    return {
+                        results: data,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                }
+
+                }
+            }
+
+        })
+
+    });
+
+    
+</script>
