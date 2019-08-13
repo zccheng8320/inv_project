@@ -147,6 +147,7 @@
     <Compile Include="Controllers\API\EmployController.cs" />
     <Compile Include="Controllers\API\FactoryController.cs" />
     <Compile Include="Controllers\API\ItemController.cs" />
+    <Compile Include="Controllers\API\SalesController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployController.cs" />
     <Compile Include="Controllers\FactoryController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\RECMON.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Sales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -342,9 +344,11 @@
     <Content Include="Views\Employ\Update.cshtml" />
     <Content Include="Views\PSI\Index.cshtml" />
     <Content Include="Views\PSI\Sales.cshtml" />
+    <Content Include="Views\PSI\Insert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Sales\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

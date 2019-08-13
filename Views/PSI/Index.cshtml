@@ -1,4 +1,5 @@
-﻿@{
+﻿@model INV_Project.Models.Sales
+@{
     ViewData["Title"] = "進出單據管理";
 }
 <script>
@@ -7,16 +8,16 @@
         document.onkeyup = function () {
             switch (event.keyCode) {
                 case 49:
-                    window.location.href='/Customer/Index';
+                    window.location.href = '/Customer/Index';
                     break;
                 case 50:
-                    window.location.href='/Factory/Index';
+                    window.location.href = '/Factory/Index';
                     break;
                 case 51:
-                    window.location.href='/Item/Index';
+                    window.location.href = '/Item/Index';
                     break;
                 case 52:
-                    window.location.href='/Employ/Index';
+                    window.location.href = '/Employ/Index';
                     break;
                 case 53:
                     alert('5');
@@ -25,7 +26,7 @@
                     alert('6');
                     break;
                 case 65:
-                    window.location.href='/Home/PSMS';
+                    window.location.href = '/Home/PSMS';
                     break;
                 case 67:
                     alert('C');
@@ -34,7 +35,7 @@
                     alert('W');
                     break;
                 case 27:
-                    window.location.href='/Home/Index';
+                    window.location.href = '/Home/Index';
                     break;
 
             }
@@ -45,19 +46,19 @@
             switch (event.keyCode) {
                 case 49:
                 case 97:
-                    window.location.href='/Customer/Index';
+                    window.location.href = '/Customer/Index';
                     break;
                 case 98:
                 case 50:
-                     window.location.href='/Factory/Index';
+                    window.location.href = '/Factory/Index';
                     break;
                 case 99:
                 case 51:
-                     window.location.href='/Item/Index';
+                    window.location.href = '/Item/Index';
                     break;
                 case 100:
                 case 52:
-                    window.location.href='/Employ/Index';
+                    window.location.href = '/Employ/Index';
                     break;
                 case 53:
                     alert('5');
@@ -66,7 +67,7 @@
                     alert('6');
                     break;
                 case 65:
-                    window.location.href='/Home/PSMS';
+                    window.location.href = '/Home/PSMS';
                     break;
                 case 67:
                     alert('C');
@@ -78,7 +79,7 @@
                     alert('U');
                     break;
                 case 27:
-                    window.location.href='/Home/Index';
+                    window.location.href = '/Home/Index';
                     break;
             }
 

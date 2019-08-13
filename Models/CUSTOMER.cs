@@ -33,6 +33,7 @@ namespace INV_Project.Models
         public string RECAMT { get; set; }
         public string FOWAMT { get; set; }
         public string SAL_NO { get; set; }
+        public string SAL_NAME { get; set; }
         public string PRT_LAB { get; set; }
         public string TAX { get; set; }
         public string TRN_DATE { get; set; }

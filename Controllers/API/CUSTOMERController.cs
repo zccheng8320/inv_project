@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,11 +10,6 @@ namespace INV_Project.Controllers.API
 {
     public class CUSTOMERController : ApiController
     {
-        public class Select2Ajax
-        {
-            public string id { get; set; }
-            public string text { get; set; }
-        }
         private invEntities db = new invEntities();
         // GET: api/CUSTOMER
         public List<CUSTOMER> Get(string search)
@@ -49,12 +45,14 @@ namespace INV_Project.Controllers.API
 
         // POST: api/CUSTOMER
         [HttpPost]
-        public List<Select2Ajax> Post([FromBody]Select2Ajax select2Ajax)
+        public List<CUSTOMER> Post([FromBody]CUSTOMER select2Ajax)
         {
-            var p = (from c in db.CUSTOMER select new Select2Ajax { id = c.CUST_CODE, text = c.CUST_CODE+"("+c.CUST_NAME+")" }).Take(20);
-            if (select2Ajax != null)
+            
+            var p = (from c in db.CUSTOMER orderby c.TRN_DATE descending select c).Take(25);
+            Debug.WriteLine("string="+select2Ajax.CUST_CODE);
+            if (select2Ajax != null && select2Ajax.CUST_CODE!=null)
             {
-                p = from c in db.CUSTOMER where c.CUST_CODE.StartsWith(select2Ajax.text) || c.CUST_NAME.StartsWith(select2Ajax.text) select new Select2Ajax { id = c.CUST_CODE, text = c.CUST_CODE + "(" + c.CUST_NAME+")" };
+                p = from c in db.CUSTOMER where c.CUST_CODE.StartsWith(select2Ajax.CUST_CODE) || c.CUST_NAME.StartsWith(select2Ajax.CUST_CODE) select c;
             }
             return p.ToList();
         }
