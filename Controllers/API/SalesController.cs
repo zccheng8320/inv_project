@@ -11,9 +11,26 @@ namespace INV_Project.Controllers.API
     {
         private invEntities db = new invEntities();
         // GET: api/Sales
-        public IEnumerable<string> Get()
+        public List<Sales> Get(string search)
         {
-            return new string[] { "value1", "value2" };
+            var table = (from inv in db.INVOICE
+                         join c in db.CUSTOMER on inv.CODE equals c.CUST_CODE
+                         where inv.TRN_NO.StartsWith(search)
+                         ||inv.ACC_DATE.StartsWith(search)
+                         ||inv.TRN_DATE.StartsWith(search)
+                         ||c.CUST_CODE.StartsWith(search)
+                         || c.CUST_NAME.StartsWith(search)
+                         || c.TELEPHONE.StartsWith(search)
+                         select new Sales
+                         {
+                             TRN_NO = inv.TRN_NO,
+                             ACC_DATE = inv.ACC_DATE,
+                             TRN_DATE = inv.TRN_DATE,
+                             CODE = c.CUST_CODE,
+                             CUST_NAME = c.CUST_NAME,
+                             TELEPHONE = c.TELEPHONE,
+                         }).Distinct().OrderByDescending(m=>m.TRN_DATE).Take(200).ToList();
+            return table;
         }
 
         // GET: api/Sales/5
@@ -72,7 +89,9 @@ namespace INV_Project.Controllers.API
                              PRICE = t1.PRICE,
                              AMOUNT = t1.AMOUNT,
                              ACC_YN = inv.ACC_YN,
-                             ORD_NO = t1.ORD_NO
+                             ORD_NO = t1.ORD_NO,
+                             SAL_CODE = t1.SAL_CODE,
+                             COST = t4.C_PRICE
                          }).ToList();
             return table;
         }

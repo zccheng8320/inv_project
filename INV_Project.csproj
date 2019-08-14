@@ -148,6 +148,7 @@
     <Compile Include="Controllers\API\FactoryController.cs" />
     <Compile Include="Controllers\API\ItemController.cs" />
     <Compile Include="Controllers\API\SalesController.cs" />
+    <Compile Include="Controllers\API\SalesInesrtController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployController.cs" />
     <Compile Include="Controllers\FactoryController.cs" />
@@ -345,10 +346,10 @@
     <Content Include="Views\PSI\Index.cshtml" />
     <Content Include="Views\PSI\Sales.cshtml" />
     <Content Include="Views\PSI\Insert.cshtml" />
+    <Content Include="Views\PSI\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Sales\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

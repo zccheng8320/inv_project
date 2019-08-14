@@ -1,0 +1,127 @@
+﻿@model IEnumerable<INV_Project.Models.Sales>
+
+@{
+    ViewBag.Title = "搜尋頁面";
+}
+
+<hr>
+<div class="input-group input-group-lg">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-lg">搜尋框</span>
+    </div>
+    <input type="text" id="Search" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+</div>
+<hr>
+<table id="click" class="table table-hover table-dark">
+    <thead class="bg-primary">
+        <tr>
+            <th class="h2">單據號碼</th>
+            <th class="h2">出貨日期</th>
+            <th class="h2">收款月份</th>
+            <th class="h2">客戶編號</th>
+            <th colspan="2" c class="h2">客戶名稱</th>
+            <th class="h2">電話</th>
+        </tr>
+    </thead>
+    <tbody id="defaultValue">
+        @foreach (var item in Model)
+        {
+            <tr id="@item.TRN_NO">
+                <td class="h2">
+                    @Html.DisplayFor(modelItem => item.TRN_NO)
+                </td>
+                <td class="h2">
+                    @Html.DisplayFor(modelItem => item.TRN_DATE)
+                </td>
+                <td class="h2">
+                    @Html.DisplayFor(modelItem => item.ACC_DATE)
+                </td>
+                <td class="h2">
+                    @Html.DisplayFor(modelItem => item.CODE)
+                </td>
+                <td class="h2" colspan="2">
+                    @Html.DisplayFor(modelItem => item.CUST_NAME)
+                </td>
+                <td class="h2">
+                    @Html.DisplayFor(modelItem => item.TELEPHONE)
+                </td>           
+            </tr>
+        }
+    </tbody>
+    <tbody id="tbodyshow">
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-1.10.2.js"
+        integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
+        crossorigin="anonymous"></script>
+<script>
+    document.getElementById('Search').focus();
+    if (navigator.userAgent.indexOf("MSIE") > 0) {
+        //IE
+        document.onkeyup = function () {
+            switch (event.keyCode) {
+                case 27:
+                    window.location.href = '/PSI/Sales';
+                    break;
+            }
+        }
+    }
+    else {
+        window.onkeyup = function () {
+            switch (event.keyCode) {
+                case 27:
+                    window.location.href = '/PSI/Sales';
+                    break;
+            }
+        }
+    }
+    $(document).ready(function () {
+        var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Sales";
+
+        function ajaxSearchData(keyword) {
+            $.ajax({
+                url: apiurl + "?search=" + keyword,
+                type: 'GET',
+                success: function (data) {
+                    $("#tbodyshow").empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $("#tbodyshow").append(
+                            '<tr id ="' + data[i].TRN_NO + '">' +
+                            '<td class="h2">' + data[i].TRN_NO + '</td>' +
+                            '<td class="h2">' + data[i].TRN_DATE + '</td>' +
+                            '<td class="h2">' + data[i].ACC_DATE + '</td>' +
+                            '<td class="h2">' + data[i].CODE + '</td>' +
+                            '<td colspan="2" class="h2">' + data[i].CUST_NAME + '</td>' +
+                            '<td class="h2">' + data[i].TELEPHONE + '</td>' +
+                            "</tr>"
+                        );
+                    }
+                }
+            });
+        }
+
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            if (searchText != "") {
+                $("#defaultValue").hide();
+                ajaxSearchData(searchText);
+            }
+            else {
+                $("#defaultValue").show();
+            }
+
+
+        });
+        $(document).on("click", "#click tr", function () {
+            var TRN_NO = $(this).attr("id");
+            if (TRN_NO) {
+                var date = new Date();
+                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+                document.cookie = "TRN_NO=" + TRN_NO + expires + "; path=/";
+                var href = "/PSI/Sales?TRN_NO=" + TRN_NO;
+                window.location.href = href;
+            }
+        });
+    });
+</script>

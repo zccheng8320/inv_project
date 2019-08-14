@@ -42,8 +42,16 @@ namespace INV_Project.Controllers.API
 
 
         // POST: api/Employ
-        public void Post([FromBody]string value)
+        [HttpPost]
+        public List<EMPLOY> Post([FromBody]EMPLOY select2Ajax)
         {
+
+            var p = (from c in db.EMPLOY select c).Take(25);
+            if (select2Ajax != null && select2Ajax.SAL_NO != null)
+            {
+                p = from c in db.EMPLOY where c.SAL_NO.StartsWith(select2Ajax.SAL_NO) select c;
+            }
+            return p.ToList();
         }
 
         // PUT: api/Employ/5

@@ -91,6 +91,9 @@
                             <th data-field="ORD_NO">
                                 備註
                             </th>
+                            <th data-field="COST">
+                                成本
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -117,6 +120,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.ORD_NO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.COST)
                             </td>
                         </tr>
                         }
@@ -267,6 +273,7 @@ var $table = $('#table')
                                 QTY: data[i].QTY,
                                 AMOUNT: data[i].AMOUNT,
                                 ORD_NO: data[i].ORD_NO,
+                                COST: data[i].COST
                             });                          
                         }
                         $("#Money").append(
@@ -275,11 +282,11 @@ var $table = $('#table')
                             '<div class="col-lg-4">銷貨總額: '+data[0].TOTAMT+'</div>'
                         );
                         $table.bootstrapTable('append', rows)
+                        var date = new Date();
+                        date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                        var expires = "; expires=" + date.toGMTString();
+                        document.cookie = "TRN_NO=" + TRN_NO + expires + "; path=/";
                 }
-                /*var date = new Date();
-                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
-                var expires = "; expires=" + date.toGMTString();
-                document.cookie = "ID=" + id + expires + "; path=/";*/
             else {
                 alert("已達最後一筆");
             }

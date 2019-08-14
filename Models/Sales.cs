@@ -32,5 +32,6 @@ namespace INV_Project.Models
         public Nullable<double> AMOUNT { get; set; }
         public string ORD_NO { get; set; }
         public string SAL_CODE { get; set; }
+        public Nullable<double> COST { get; set; }
     }
 }

@@ -1,7 +1,26 @@
-﻿@{
-    ViewBag.Title = "Sales";
+﻿@model INV_Project.Models.Sales
+@{
+    ViewData["Title"] = "Sales";
+    var year = DateTime.Now.Year - 1911;
+    var month = "" + DateTime.Now.Month;
+    var day = "" + DateTime.Now.Day;
+    if (DateTime.Now.Month < 10)
+    { month = "0" + month; }
+    if (DateTime.Now.Day < 10)
+    { day = "0" + day; }
+    var today = year + "." + month + "." + day;
+    var ym = year + "." + month;
 }
 <style>
+    input {
+        padding: 0px 5px;
+        background: #ccc;
+        border: 2px black solid;
+        color: forestgreen;
+        max-width: 1000px;
+        width: 100%;
+    }
+
     .select2-selection__rendered {
         line-height: 50px !important;
     }
@@ -15,41 +34,55 @@
     }
 
     .dropdownCssClass {
-        font-size: 20px;
-        text-align:left;
+        font-size: 25px;
+        text-align: left;
         color: black;
     }
+
     .containerCssClass {
         font-size: 30px;
-        text-align:center;
+        text-align: center;
         color: black;
     }
 </style>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "target" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.TRN_NO, new { @Value ="",style = "width:300px" })
+    @Html.HiddenFor(model => model.TRN_DATE, new { style = "width:300px" })
+    @Html.HiddenFor(model => model.CODE, new {@Value ="", style = "width:300px" })
+    @Html.HiddenFor(model => model.ACC_DATE, new { @Value = ym, style = "width:300px" })
+    @Html.HiddenFor(model => model.SAL_NO, new {@Value ="", style = "width:300px" })
+    @Html.HiddenFor(model => model.TAX, new { @Value = 0, style = "width:300px" })
+    @Html.HiddenFor(model => model.ACC_YN, new { @Value = "Y", style = "width:300px" })
+    @Html.HiddenFor(model => model.PAY_WAY, new { style = "width:300px" })
+    @Html.HiddenFor(model => model.REMARK1, new { style = "width:300px" })
+}
 <main role="main" class="inner cover">
     <div class="container-fluid h1 text-left bg-dark" style="border:3px #808080 solid;padding:5px;">
         <div class="row">
-            <div class="col-lg-4">單據號碼: </div>
-            <div class="col-lg-4">出貨日期: </div>
-            <div class="col-lg-4">收款月份: </div>
+            <div id="TRN_NO_txt" class="col-lg-3">單據號碼: </div>
+            <div class="col-lg-5">出貨日期: <input id="TRN_DATE_input" maxlength="9" style="width:200px" type="text" value="@today" /></div>
+            <div class="col-lg-4">收款月份: <input id="ACC_DATE_input" maxlength="6" style="width:150px" type="text" value="@ym" /></div>
             <div class="w-100"></div>
-            <div class="col-lg-4">客戶號碼: <select id="itemCode" style="width:400px;"></select></div>
-            <div class="col-lg-4">聯 絡 人: </div>
-            <div class="col-lg-4">電&emsp;&emsp;話: </div>
+            <div class="col-lg-3">客戶號碼: <select id="itemCode" style="width:250px;"></select></div>
+            <div id="ATTENTION" class="col-lg-5">聯 絡 人: </div>
+            <div id="TELEPHONE" class="col-lg-4">電&emsp;&emsp;話: </div>
             <div class="w-100"></div>
-            <div class="col-lg-8">客戶名稱: </div>
-            <div class="col-lg-4">統一編號: </div>
+            <div id="CUST_NAME" class="col-lg-8">客戶名稱: </div>
+            <div id="UNIFORM" class="col-lg-4">統一編號: </div>
             <div class="w-100"></div>
-            <div class="col-lg-4">業務編號: </div>
-            <div class="col-lg-4">姓&emsp;&emsp;名: </div>
+            <div class="col-lg-3">業務編號:  <select id="employCode" style="width:250px;"></select></div>
+            <div id="SAL_NAME" class="col-lg-5">姓&emsp;&emsp;名: </div>
             <div class="col-lg-4">發票號碼: </div>
             <div class="w-100"></div>
-            <div class="col-lg-4">稅&emsp;&emsp;率: </div>
-            <div class="col-lg-4">&emsp;&emsp;帳別: </div>
+            <div class="col-lg-3">稅&emsp;&emsp;率: <select id="TAXSelect" style="width:150px;"></select></div>
+            <div class="col-lg-5">&emsp;&emsp;帳別: Y</div>
             <div class="col-lg-4">會計傳票: </div>
             <div class="w-100"></div>
-            <div class="col-lg-12">付款方式: </div>
+            <div id="PAY_TXT" class="col-lg-12">付款方式: </div>
             <div class="w-100"></div>
-            <div class="col-lg-12">備&emsp;&emsp;註: </div>
+            <div class="col-lg-12">備&emsp;&emsp;註: <input id="REMARK_input" style="width:500px" type="text" /></div>
             <div class="w-100"></div>
         </div>
         <div class="row">
@@ -114,70 +147,227 @@
         </div>
     </div>
 </main>
-    <script>
-        $(document).ready(function () {
-            $("#itemCode").select2({
-                dropdownCssClass: "dropdownCssClass",
-                containerCssClass: "containerCssClass",
-                maximumInputLength: 10,
-                ajax: {
-                    url: "/api/Customer",
-                    dataType: 'json',
-                    delay: 250,
-                    type: 'post',
-                    data: function (params) {
-                        return {
-                            CUST_CODE: params.term, // search term
-                            page: params.page
-                        };
-                    },
-                    processResults: function (data, params) {
-                        var select2data = $.map(data, function(obj) {
-                            obj.id = obj.id || obj.CUST_CODE;
-                            obj.text = obj.text || obj.CUST_NAME;
-                            return obj;
-                          });
-                        params.page = params.page | 1;
-                        return {
-                            results: select2data,
-                            pagination: {
-                                more: (params.page * 30) < data.total_count
-                            }
+<script>
+
+
+    $(document).ready(function () {
+        // 單據號碼控制
+        function TRN_NO_Control() {
+            if ($('#TRN_DATE_input').val().length == 9) {
+                var value = $('#TRN_DATE_input').val();
+                var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/SalesInesrt";
+                $.ajax({
+                    url: apiurl + "?TRN_DATE=" + value,
+                    type: 'GET',
+                    success: function (data) {
+                        $("#TRN_DATE").val(value);
+                        if (data != null) {
+                            var newTRN_NO = Number(data.TRN_NO) + 1;
+                            $("#TRN_NO_txt").html("單據號碼: " + newTRN_NO);
+                            $("#TRN_NO").val(newTRN_NO);
                         }
+                        else {
+                            var trn_ary = value.split('.');
+                            var newTRN_NO = trn_ary[0] + trn_ary[1] + "001";
+                            $("#TRN_NO_txt").html("單據號碼: " + newTRN_NO);
+                            $("#TRN_NO").val(newTRN_NO);
+                        }
+                    }
 
-                    },                    
-                cache: true
-                },                
-                escapeMarkup: function (markup) {
-                    return markup;
-                },
-                templateResult: formatRepo,
-                templateSelection: formatRepoSelection,
-                 "language": {
-                   "noResults": function(){
-                       return "查無結果";
-                   }
-               }
-            });
-            $('#itemCode').on('select2:select', function (e) {
-                var data = e.params.data;
-                
-            });
-            function formatRepo(repo) {
-                if (repo.loading) return "搜尋中...";
-                repo.id = repo.CUST_CODE;
-                repo.text = repo.CUST_NAME;
-                var markup = '<div class="container-fluid">' +
-                    '<div class="row">' +
-                    '<div class="col">' + repo.CUST_CODE + '</div>' +
-                    '<div class="col">' + repo.CUST_NAME + '</div>' +
-                    '</div>';
-                markup += '</div>';
-                return markup;
+                });
             }
-            function formatRepoSelection(repo) {
+        }
+        // 單據號輸入框
+        TRN_NO_Control()
+        $('#TRN_DATE_input').on('keyup', function () {
+            var key = event.keyCode
+            if ($(this).val().length == 3 && key != 8)
+                $(this).val($(this).val() + ".");
+            else if ($(this).val().length == 6 && key != 8)
+                $(this).val($(this).val() + ".");
+            else if (key == 110 || key == 190)
+                $(this).val($(this).val().substring(0, $(this).val().length - 1));
+            $(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
+            TRN_NO_Control()
+        });
+        // 收款月份控制
+        $('#ACC_DATE_input').on('keyup', function () {
+            var key = event.keyCode
+            if ($(this).val().length == 3 && key != 8)
+                $(this).val($(this).val() + ".");
+            else if ($(this).val().length == 6 && key != 8)
+                $('#ACC_DATE').val($(this).val());
+            else if (key == 110 || key == 190)
+                $(this).val($(this).val().substring(0, $(this).val().length - 1));
+            $(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
+        });
+        // 備註控制
+        $('#REMARK_input').on('keyup', function () {
+            $('#REMARK1').val($(this).val());
+        });
+        // 客戶號碼控制
+        $("#itemCode").select2({
+            dropdownCssClass: "dropdownCssClass",
+            containerCssClass: "containerCssClass",
+            maximumInputLength: 10,
+            ajax: {
+                url: "/api/Customer",
+                dataType: 'json',
+                delay: 250,
+                type: 'post',
+                data: function (params) {
+                    return {
+                        CUST_CODE: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    var select2data = $.map(data, function (obj) {
+                        obj.id = obj.id || obj.CUST_CODE;
+                        obj.text = obj.text || obj.CUST_NAME;
+                        return obj;
+                    });
+                    params.page = params.page | 1;
+                    return {
+                        results: select2data,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    }
 
-                return repo.id;
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            templateResult: CformatRepo,
+            templateSelection: CformatRepoSelection,
+            "language": {
+                "noResults": function () {
+                    return "查無結果";
+                }
             }
         });
-    </script>
+        $('#itemCode').on('select2:select', function (e) {
+            var data = e.params.data;
+            // Give Form Value
+            $('#CODE').val(data.CUST_CODE);
+            if (data.TELEPHONE.length > 14)
+                $('#TELEPHONE').html("電&emsp;&emsp;話: " + data.TELEPHONE.substring(0, 14) + "...");
+            else
+                $('#TELEPHONE').html("電&emsp;&emsp;話: " + data.TELEPHONE);
+            $('#ATTENTION').html("聯 絡 人: " + data.ATTENTION);
+            $('#UNIFORM').html("統一編號: " + data.UNIFORM);
+            $('#CUST_NAME').html("客戶名稱: " + data.CUST_NAME);
+            if (Number(data.TAX) == 0) {
+                $('#TAX').val(0);
+                $("#TAXSelect").val(0).trigger("change");
+            }
+            else {
+                $("#TAXSelect").val(5).trigger("change");
+                $('#TAX').val(5);
+            }
+            $('#PAY_TXT').html("付款方式: " + data.PAY_WAY);
+            $('#PAY_WAY').val(data.PAY_WAY);
+
+        });
+        function CformatRepo(repo) {
+            if (repo.loading) return "搜尋中...";
+            repo.id = repo.CUST_CODE;
+            repo.text = repo.CUST_NAME;
+            var markup = '<div class="container-fluid">' +
+                '<div class="row">' +
+                '<div class="col">' + repo.CUST_CODE + '</div>' +
+                '<div class="col">' + repo.CUST_NAME + '</div>' +
+                '</div>';
+            markup += '</div>';
+            return markup;
+        }
+        function CformatRepoSelection(repo) {
+
+            return repo.id;
+        }
+
+        // 業務控制項
+        $("#employCode").select2({
+            dropdownCssClass: "dropdownCssClass",
+            containerCssClass: "containerCssClass",
+            maximumInputLength: 10,
+            ajax: {
+                url: "/api/Employ",
+                dataType: 'json',
+                delay: 250,
+                type: 'post',
+                data: function (params) {
+                    return {
+                        SAL_NO: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    var select2data = $.map(data, function (obj) {
+                        obj.id = obj.id || obj.SAL_NO;
+                        obj.text = obj.text || obj.NAME;
+                        return obj;
+                    });
+                    params.page = params.page | 1;
+                    return {
+                        results: select2data,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    }
+
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            templateResult: EformatRepo,
+            templateSelection: EformatRepoSelection,
+            "language": {
+                "noResults": function () {
+                    return "查無結果";
+                }
+            }
+        });
+        $('#employCode').on('select2:select', function (e) {
+            var data = e.params.data;
+            // Give Form value
+            $('#SAL_NO').val(data.SAL_NO);
+            $('#SAL_NAME').html("姓&emsp;&emsp;名: " + data.NAME);
+        });
+        function EformatRepo(repo) {
+            if (repo.loading) return "搜尋中...";
+            repo.id = repo.SAL_NO;
+            repo.text = repo.NAME;
+            var markup = '<div class="container-fluid">' +
+                '<div class="row">' +
+                '<div class="col">' + repo.SAL_NO + '</div>' +
+                '<div class="col">' + repo.NAME + '</div>' +
+                '</div>';
+            markup += '</div>';
+            return markup;
+        }
+        function EformatRepoSelection(repo) {
+
+            return repo.id;
+        }
+        // 稅率
+        var tax_row = [{ id: 0, text: "0.00%" }, { id: 5, text: "5.00%" }]
+        $("#TAXSelect").select2({
+            data: tax_row,
+            dropdownCssClass: "dropdownCssClass",
+            containerCssClass: "containerCssClass"
+        });
+        $('#TAXSelect').on('select2:select', function (e) {
+            // Give Form value
+            var data = e.params.data;
+            $('#TAX').val(Number(data.id));
+        });
+
+    });
+
+</script>

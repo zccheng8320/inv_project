@@ -40,10 +40,8 @@ namespace INV_Project.Controllers
         }
         public ActionResult Search(int id=0)
         {
-            var search = (from d in db.CUSTOMER where d.ID < id select d).OrderByDescending(d => d.ID).Take(30);
-            var search2 = (from d in db.CUSTOMER where d.ID > id select d).OrderBy(d => d.ID).Take(30);
-            var p = search2.Union(search);
-            return View(p.ToList());
+            var search2 = (from d in db.CUSTOMER where d.ID >= id select d).OrderBy(d => d.ID).Take(100);
+            return View(search2.ToList());
         }
         public ActionResult Insert()
         {
