@@ -49,7 +49,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.TRN_NO, new { @Value ="",style = "width:300px" })
-    @Html.HiddenFor(model => model.TRN_DATE, new { style = "width:300px" })
+    @Html.HiddenFor(model => model.TRN_DATE, new {@Value ="", style = "width:300px" })
     @Html.HiddenFor(model => model.CODE, new {@Value ="", style = "width:300px" })
     @Html.HiddenFor(model => model.ACC_DATE, new { @Value = ym, style = "width:300px" })
     @Html.HiddenFor(model => model.SAL_NO, new {@Value ="", style = "width:300px" })
@@ -62,62 +62,68 @@
     <div class="container-fluid h1 text-left bg-dark" style="border:3px #808080 solid;padding:5px;">
         <div class="row">
             <div id="TRN_NO_txt" class="col-lg-3">單據號碼: </div>
-            <div class="col-lg-5">出貨日期: <input id="TRN_DATE_input" maxlength="9" style="width:200px" type="text" value="@today" /></div>
-            <div class="col-lg-4">收款月份: <input id="ACC_DATE_input" maxlength="6" style="width:150px" type="text" value="@ym" /></div>
+            <div id="TRN_DATE_txt" class="col-lg-5">出貨日期: <input id="TRN_DATE_input" maxlength="9" style="width:200px" type="text" value="@today" /><div id="TRN_V" class="bg-danger h4" style="text-align:center;width:50%">請填入正確的格式</div></div>
+            <div id="ACC_DATE_txt" class="col-lg-4">收款月份: <input id="ACC_DATE_input" maxlength="6" style="width:150px" type="text" value="@ym" /><div id="ACC_V" class="bg-danger h4" style="text-align:center;width:55%">請填入正確的格式</div></div>
             <div class="w-100"></div>
-            <div class="col-lg-3">客戶號碼: <select id="itemCode" style="width:250px;"></select></div>
+            <div id="CUST_CODE_txt" class="col-lg-3">客戶號碼: <select id="itemCode" style="width:250px;"></select><div id="CUST_V" class="bg-danger h4" style="text-align:center;width:95%">請選擇客戶</div></div>
             <div id="ATTENTION" class="col-lg-5">聯 絡 人: </div>
             <div id="TELEPHONE" class="col-lg-4">電&emsp;&emsp;話: </div>
             <div class="w-100"></div>
             <div id="CUST_NAME" class="col-lg-8">客戶名稱: </div>
             <div id="UNIFORM" class="col-lg-4">統一編號: </div>
             <div class="w-100"></div>
-            <div class="col-lg-3">業務編號:  <select id="employCode" style="width:250px;"></select></div>
+            <div id="SAL_NO_txt" class="col-lg-3">業務編號:  <select id="employCode" style="width:250px;"></select></div>
             <div id="SAL_NAME" class="col-lg-5">姓&emsp;&emsp;名: </div>
             <div class="col-lg-4">發票號碼: </div>
             <div class="w-100"></div>
-            <div class="col-lg-3">稅&emsp;&emsp;率: <select id="TAXSelect" style="width:150px;"></select></div>
+            <div id="TAX_txt" class="col-lg-3">稅&emsp;&emsp;率: <select id="TAXSelect" style="width:150px;"></select></div>
             <div class="col-lg-5">&emsp;&emsp;帳別: Y</div>
             <div class="col-lg-4">會計傳票: </div>
             <div class="w-100"></div>
-            <div id="PAY_TXT" class="col-lg-12">付款方式: </div>
+            <div id="PAY_WAY_txt" class="col-lg-12">付款方式: </div>
             <div class="w-100"></div>
-            <div class="col-lg-12">備&emsp;&emsp;註: <input id="REMARK_input" style="width:500px" type="text" /></div>
+            <div id="REMARK_txt" class="col-lg-12">備&emsp;&emsp;註: <input id="REMARK_input" style="width:500px" type="text" /></div>
             <div class="w-100"></div>
+            <div id="control_I" class="col-lg-4 text-warning">案F8新增產品</div>
+            <div id="Item_history" class="col-lg-4 text-success">上次成交價:100元, 成本:50元</div>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <table id="table"
                        data-toggle="table"
                        data-height="460"
+                       data-unique-id="id"
                        class="table table-dark table-bordered">
                     <thead class="bg-primary">
                         <tr>
-                            <th>
+                            <th data-field="ITEM_NO">
                                 產品號碼
                             </th>
-                            <th>
+                            <th data-field="ITEM_NAME">
                                 品名規格
                             </th>
-                            <th>
+                            <th data-field="PRICE">
                                 單價
                             </th>
-                            <th>
+                            <th data-field="SAL_CODE">
                                 註
                             </th>
-                            <th>
+                            <th data-field="QTY">
                                 數量
                             </th>
-                            <th>
+                            <th data-field="AMOUNT">
                                 金額
                             </th>
-                            <th>
+                            <th data-field="ORD_NO">
                                 備註
                             </th>
+                            <th data-field="delete"></th>
                         </tr>
                     </thead>
+                    <tbody>
+                    </tbody>
                 </table>
-            </div>
+</div>
         </div>
 
     </div>
@@ -128,29 +134,15 @@
             <div class="col-lg-4">銷貨總額: </div>
         </div>
     </div>
-    <div class="container-fluid h3 text-right bg-dark" style="border:3px #808080 solid;padding:5px;">
-        <div class="row right">
-            <div class="col-1">1> 查詢 </div>
-            <div class="col-1">2> 新增 </div>
-            <div class="col-1">3> 更改 </div>
-            <div class="col-1">4> 刪除 </div>
-            <div class="col-2">5> 印出貨單</div>
-            <div class="col-2">7> 印出貨標籤</div>
-            <div class="col-2">8> 多項查詢 </div>
-        </div>
-        <div class="row">
-            <div class="col-1">+> 下筆 </div>
-            <div class="col-1">-> 上筆 </div>
-            <div class="col-1">/> 瀏頁 </div>
-            <div class="col-1">P> 成交價 </div>
-            <div class="col-2">Z> 異常核對 </div>
-        </div>
-    </div>
 </main>
-<script>
-
-
-    $(document).ready(function () {
+<script>   
+    var itemEnable = false;
+    $(document).ready(function () {   
+        $("#TRN_V").hide();
+        $("#ACC_V").hide();
+        $("#control_I").hide();
+        $("#Item_history").hide();
+        $('#TRN_DATE_input').select();
         // 單據號碼控制
         function TRN_NO_Control() {
             if ($('#TRN_DATE_input').val().length == 9) {
@@ -160,7 +152,6 @@
                     url: apiurl + "?TRN_DATE=" + value,
                     type: 'GET',
                     success: function (data) {
-                        $("#TRN_DATE").val(value);
                         if (data != null) {
                             var newTRN_NO = Number(data.TRN_NO) + 1;
                             $("#TRN_NO_txt").html("單據號碼: " + newTRN_NO);
@@ -179,37 +170,76 @@
         }
         // 單據號輸入框
         TRN_NO_Control()
-        $('#TRN_DATE_input').on('keyup', function () {
+        $('#TRN_DATE_input').on('keydown', function () {
             var key = event.keyCode
+            if ($(this).val().length != 9) {
+                $("#TRN_V").show();
+                 $('#TRN_DATE').val("");
+            }                
+            else {
+                $("#TRN_V").hide();
+                $('#TRN_DATE').val($(this).val());
+            }         
+            if (key == 13) {
+                if($(this).val().length ==9)
+                    $('#ACC_DATE_input').select();
+            }              
             if ($(this).val().length == 3 && key != 8)
                 $(this).val($(this).val() + ".");
             else if ($(this).val().length == 6 && key != 8)
                 $(this).val($(this).val() + ".");
             else if (key == 110 || key == 190)
                 $(this).val($(this).val().substring(0, $(this).val().length - 1));
-            $(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
-            TRN_NO_Control()
+            $(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, '')); 
+            
+            TRN_NO_Control()                
         });
         // 收款月份控制
-        $('#ACC_DATE_input').on('keyup', function () {
+        $('#ACC_DATE_input').on('keydown', function () {
             var key = event.keyCode
+            if ($(this).val().length != 6) {
+                $('#ACC_DATE').val("");
+                $("#ACC_V").show();
+            }
+            else {
+                $('#ACC_DATE').val($(this).val());
+                $("#ACC_V").hide();
+            }               
+            if (key == 13) {
+                $("#itemCode").select2("open");
+            }           
             if ($(this).val().length == 3 && key != 8)
                 $(this).val($(this).val() + ".");
-            else if ($(this).val().length == 6 && key != 8)
-                $('#ACC_DATE').val($(this).val());
             else if (key == 110 || key == 190)
                 $(this).val($(this).val().substring(0, $(this).val().length - 1));
             $(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
+                            
         });
         // 備註控制
-        $('#REMARK_input').on('keyup', function () {
+        $('#REMARK_input').on('keydown', function () {
             $('#REMARK1').val($(this).val());
+            var key = event.keyCode
+            if (key == 13) {
+                if ($('#TRN_DATE').val() != "" && $('#CODE').val()!="" && $('#ACC_DATE').val() != "") {
+                    $("#TRN_DATE_txt").html("出貨日期: " + $('#TRN_DATE').val())
+                    $("#ACC_DATE_txt").html("收款月份: " + $('#ACC_DATE').val())
+                    $("#CUST_CODE_txt").html("客戶編號: " + $('#CODE').val())
+                    $("#SAL_NO_txt").html("業務編號: " + $('#SAL_NO').val())
+                    $("#TAX_txt").html("稅&emsp;&emsp;率: " + $('#TAX').val()+".00%")
+                    $("#PAY_WAY_txt").html("付款方式: " + $('#PAY_WAY').val())
+                    $("#REMARK_txt").html("備&emsp;&emsp;註: " + $('#REMARK1').val())
+                    $("#control_I").show();
+                    itemEnable = true;
+                }
+                
+            }
         });
         // 客戶號碼控制
         $("#itemCode").select2({
             dropdownCssClass: "dropdownCssClass",
             containerCssClass: "containerCssClass",
             maximumInputLength: 10,
+            dropdownAutoWidth:true,
             ajax: {
                 url: "/api/Customer",
                 dataType: 'json',
@@ -262,15 +292,14 @@
             $('#CUST_NAME').html("客戶名稱: " + data.CUST_NAME);
             if (Number(data.TAX) == 0) {
                 $('#TAX').val(0);
-                $("#TAXSelect").val(0).trigger("change");
             }
             else {
-                $("#TAXSelect").val(5).trigger("change");
                 $('#TAX').val(5);
             }
             $('#PAY_TXT').html("付款方式: " + data.PAY_WAY);
             $('#PAY_WAY').val(data.PAY_WAY);
-
+            $("#employCode").select2("open");
+            $("#CUST_V").hide();
         });
         function CformatRepo(repo) {
             if (repo.loading) return "搜尋中...";
@@ -278,8 +307,8 @@
             repo.text = repo.CUST_NAME;
             var markup = '<div class="container-fluid">' +
                 '<div class="row">' +
-                '<div class="col">' + repo.CUST_CODE + '</div>' +
-                '<div class="col">' + repo.CUST_NAME + '</div>' +
+                '<div class="col-4">' + repo.CUST_CODE + '</div>' +
+                '<div class="col-8">' + repo.CUST_NAME + '</div>' +
                 '</div>';
             markup += '</div>';
             return markup;
@@ -288,13 +317,13 @@
 
             return repo.id;
         }
-
         // 業務控制項
         $("#employCode").select2({
             dropdownCssClass: "dropdownCssClass",
             containerCssClass: "containerCssClass",
             maximumInputLength: 10,
-            ajax: {
+            dropdownAutoWidth: true,
+            ajax: {              
                 url: "/api/Employ",
                 dataType: 'json',
                 delay: 250,
@@ -336,8 +365,9 @@
         $('#employCode').on('select2:select', function (e) {
             var data = e.params.data;
             // Give Form value
-            $('#SAL_NO').val(data.SAL_NO);
-            $('#SAL_NAME').html("姓&emsp;&emsp;名: " + data.NAME);
+            $('#SAL_NO').val(data.id);
+            $('#SAL_NAME').html("姓&emsp;&emsp;名: " + data.text);
+            $("#TAXSelect").select2("open");
         });
         function EformatRepo(repo) {
             if (repo.loading) return "搜尋中...";
@@ -345,8 +375,8 @@
             repo.text = repo.NAME;
             var markup = '<div class="container-fluid">' +
                 '<div class="row">' +
-                '<div class="col">' + repo.SAL_NO + '</div>' +
-                '<div class="col">' + repo.NAME + '</div>' +
+                '<div class="col-4">' + repo.SAL_NO + '</div>' +
+                '<div class="col-8">' + repo.NAME + '</div>' +
                 '</div>';
             markup += '</div>';
             return markup;
@@ -361,13 +391,200 @@
             data: tax_row,
             dropdownCssClass: "dropdownCssClass",
             containerCssClass: "containerCssClass"
-        });
+        });    
         $('#TAXSelect').on('select2:select', function (e) {
             // Give Form value
             var data = e.params.data;
             $('#TAX').val(Number(data.id));
-        });
-
+            $("#REMARK_input").focus();
+        });   
+         $('#TAXSelect').on("select2:close", function() { $("#REMARK_input").focus(); })
     });
+    $(document).ready(function () {
+        var ITEM_COUNT = 0;
+        var selectEnable = false;
+        var $table = $('#table')
+        $('#table').on('reset-view.bs.table', function () {
+            if (selectEnable)
+                selectItemControl()
+        })
+        if (navigator.userAgent.indexOf("MSIE") > 0) {
+            //IE
+            document.onkeyup = function () {
+                switch (event.keyCode) {
+                    case 27:
+                        window.location.href = '/PSI/Sales';
+                        break;
+                    case 119:
+                        if (selectEnable == false&&itemEnable==true) {
+                            appendITEM();
+                             $("#selectItem").select2("open");
+                        }                            
+                        break;
+                }
+            }
+        }
+        else {
+            window.onkeyup = function () {
+                switch (event.keyCode) {
+                    case 27:
+                        window.location.href = '/PSI/Sales';
+                        break;
+                    case 119:
+                        if (selectEnable == false && itemEnable==true) {
+                            appendITEM();      
+                            $("#selectItem").select2("open");
+                        }     
+                        break;
+                }
 
+            }
+        }
+
+        function appendITEM() {
+            ITEM_COUNT += 1;
+            selectEnable = true;
+            var new_rows = [{
+                id: ITEM_COUNT,
+                ITEM_NO: '<select id="selectItem" style="width:250px;"></select>',
+                ITEM_NAME: '',
+                PRICE:'' ,
+                SAL_CODE: '',
+                QTY: '',
+                AMOUNT: '',
+                ORD_NO: '',
+                delete:''
+            }];           
+            $table.bootstrapTable('append', new_rows);                    
+            $(document).on("click", '#del_btn', function () {
+                $table.bootstrapTable('removeByUniqueId', $(this).attr('name'))
+            })
+        }
+        // Select控制                  
+        function selectItemControl() {
+                $("#selectItem").select2({
+                dropdownCssClass: "dropdownCssClass",
+                containerCssClass: "containerCssClass",
+                maximumInputLength: 10,
+                dropdownAutoWidth:true,
+                ajax: {
+                        url: "/api/ITEM",
+                        dataType: 'json',
+                        delay: 250,
+                        type: 'post',
+                        data: function (params) {
+                            return {
+                                ITEM_NO: params.term, // search term
+                                page: params.page
+                            };
+                        },
+                        processResults: function (data, params) {
+                            var select2data = $.map(data, function (obj) {
+                                obj.id = obj.id || obj.ITEM_NO;
+                                obj.text = obj.text || obj.NAME1;
+                                return obj;
+                            });
+                            params.page = params.page | 1;
+                            return {
+                                results: select2data,
+                                pagination: {
+                                    more: (params.page * 30) < data.total_count
+                                }
+                            }
+
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) {
+                        return markup;
+                    },
+                    templateResult: CformatRepo,
+                    templateSelection: CformatRepoSelection,
+                    "language": {
+                        "noResults": function () {
+                            return "查無結果";
+                        }
+                    }
+                });        
+                $("#selectItem").on('select2:select', function (e) {
+                    var data = e.params.data;
+                    $table.bootstrapTable('updateByUniqueId', {
+                        id: ITEM_COUNT,
+                        row: {
+                            ITEM_NAME: data.NAME1,
+                            ITEM_NO: data.ITEM_NO,
+                            PRICE: '<input id="PRICE_inp"style="width:150px" type="number" value="0"/>',
+                            SAL_CODE: '<input id="SAL_CODE_inp"style="width:150px" type="text" />',
+                            QTY: '<input id="QTY_inp"style="width:150px" type="number" value="0"/>',
+                            AMOUNT: '<input id="AMOUNT_inp"style="width:150px" type="number" value="0"/>',
+                            ORD_NO: '<input id="ORD_NO_inp"style="width:150px" type="text" />'
+                        }
+                    })    
+                    $("#Item_history").show();
+                    selectEnable = false;
+                    $("#PRICE_inp").select();
+                    $('#PRICE_inp').on('keydown', function () {                    
+                            var key = event.keyCode
+                            if (key == 13) {
+                                $("#SAL_CODE_inp").focus(); 
+                            }
+                    });
+                    $('#SAL_CODE_inp').on('keydown', function () {                    
+                            var key = event.keyCode
+                            if (key == 13) {
+                                $("#QTY_inp").select();
+                            }
+                    });
+                    $('#QTY_inp').on('keydown', function () {                    
+                            var key = event.keyCode
+                            if (key == 13) {
+                                $("#AMOUNT_inp").select(); 
+                            }
+                    });
+                    $('#AMOUNT_inp').on('keydown', function () {                    
+                            var key = event.keyCode
+                        if (key == 13) {
+                             $("#ORD_NO_inp").focus(); 
+                            }
+                    });
+                    $('#ORD_NO_inp').on('keydown', function () {                    
+                     var key = event.keyCode
+                        if (key == 13) {
+                                $table.bootstrapTable('updateByUniqueId', {
+                                    id: ITEM_COUNT,
+                                    row: {
+                                        PRICE: $("#PRICE_inp").val(),
+                                        SAL_CODE: $("#SAL_CODE_inp").val(),
+                                        QTY: $("#QTY_inp").val(),
+                                        AMOUNT: $("#AMOUNT_inp").val(),
+                                        ORD_NO: $("#ORD_NO_inp").val(),
+                                        delete:'<button id="del_btn" name='+ITEM_COUNT+' type="button" class="btn btn-danger btn-lg">刪除</button>'
+                                    }
+                                })
+                            $("#Item_history").hide();
+                            }
+                    });
+                });
+                    
+        }
+        function CformatRepo(repo) {
+            if (repo.loading) return "搜尋中...";
+            repo.id = repo.ITEM_NO;
+            repo.text = repo.NAME1;
+            var markup = '<div class="container-fluid">' +
+                '<div class="row">' +
+                '<div class="col-4">' + repo.ITEM_NO + '</div>' +
+                '<div class="col-8">' + repo.NAME1 + '</div>' +
+                '</div>';
+            markup += '</div>';
+            return markup;
+        }
+        function CformatRepoSelection(repo) {
+
+            return repo.id;
+        }
+        
+
+               
+    });
 </script>

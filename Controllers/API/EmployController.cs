@@ -43,15 +43,34 @@ namespace INV_Project.Controllers.API
 
         // POST: api/Employ
         [HttpPost]
-        public List<EMPLOY> Post([FromBody]EMPLOY select2Ajax)
-        {
-
-            var p = (from c in db.EMPLOY select c).Take(25);
-            if (select2Ajax != null && select2Ajax.SAL_NO != null)
+        public List<EMPLOY> Post([FromBody]EMPLOY select2Ajax,int tmp=0)
+        { 
+            var p = (from c in db.EMPLOY select c).Take(30);
+            if (tmp==0)
             {
-                p = from c in db.EMPLOY where c.SAL_NO.StartsWith(select2Ajax.SAL_NO) select c;
+                
+                if (select2Ajax != null && select2Ajax.SAL_NO != null)
+                {
+                    p = from c in db.EMPLOY where c.SAL_NO.StartsWith(select2Ajax.SAL_NO) select c;
+                }
+                return p.ToList();
             }
-            return p.ToList();
+            else
+            {
+                if (select2Ajax != null && select2Ajax.SAL_NO != null)
+                {
+                    p = db.EMPLOY.Where(m =>
+                    m.SAL_NO.Contains(select2Ajax.SAL_NO)
+                    || m.NAME.Contains(select2Ajax.SAL_NO)
+                    || m.ADDRESS1.Contains(select2Ajax.SAL_NO)
+                    || m.SEX.Contains(select2Ajax.SAL_NO)
+                    || m.TEL1.Contains(select2Ajax.SAL_NO)
+                    || m.BBCALL.Contains(select2Ajax.SAL_NO)).Take(200);
+                        
+                }
+                return p.ToList();
+            }
+            
         }
 
         // PUT: api/Employ/5

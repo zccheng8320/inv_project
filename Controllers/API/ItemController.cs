@@ -53,8 +53,37 @@ namespace INV_Project.Controllers.API
         }
 
         // POST: api/Item
-        public void Post([FromBody]string value)
+        public List<ITEM> Post([FromBody]ITEM select2Ajax, int tmp = 0)
         {
+            double temp = 777;
+            try
+            {
+                temp = double.Parse(select2Ajax.ITEM_NO);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            // 查詢           
+            var p = (from c in db.ITEM orderby c.TRN_DATE descending select c).Take(200);
+            if (tmp == 1)
+            {
+                if (select2Ajax != null && select2Ajax.ITEM_NO != null)
+                {
+                     p = db.ITEM.Where(m =>
+                     m.ITEM_NO.StartsWith(select2Ajax.ITEM_NO)
+                     || m.NAME1.Contains(select2Ajax.ITEM_NO)).Take(200);
+                }
+                return p.ToList();
+            }
+            else
+            {
+                if (select2Ajax != null && select2Ajax.ITEM_NO != null)
+                {
+                    p = from c in db.ITEM where c.ITEM_NO.StartsWith(select2Ajax.ITEM_NO) || c.NAME1.Contains(select2Ajax.ITEM_NO) select c;
+                }
+                return p.ToList();
+            }
         }
 
         // PUT: api/Item/5

@@ -1,62 +1,35 @@
-﻿@model IEnumerable<INV_Project.Models.ITEM>
+﻿<style>
+    .select2-selection__rendered {
+        line-height: 50px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 50px !important;
+        display: block;
+    }
+
+    .select2-selection__arrow {
+        height: 50px !important;
+    }
+
+    .dropdownCssClass {
+        font-size: 30px;
+        text-align: left;
+        color: black;
+        width: 100%;
+        height: auto;
+    }
+
+    .containerCssClass {
+        font-size: 30px;
+        text-align: center;
+        color: black;
+    }
+</style>
 <hr>
-<div class="input-group input-group-lg">
-    <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-lg">搜尋框</span>
-    </div>
-    <input type="text" id="Search" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+<div style='position:absolute; z-index:999; top:100px;width:100%;'>
+    <select id="itemCode" style="width:100%;"></select>
 </div>
-<hr>
-<table id="click" class="table table-hover table-dark">
-    <thead class="bg-primary">
-        <tr>
-            <th class="h2">產品號碼</th>
-            <th colspan="2" class="h2">品名規格</th>
-            <th class="h2">單位</th>
-            <th class="h2">類別</th>
-            <th class="h2">現存量</th>
-            <th class="h2">售價</th>
-            <th class="h2">進價</th>
-            <th class="h2">異動日期</th>
-        </tr>
-    </thead>
-    <tbody id="defaultValue">
-        @foreach (var item in Model)
-        {
-        <tr id="@item.ID">
-            <td class="h2">
-                @Html.DisplayFor(modelItem => item.ITEM_NO)
-            </td>
-            <td class="h2" colspan="2">
-                @Html.DisplayFor(modelItem => item.NAME1)
-            </td>
-            <td class="h2">
-                @Html.DisplayFor(modelItem => item.UNIT)
-            </td>
-            <td class="h2">
-                @Html.DisplayFor(modelItem => item.CLASS)
-            </td>
-            <td class="h2">
-                @Html.DisplayFor(modelItem => item.QTY)
-            </td>
-            <td class="h2">
-                @Html.DisplayFor(modelItem => item.S_PRICE)
-            </td>
-            <td class="h2">
-                @Html.DisplayFor(modelItem => item.U_PRICE)
-            </td>
-            <td class="h2">
-                @Html.DisplayFor(modelItem => item.TRN_DATE)
-            </td>
-        </tr>
-        }
-    </tbody>
-    <tbody id="tbodyshow">
-    </tbody>
-</table>
-<script src="~/Scripts/jquery-1.10.2.js"
-        integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
-        crossorigin="anonymous"></script>
 <script>
     var page = 'Item';
     document.getElementById('Search').focus();
@@ -80,54 +53,86 @@
             }
         }
     }
+</script>
+<script>
     $(document).ready(function () {
-        var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Item";
-
-        function ajaxSearchData(keyword) {
-            $.ajax({
-                url: apiurl + "?search=" + keyword,
-                type: 'GET',
-                success: function (data) {
-                    $("#tbodyshow").empty();
-                    for (var i = 0; i < data.length; i++) {
-                        $("#tbodyshow").append(
-                            '<tr id ="' + data[i].ID + '">' +
-                            '<td class="h2">' + data[i].ITEM_NO + '</td>' +
-                            '<td class="h2" class="h2">' + data[i].NAME1 + '</td>' +
-                            '<td colspan="2">' + data[i].UNIT + '</td>' +
-                            '<td class="h2">' + data[i].CLASS + '</td>' +
-                            '<td class="h2">' + data[i].QTY + '</td>' +
-                            '<td class="h2">' + data[i].S_PRICE + '</td>' +
-                            '<td class="h2">' + data[i].U_PRICE + '</td>' +
-                            '<td class="h2">' + data[i].TRN_DATE + '</td>' +
-                            "</tr>"
-                        );
+        $("#itemCode").select2({
+            dropdownCssClass: "dropdownCssClass",
+            containerCssClass: "containerCssClass",
+            maximumInputLength: 10,
+            ajax: {
+                url: "/api/Item?tmp=1",
+                dataType: 'json',
+                delay: 250,
+                type: 'post',
+                data: function (params) {
+                    return {
+                        ITEM_NO: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    var select2data = $.map(data, function (obj) {
+                        obj.id = obj.id || obj.ITEM_NO;
+                        obj.text = obj.text || obj.NAME1;
+                        return obj;
+                    });
+                    params.page = params.page | 1;
+                    return {
+                        results: select2data,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
                     }
+
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            templateResult: CformatRepo,
+            templateSelection: CformatRepoSelection,
+            "language": {
+                "noResults": function () {
+                    return "查無結果";
                 }
-            });
+            }
+        }).maximizeSelect2Height();;
+        $('#itemCode').focus();
+        $('#itemCode').select2("open");
+        $('#itemCode').on('select2:select', function (e) {
+            var data = e.params.data;
+            var ID = data.ID;
+            var date = new Date();
+            date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+            var expires = "; expires=" + date.toGMTString();
+            document.cookie = "IID=" + ID + expires + "; path=/";
+            var href = "/" + page + "/Index?ID=" + ID;
+            window.location.href = href;
+            // Give Form Value
+
+        });
+        function CformatRepo(repo) {
+            if (repo.loading) return "搜尋中...";
+            repo.id = repo.ITEM_NO;
+            repo.text = repo.NAME1;
+            var markup = '<div class="container-fluid">' +
+                '<div class="row" style="border:3px #808080 solid;padding:px;">' +
+                '<div class="col-1" style="border-right:3px #808080 solid;padding:0px;">' + repo.ITEM_NO + '</div>' +
+                '<div class="col-3" style="border-right:3px #808080 solid;padding:0px;">' + repo.NAME1 + '</div>' +
+                '<div class="col-1" style="border-right:3px #808080 solid;padding:0px;">單位:' + repo.UNIT + '</div>' +
+                '<div class="col-2" style="border-right:3px #808080 solid;padding:0px;">現有存量: ' + repo.QTY + '</div>' +
+                '<div class="col-2" style="border-right:3px #808080 solid;padding:0px;">售價: ' + repo.S_PRICE + '</div>' +
+                '<div class="col-2"> 進價:' + repo.U_PRICE + '</div>' +
+                '</div>';
+            markup += '</div>';
+            return markup;
+        }
+        function CformatRepoSelection(repo) {
+
+            return repo.text;
         }
 
-        $("#Search").keyup(function () {
-            var searchText = $("#Search").val().toLowerCase();
-            if (searchText != "") {
-                $("#defaultValue").hide();
-                ajaxSearchData(searchText);
-            }
-            else {
-                $("#defaultValue").show();
-            }
-
-        });
-        $(document).on("click", "#click tr", function () {
-            var ID = $(this).attr("id");
-            if (ID) {
-                var date = new Date();
-                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
-                var expires = "; expires=" + date.toGMTString();
-                document.cookie = "IID=" + ID + expires + "; path=/";
-                var href = "/" + page + "/Index?ID=" + ID;
-                window.location.href = href;
-            }
-        });
     });
 </script>

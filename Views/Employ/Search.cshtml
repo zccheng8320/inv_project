@@ -1,55 +1,121 @@
-﻿@model IEnumerable<INV_Project.Models.EMPLOY>
-@{
+﻿@{
     ViewBag.Title = "搜尋頁面";
 }
-
-<hr>
-<div class="input-group input-group-lg">
-    <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-lg">搜尋框</span>
-    </div>
-    <input type="text" id="Search" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-</div>
-<hr>
-<table id="click" class="table table-hover table-dark">
-    <thead class="bg-primary">
-        <tr>
-            <th class="h2">業務編號</th>
-            <th class="h2">業務名稱</th>
-            <th class="h2">性別</th>
-            <th class="h2">連絡電話</th>
-            <th class="h2">行動電話</th>
-            <th colspan="2" class="h2">通訊地址</th>
-        </tr>
-    </thead>
-    <tbody id="defaultValue">
-        @foreach (var item in Model)
-        {
-            <tr id="@item.SAL_NO">
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.SAL_NO)
-                </td>
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.NAME)
-                </td>       
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.SEX)
-                </td>
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.TEL1)
-                </td>
-                <td class="h2">
-                    @Html.DisplayFor(modelItem => item.BBCALL)
-                </td>
-                <td class="h2" colspan="2">
-                    @Html.DisplayFor(modelItem => item.ADDRESS2)
-                </td>
-            </tr>
+    <style>
+        .select2-selection__rendered {
+            line-height: 50px !important;
         }
-    </tbody>
-    <tbody id="tbodyshow">
-    </tbody>
-</table>
+
+        .select2-container .select2-selection--single {
+            height: 50px !important;
+            display: block;
+        }
+
+        .select2-selection__arrow {
+            height: 50px !important;
+        }
+
+        .dropdownCssClass {
+            font-size: 30px;
+            text-align: left;
+            color: black;
+            width: 100%;
+            height: auto;
+        }
+
+        .containerCssClass {
+            font-size: 30px;
+            text-align: center;
+            color: black;
+        }
+    </style>
+<hr>
+<div style='position:absolute; z-index:999; top:100px;width:100%;'>
+    <select id="itemCode" style="width:100%;"></select>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#itemCode").select2({
+            dropdownCssClass: "dropdownCssClass",
+            containerCssClass: "containerCssClass",
+            maximumInputLength: 10,
+            ajax: {
+                url: "/api/Employ?tmp=1",
+                dataType: 'json',
+                delay: 250,
+                type: 'post',
+                data: function (params) {
+                    return {
+                        SAL_NO: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    var select2data = $.map(data, function (obj) {
+                        obj.id = obj.id || obj.SAL_NO;
+                        obj.text = obj.text || obj.NAME;
+                        return obj;
+                    });
+                    params.page = params.page | 1;
+                    return {
+                        results: select2data,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    }
+
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            templateResult: CformatRepo,
+            templateSelection: CformatRepoSelection,
+            "language": {
+                "noResults": function () {
+                    return "查無結果";
+                }
+            }
+        }).maximizeSelect2Height();;
+        $('#itemCode').focus();
+        $('#itemCode').select2("open");
+        $('#itemCode').on('select2:select', function (e) {
+            var data = e.params.data;
+            var SAL_NO = data.SAL_NO;
+            var date = new Date();
+            date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+            var expires = "; expires=" + date.toGMTString();
+            document.cookie = "SAL_NO=" + SAL_NO + expires + "; path=/";
+            var href = "/Employ/Index?SAL_NO=" + SAL_NO;
+            window.location.href = href;
+            // Give Form Value
+
+        });
+        function CformatRepo(repo) {
+            if (repo.loading) return "搜尋中...";
+            repo.id = repo.SAL_NO;
+            repo.text = repo.NAME;
+            var markup = '<div class="container-fluid">' +
+                '<div class="row" style="border:3px #808080 solid;padding:px;">' +
+                '<div class="col-2" style="border-right:3px #808080 solid;padding:0px;">' + repo.SAL_NO + '</div>' +
+                '<div class="col-2" style="border-right:3px #808080 solid;padding:0px;">' + repo.NAME + '</div>' +
+                '<div class="col-2" style="border-right:3px #808080 solid;padding:0px;">' + repo.SEX + '</div>' +
+                '<div class="col-2" style="border-right:3px #808080 solid;padding:0px;">電話: ' + repo.TEL1 + '</div>' +
+                '<div class="col-2" style="border-right:3px #808080 solid;padding:0px;">行動: ' + repo.BBCALL + '</div>' +
+                '<div class="col-2" style="border-right:3px #808080 solid;padding:0px;">' + repo.ADDRESS1 + '</div>' +
+                '</div>';
+            markup += '</div>';
+            return markup;
+        }
+        function CformatRepoSelection(repo) {
+
+            return repo.text;
+        }
+
+    });
+</script>
 <script>
     document.getElementById('Search').focus();
     if (navigator.userAgent.indexOf("MSIE") > 0) {
@@ -71,53 +137,5 @@
             }
         }
     }
-    $(document).ready(function () {
-        var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Employ";
-
-        function ajaxSearchData(keyword) {
-            $.ajax({
-                url: apiurl + "?search=" + keyword,
-                type: 'GET',
-                success: function (data) {
-                    $("#tbodyshow").empty();
-                    for (var i = 0; i < data.length; i++) {
-                        $("#tbodyshow").append(
-                            '<tr id ="' + data[i].SAL_NO + '">' +
-                            '<td class="h2">' + data[i].SAL_NO + '</td>' +
-                            '<td class="h2">' + data[i].NAME + '</td>' +
-                            '<td class="h2">' + data[i].SEX + '</td>' +
-                            '<td class="h2">' + data[i].TEL1 + '</td>' +
-                            '<td class="h2">' + data[i].BBCALL + '</td>' +
-                            '<td colspan="2" class="h2">' + data[i].ADDRESS1 + '</td>' +
-                            "</tr>"
-                        );
-                    }
-                }
-            });
-        }
-
-        $("#Search").keyup(function () {
-           var searchText = $("#Search").val().toLowerCase();
-            if (searchText != "") {
-                $("#defaultValue").hide();
-                ajaxSearchData(searchText);
-            }
-            else {
-                $("#defaultValue").show();
-            }
-
-        });
-        $(document).on("click", "#click tr", function () {
-            var SAL_NO = $(this).attr("id");
-            if (SAL_NO) {
-                var date = new Date();
-                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
-                var expires = "; expires=" + date.toGMTString();
-                document.cookie = "SAL_NO=" + SAL_NO + expires + "; path=/";
-                var href = "/Employ/Index?SAL_NO=" + SAL_NO;
-                window.location.href = href;
-            }
-        });
-    });
 </script>
 

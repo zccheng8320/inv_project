@@ -25,9 +25,11 @@ namespace INV_Project
             bundles.Add(new ScriptBundle("~/bundles/MDB").Include(
                       "~/Scripts/mdb.js"));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap-table").Include(
-                      "~/Scripts/bootstrap-table.min.js"));
+                      "~/Scripts/bootstrap-table.min.js",
+                      "~/Content/locale/bootstrap-table-zh-TW.min.js"));
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
-                      "~/Scripts/select2.full.min.js"));
+                      "~/Scripts/select2.full.min.js",
+                      "~/Scripts/maximize-select2-height.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

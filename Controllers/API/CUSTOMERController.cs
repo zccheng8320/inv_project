@@ -45,16 +45,30 @@ namespace INV_Project.Controllers.API
 
         // POST: api/CUSTOMER
         [HttpPost]
-        public List<CUSTOMER> Post([FromBody]CUSTOMER select2Ajax)
+        public List<CUSTOMER> Post([FromBody]CUSTOMER select2Ajax,int tmp=0)
         {
-            
-            var p = (from c in db.CUSTOMER orderby c.TRN_DATE descending select c).Take(25);
-            Debug.WriteLine("string="+select2Ajax.CUST_CODE);
-            if (select2Ajax != null && select2Ajax.CUST_CODE!=null)
+            var p = (from c in db.CUSTOMER orderby c.TRN_DATE descending select c).Take(200);
+            if (tmp==1)
             {
-                p = from c in db.CUSTOMER where c.CUST_CODE.StartsWith(select2Ajax.CUST_CODE) || c.CUST_NAME.StartsWith(select2Ajax.CUST_CODE) select c;
+                if (select2Ajax != null && select2Ajax.CUST_CODE != null)
+                {
+                    p = db.CUSTOMER.Where(m =>
+                       m.CUST_CODE.StartsWith(select2Ajax.CUST_CODE)
+                       || m.CUST_NAME.Contains(select2Ajax.CUST_CODE)
+                       || m.ADDRESS1.Contains(select2Ajax.CUST_CODE)
+                       || m.UNIFORM.StartsWith(select2Ajax.CUST_CODE)
+                       || m.TELEPHONE.StartsWith(select2Ajax.CUST_CODE)).Take(200);
+                }                 
+               return p.ToList();
             }
-            return p.ToList();
+            else
+            {
+                if (select2Ajax != null && select2Ajax.CUST_CODE != null)
+                {
+                    p = from c in db.CUSTOMER where c.CUST_CODE.StartsWith(select2Ajax.CUST_CODE) || c.CUST_NAME.StartsWith(select2Ajax.CUST_CODE) select c;
+                }
+                return p.ToList();
+            }           
         }
 
         // PUT: api/CUSTOMER/5
