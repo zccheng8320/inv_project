@@ -32,7 +32,7 @@ namespace INV_Project.Controllers.API
             var f = from p in db.ITEM join t2 in table2 on p.ITEM_NO equals t2.ITEM_NO select new CUST_ItemWithName { ITEM_NO = t2.ITEM_NO,ITEM_NAME=p.NAME1, L_PRICE = t2.L_PRICE, COST = t2.COST,L_QTY=t2.L_QTY };
             if (select2Ajax != null && select2Ajax.ITEM_NO != null)
             {
-                f = from p in db.ITEM join t2 in table2 on p.ITEM_NO equals t2.ITEM_NO where p.ITEM_NO.StartsWith(select2Ajax.ITEM_NO) || p.NAME1.Contains(select2Ajax.ITEM_NO) select new CUST_ItemWithName { ITEM_NO = t2.ITEM_NO, ITEM_NAME = p.NAME1, L_PRICE = t2.L_PRICE, COST = t2.COST, L_QTY = t2.L_QTY };
+                f = from p in db.ITEM join t2 in table2 on p.ITEM_NO equals t2.ITEM_NO where p.ITEM_NO.StartsWith(select2Ajax.ITEM_NO) select new CUST_ItemWithName { ITEM_NO = t2.ITEM_NO, ITEM_NAME = p.NAME1, L_PRICE = t2.L_PRICE, COST = t2.COST, L_QTY = t2.L_QTY };
             }
             return f.Take(100).ToList();
             

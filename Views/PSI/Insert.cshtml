@@ -48,15 +48,19 @@
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "target" }))
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.TRN_NO, new { @Value ="",style = "width:300px" })
-    @Html.HiddenFor(model => model.TRN_DATE, new {@Value ="", style = "width:300px" })
-    @Html.HiddenFor(model => model.CODE, new {@Value ="", style = "width:300px" })
+    @Html.HiddenFor(model => model.TRN_NO, new { @Value = "", style = "width:300px" })
+    @Html.HiddenFor(model => model.TRN_DATE, new { @Value = "", style = "width:300px" })
+    @Html.HiddenFor(model => model.CODE, new { @Value = "", style = "width:300px" })
     @Html.HiddenFor(model => model.ACC_DATE, new { @Value = ym, style = "width:300px" })
-    @Html.HiddenFor(model => model.SAL_NO, new {@Value ="", style = "width:300px" })
+    @Html.HiddenFor(model => model.SAL_NO, new { @Value = "", style = "width:300px" })
     @Html.HiddenFor(model => model.TAX, new { @Value = 0, style = "width:300px" })
     @Html.HiddenFor(model => model.ACC_YN, new { @Value = "Y", style = "width:300px" })
     @Html.HiddenFor(model => model.PAY_WAY, new { style = "width:300px" })
     @Html.HiddenFor(model => model.REMARK1, new { style = "width:300px" })
+    @Html.HiddenFor(model => model.AMO3, new { @Value = 0, style = "width:300px" })
+    @Html.HiddenFor(model => model.AMO2, new { @Value = 0, style = "width:300px" })
+    @Html.HiddenFor(model => model.AMO1, new { @Value = 0, style = "width:300px" })
+    @Html.HiddenFor(model => model.INV_NO, new { @Value = "", style = "width:300px" })
 }
 <main role="main" class="inner cover">
     <div class="container-fluid h1 text-left bg-dark" style="border:3px #808080 solid;padding:5px;">
@@ -123,21 +127,24 @@
                     <tbody>
                     </tbody>
                 </table>
-</div>
+            </div>
         </div>
 
     </div>
     <div class="container-fluid h3 text-left bg-dark" style="border:3px #808080 solid;padding:5px;">
         <div class="row">
-            <div class="col-lg-4">銷貨合計: </div>
-            <div class="col-lg-4">稅&emsp;&emsp;額: </div>
-            <div class="col-lg-4">銷貨總額: </div>
+            <div class="col-lg-2">銷貨合計: </div>
+            <div id="SUMAMT" class="col-lg-2">0</div>
+            <div class="col-lg-2">稅&emsp;&emsp;額: </div>
+            <div id="TAXAMT" class="col-lg-2">0</div>
+            <div class="col-lg-2">銷貨總額: </div>
+            <div id="TOTAMT" class="col-lg-2">0</div>
         </div>
     </div>
 </main>
-<script>   
+<script>
     var itemEnable = false;
-    $(document).ready(function () {   
+    $(document).ready(function () {
         $("#TRN_V").hide();
         $("#ACC_V").hide();
         $("#control_I").hide();
@@ -174,25 +181,25 @@
             var key = event.keyCode
             if ($(this).val().length != 9) {
                 $("#TRN_V").show();
-                 $('#TRN_DATE').val("");
-            }                
+                $('#TRN_DATE').val("");
+            }
             else {
                 $("#TRN_V").hide();
                 $('#TRN_DATE').val($(this).val());
-            }         
+            }
             if (key == 13) {
-                if($(this).val().length ==9)
+                if ($(this).val().length == 9)
                     $('#ACC_DATE_input').select();
-            }              
+            }
             if ($(this).val().length == 3 && key != 8)
                 $(this).val($(this).val() + ".");
             else if ($(this).val().length == 6 && key != 8)
                 $(this).val($(this).val() + ".");
             else if (key == 110 || key == 190)
                 $(this).val($(this).val().substring(0, $(this).val().length - 1));
-            $(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, '')); 
-            
-            TRN_NO_Control()                
+            $(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
+
+            TRN_NO_Control()
         });
         // 收款月份控制
         $('#ACC_DATE_input').on('keydown', function () {
@@ -204,34 +211,34 @@
             else {
                 $('#ACC_DATE').val($(this).val());
                 $("#ACC_V").hide();
-            }               
+            }
             if (key == 13) {
                 $("#itemCode").select2("open");
-            }           
+            }
             if ($(this).val().length == 3 && key != 8)
                 $(this).val($(this).val() + ".");
             else if (key == 110 || key == 190)
                 $(this).val($(this).val().substring(0, $(this).val().length - 1));
             $(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
-                            
+
         });
         // 備註控制
         $('#REMARK_input').on('keydown', function () {
             $('#REMARK1').val($(this).val());
             var key = event.keyCode
             if (key == 13) {
-                if ($('#TRN_DATE').val() != "" && $('#CODE').val()!="" && $('#ACC_DATE').val() != "") {
+                if ($('#TRN_DATE').val() != "" && $('#CODE').val() != "" && $('#ACC_DATE').val() != "") {
                     $("#TRN_DATE_txt").html("出貨日期: " + $('#TRN_DATE').val())
                     $("#ACC_DATE_txt").html("收款月份: " + $('#ACC_DATE').val())
                     $("#CUST_CODE_txt").html("客戶編號: " + $('#CODE').val())
                     $("#SAL_NO_txt").html("業務編號: " + $('#SAL_NO').val())
-                    $("#TAX_txt").html("稅&emsp;&emsp;率: " + $('#TAX').val()+".00%")
+                    $("#TAX_txt").html("稅&emsp;&emsp;率: " + $('#TAX').val() + ".00%")
                     $("#PAY_WAY_txt").html("付款方式: " + $('#PAY_WAY').val())
                     $("#REMARK_txt").html("備&emsp;&emsp;註: " + $('#REMARK1').val())
                     $("#control_I").show();
                     itemEnable = true;
                 }
-                
+
             }
         });
         // 客戶號碼控制
@@ -239,7 +246,7 @@
             dropdownCssClass: "dropdownCssClass",
             containerCssClass: "containerCssClass",
             maximumInputLength: 10,
-            dropdownAutoWidth:true,
+            dropdownAutoWidth: true,
             ajax: {
                 url: "/api/Customer",
                 dataType: 'json',
@@ -323,7 +330,7 @@
             containerCssClass: "containerCssClass",
             maximumInputLength: 10,
             dropdownAutoWidth: true,
-            ajax: {              
+            ajax: {
                 url: "/api/Employ",
                 dataType: 'json',
                 delay: 250,
@@ -391,14 +398,14 @@
             data: tax_row,
             dropdownCssClass: "dropdownCssClass",
             containerCssClass: "containerCssClass"
-        });    
+        });
         $('#TAXSelect').on('select2:select', function (e) {
             // Give Form value
             var data = e.params.data;
             $('#TAX').val(Number(data.id));
             $("#REMARK_input").focus();
-        });   
-         $('#TAXSelect').on("select2:close", function() { $("#REMARK_input").focus(); })
+        });
+        $('#TAXSelect').on("select2:close", function () { $("#REMARK_input").focus(); })
     });
     $(document).ready(function () {
         var ITEM_COUNT = 0;
@@ -416,10 +423,10 @@
                         window.location.href = '/PSI/Sales';
                         break;
                     case 119:
-                        if (selectEnable == false&&itemEnable==true) {
+                        if (selectEnable == false && itemEnable == true) {
                             appendITEM();
-                             $("#selectItem").select2("open");
-                        }                            
+                            $("#selectItem").select2("open");
+                        }
                         break;
                 }
             }
@@ -432,16 +439,81 @@
                         window.location.href = '/PSI/Sales';
                         break;
                     case 119:
-                        if (selectEnable == false && itemEnable==true) {
-                            appendITEM();      
+                        if (selectEnable == false && itemEnable == true) {
+                            appendITEM();
                             $("#selectItem").select2("open");
-                        }     
-                        break;                 
+                        }
+                        break;
                 }
                 if (keycode == 113) {
+                    var arr = []
                     var data = JSON.parse(JSON.stringify($("#table").bootstrapTable('getData')))
-                    alert($("#TRN_NO").val())
-                     //alert(data[0]['ITEM_NAME'])
+                    if (data.length == 0) {
+                        arr.push({
+                            TRN_NO: $("#TRN_NO").val(),
+                            INV_NO: $("#INV_NO").val(),
+                            TRN_DATE: $("#TRN_DATE").val(),
+                            CODE: $("#CODE").val(),
+                            ACC_DATE: $("#ACC_DATE").val(),
+                            SAL_NO: $("#SAL_NO").val(),
+                            TAX: $("#TAX").val(),
+                            ACC_YN: $("#ACC_YN").val(),
+                            PAY_WAY: $("#PAY_WAY").val(),
+                            REMARK1: $("#REMARK1").val(),
+                            SUMAMT: Number($("#SUMAMT").html()),
+                            TAXAMT: Number($("#TAXAMT").html()),
+                            TOTAMT: Number($("#TOTAMT").html()),
+                            AMO1: $("#AMO1").val(),
+                            AMO2: $("#AMO2").val(),
+                            AMO3: $("#AMO3").val()
+
+                        })
+                    }
+                    else {
+                        for (var i = 0; i < data.length; i++) {
+                            arr.push(
+                                {
+                                    TRN_NO: $("#TRN_NO").val(),
+                                    INV_NO: $("#INV_NO").val(),
+                                    TRN_DATE: $("#TRN_DATE").val(),
+                                    CODE: $("#CODE").val(),
+                                    ACC_DATE: $("#ACC_DATE").val(),
+                                    SAL_NO: $("#SAL_NO").val(),
+                                    TAX: $("#TAX").val(),
+                                    ACC_YN: $("#ACC_YN").val(),
+                                    PAY_WAY: $("#PAY_WAY").val(),
+                                    REMARK1: $("#REMARK1").val(),
+                                    SUMAMT: Number($("#SUMAMT").html()),
+                                    TAXAMT: Number($("#TAXAMT").html()),
+                                    TOTAMT: Number($("#TOTAMT").html()),
+                                    ITEM_NO: data[i]['ITEM_NO'],
+                                    PRICE: data[i]['PRICE'],
+                                    SAL_CODE: data[i]['SAL_CODE'],
+                                    QTY: data[i]['QTY'],
+                                    AMOUNT: data[i]['AMOUNT'],
+                                    ORD_NO: data[i]['ORD_NO'],
+                                    AMO1: $("#AMO1").val(),
+                                    AMO2: $("#AMO2").val(),
+                                    AMO3: $("#AMO3").val()
+                                })
+                        }
+                    }
+                    if (arr.length > 0) {
+                        $.ajax({
+                            type: "post",
+                            url: "/api/Sales",
+                            contentType: 'application/json',
+                            data: JSON.stringify(arr),
+                            success: function (data, status) {
+                                var date = new Date();
+                                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                                var expires = "; expires=" + date.toGMTString();
+                                document.cookie = "TRN_NO=" + $("#TRN_NO").val() + expires + "; path=/";
+                                window.location.href = '/PSI/Sales';
+                            }
+                        });
+                    }
+
                 }
             }
         }
@@ -453,137 +525,156 @@
                 id: ITEM_COUNT,
                 ITEM_NO: '<select id="selectItem" style="width:250px;"></select>',
                 ITEM_NAME: '',
-                PRICE:'' ,
+                PRICE: '',
                 SAL_CODE: '',
                 QTY: '',
                 AMOUNT: '',
                 ORD_NO: '',
-                delete:''
-            }];           
-            $table.bootstrapTable('append', new_rows);                    
+                delete: ''
+            }];
+            $table.bootstrapTable('append', new_rows);
             $(document).on("click", '#del_btn', function () {
                 $table.bootstrapTable('removeByUniqueId', $(this).attr('name'))
             })
         }
-        // Select控制                  
+        // Select控制
         function selectItemControl() {
-                $("#selectItem").select2({
+            $("#selectItem").select2({
                 dropdownCssClass: "dropdownCssClass",
                 containerCssClass: "containerCssClass",
                 maximumInputLength: 10,
-                dropdownAutoWidth:true,
+                dropdownAutoWidth: true,
                 ajax: {
-                        url: "/api/CustItemWithName",
-                        dataType: 'json',
-                        delay: 250,
-                        type: 'post',
-                        data: function (params) {
-                            return {
-                                ITEM_NO: params.term, // search term
-                                CUST_CODE:$('#CODE').val(),
-                                page: params.page
-                            };
-                        },
-                        processResults: function (data, params) {
-                            var select2data = $.map(data, function (obj) {
-                                obj.id = obj.id || obj.ITEM_NO;
-                                obj.text = obj.text || obj.ITEM_NAME;
-                                return obj;
-                            });
-                            params.page = params.page | 1;
-                            return {
-                                results: select2data,
-                                pagination: {
-                                    more: (params.page * 30) < data.total_count
-                                }
+                    url: "/api/CustItemWithName",
+                    dataType: 'json',
+                    delay: 250,
+                    type: 'post',
+                    data: function (params) {
+                        return {
+                            ITEM_NO: params.term, // search term
+                            CUST_CODE: $('#CODE').val(),
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        var select2data = $.map(data, function (obj) {
+                            obj.id = obj.id || obj.ITEM_NO;
+                            obj.text = obj.text || obj.ITEM_NAME;
+                            return obj;
+                        });
+                        params.page = params.page | 1;
+                        return {
+                            results: select2data,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
                             }
+                        }
 
-                        },
-                        cache: true
                     },
-                    escapeMarkup: function (markup) {
-                        return markup;
-                    },
-                    templateResult: CformatRepo,
-                    templateSelection: CformatRepoSelection,
-                    "language": {
-                        "noResults": function () {
-                            return "查無結果";
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                templateResult: CformatRepo,
+                templateSelection: CformatRepoSelection,
+                "language": {
+                    "noResults": function () {
+                        return "查無結果";
+                    }
+                }
+            });
+            $("#selectItem").on('select2:select', function (e) {
+                var data = e.params.data;
+                $table.bootstrapTable('updateByUniqueId', {
+                    id: ITEM_COUNT,
+                    row: {
+                        ITEM_NAME: data.ITEM_NAME,
+                        ITEM_NO: data.ITEM_NO,
+                        PRICE: '<input id="PRICE_inp"style="width:150px" type="number" value="' + data.L_PRICE + '"/>',
+                        SAL_CODE: '<input id="SAL_CODE_inp"style="width:150px" type="text" />',
+                        QTY: '<input id="QTY_inp"style="width:150px" type="number" value="1"/>',
+                        AMOUNT: '',
+                        ORD_NO: '<input id="ORD_NO_inp"style="width:150px" type="text" />'
+                    }
+                })
+                $("#Item_history").html("歷史價:" + data.L_PRICE + ", 平均成本:" + data.COST + ", 庫存:" + data.L_QTY);
+                $("#Item_history").show();
+                selectEnable = false;
+                $("#PRICE_inp").select();
+                $('#PRICE_inp').on('keydown', function () {
+                    var key = event.keyCode
+                    if (key == 13) {
+                        $("#SAL_CODE_inp").focus();
+                    }
+                });
+                $('#SAL_CODE_inp').on('keydown', function () {
+                    var key = event.keyCode
+                    if (key == 13) {
+                        $("#QTY_inp").select();
+                    }
+                });
+                $('#QTY_inp').on('keydown', function () {
+                    var key = event.keyCode
+                    if (key == 13) {
+                        if ($("#QTY_inp").val() > data.L_QTY)
+                            alert("庫存量不足!!");
+                        $("#ORD_NO_inp").select();
+                    }
+                });
+                $('#ORD_NO_inp').on('keydown', function () {
+                    var key = event.keyCode
+                    if (key == 13) {
+                        if ($("#PRICE_inp").val() == "") {
+                            alert("請填寫單價")
+                            $("#PRICE_inp").select();
+                        }
+                        else if ($("#QTY_inp").val() == 0) {
+                            alert("請填寫數量")
+                            $("#QTY_inp").select();
+                        }
+                        else if ($("#PRICE_inp").val() == "" && $("#QTY_inp").val() == "") {
+                            alert("請填寫單價與數量")
+                            $("#PRICE_inp").select();
+                        }
+                        else {
+                            var AMOUNT = Number($("#QTY_inp").val()) * Number($("#PRICE_inp").val())
+                            var TAX = Number($("#TAX").val())
+                            var SUMAMT = Number($("#SUMAMT").html()) + AMOUNT
+                            var TAXAMT = Math.round(SUMAMT * (TAX / 100))
+                            var TOTAMT = Number(TAXAMT + SUMAMT)
+
+                            $("#SUMAMT").html(SUMAMT)
+                            $("#TAXAMT").html(TAXAMT)
+                            $("#TOTAMT").html(TOTAMT)
+                            switch (data.ITEM_NO.charAt(0)) {
+                                case "1":
+                                    $("#AMO1").val(Number($("#AMO1").val()) + Number(AMOUNT))
+                                    break
+                                case "2":
+                                    $("#AMO2").val(Number($("#AMO2").val()) + Number(AMOUNT))
+                                    break;
+                                case "3":
+                                    $("#AMO3").val(Number($("#AMO3").val()) + Number(AMOUNT))
+                                    break;
+                            }
+                            $table.bootstrapTable('updateByUniqueId', {
+                                id: ITEM_COUNT,
+                                row: {
+                                    PRICE: $("#PRICE_inp").val(),
+                                    SAL_CODE: $("#SAL_CODE_inp").val(),
+                                    QTY: $("#QTY_inp").val(),
+                                    AMOUNT: AMOUNT,
+                                    ORD_NO: $("#ORD_NO_inp").val(),
+                                    delete: '<button id="del_btn" name=' + ITEM_COUNT + ' type="button" class="btn btn-danger btn-lg">刪除</button>'
+                                }
+                            })
+                            $("#Item_history").hide();
                         }
                     }
-                });        
-                $("#selectItem").on('select2:select', function (e) {
-                    var data = e.params.data;
-                    $table.bootstrapTable('updateByUniqueId', {
-                        id: ITEM_COUNT,
-                        row: {
-                            ITEM_NAME: data.ITEM_NAME,
-                            ITEM_NO: data.ITEM_NO,
-                            PRICE: '<input id="PRICE_inp"style="width:150px" type="number" value="'+data.L_PRICE+'"/>',
-                            SAL_CODE: '<input id="SAL_CODE_inp"style="width:150px" type="text" />',
-                            QTY: '<input id="QTY_inp"style="width:150px" type="number" value="1"/>',
-                            AMOUNT: '',
-                            ORD_NO: '<input id="ORD_NO_inp"style="width:150px" type="text" />'
-                        }
-                    })    
-                    $("#Item_history").html("歷史價:" + data.L_PRICE + ", 平均成本:" + data.COST+", 庫存:"+ data.L_QTY);
-                    $("#Item_history").show();
-                    selectEnable = false;
-                    $("#PRICE_inp").select();
-                    $('#PRICE_inp').on('keydown', function () {                    
-                            var key = event.keyCode
-                            if (key == 13) {
-                                $("#SAL_CODE_inp").focus(); 
-                            }
-                    });
-                    $('#SAL_CODE_inp').on('keydown', function () {                    
-                            var key = event.keyCode
-                            if (key == 13) {
-                                $("#QTY_inp").select();
-                            }
-                    });
-                    $('#QTY_inp').on('keydown', function () {                    
-                            var key = event.keyCode
-                        if (key == 13) {
-                            if ($("#QTY_inp").val() > data.L_QTY)
-                                alert("庫存量不足!!");
-                                $("#ORD_NO_inp").select(); 
-                            }
-                    });
-                    $('#ORD_NO_inp').on('keydown', function () {                    
-                     var key = event.keyCode
-                        if (key == 13) {
-                             if ($("#PRICE_inp").val() == "") {
-                                alert("請填寫單價")
-                                $("#PRICE_inp").select();
-                            }
-                            else if ($("#QTY_inp").val() == 0) {
-                                alert("請填寫數量")
-                                $("#QTY_inp").select();
-                            }
-                            else if ($("#PRICE_inp").val() == "" && $("#QTY_inp").val() == "") {
-                                alert("請填寫單價與數量")
-                                $("#PRICE_inp").select();
-                            }
-                            else {
-                                var AMOUNT = Number($("#QTY_inp").val()) * Number($("#PRICE_inp").val())
-                                $table.bootstrapTable('updateByUniqueId', {
-                                    id: ITEM_COUNT,
-                                    row: {
-                                        PRICE: $("#PRICE_inp").val(),
-                                        SAL_CODE: $("#SAL_CODE_inp").val(),
-                                        QTY: $("#QTY_inp").val(),
-                                        AMOUNT: AMOUNT,
-                                        ORD_NO: $("#ORD_NO_inp").val(),
-                                        delete:'<button id="del_btn" name='+ITEM_COUNT+' type="button" class="btn btn-danger btn-lg">刪除</button>'
-                                    }
-                                })
-                                $("#Item_history").hide();
-                            }                          
-                            }
-                    });
                 });
-                    
+            });
+
         }
         function CformatRepo(repo) {
             if (repo.loading) return "搜尋中...";
@@ -601,8 +692,8 @@
 
             return repo.id;
         }
-        
 
-               
+
+
     });
 </script>

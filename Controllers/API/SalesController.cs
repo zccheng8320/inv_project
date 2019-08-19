@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -97,8 +98,66 @@ namespace INV_Project.Controllers.API
         }
 
         // POST: api/Sales
-        public void Post([FromBody]string value)
+        public void Post([FromBody]List<Sales> salesList)
         {
+            // 取得民國日期
+            var year = DateTime.Now.Year - 1911;
+            var month = "" + DateTime.Now.Month;
+            var day = "" + DateTime.Now.Day;
+            if (DateTime.Now.Month < 10)
+            { month = "0" + month; }
+            if (DateTime.Now.Day < 10)
+            { day = "0" + day; }
+            var today = year + "." + month + "." + day;
+            var ym = year + "." + month;
+            // 第一筆資料
+            var sf = salesList.FirstOrDefault();           
+            var invoice = db.INVOICE;
+            var itrans = db.ITRANS;
+            // 應收款([RECMON]) 新增或更新
+            var recmon = db.RECMON.Where(m => m.CUST_CODE == sf.CODE && m.MON_DATE==sf.ACC_DATE).FirstOrDefault();
+            if (recmon != null)
+            {
+                recmon.SAL_AMT = (Convert.ToDouble(recmon.SAL_AMT) + sf.SUMAMT).ToString();
+                recmon.TAX_AMT = (Convert.ToDouble(recmon.TAX_AMT) + sf.TAXAMT).ToString();
+                recmon.TOT_AMT = (Convert.ToDouble(recmon.TOT_AMT) + sf.TOTAMT).ToString();
+                recmon.AMO1 = (Convert.ToDouble(recmon.AMO1) + sf.AMO1).ToString();
+                recmon.AMO2 = (Convert.ToDouble(recmon.AMO2) + sf.AMO2).ToString();
+                recmon.AMO3 = (Convert.ToDouble(recmon.AMO3) + sf.AMO3).ToString();
+            }
+            else
+                db.RECMON.Add(new RECMON {CUST_CODE=sf.CODE,MON_DATE=sf.ACC_DATE ,SAL_AMT=sf.SUMAMT.ToString(),TAX_AMT=sf.TAXAMT.ToString(),TOT_AMT=sf.TOTAMT.ToString(),AMO1=sf.AMO1.ToString(), AMO2 = sf.AMO2.ToString(), AMO3 = sf.AMO3.ToString() });          
+            // Customer TRN_DATE Update
+            var customer = db.CUSTOMER.Where(m => m.CUST_CODE == sf.CODE).FirstOrDefault();
+            customer.TRN_DATE = today;
+            // Invoice Insert
+            invoice.Add(new INVOICE {TRN_NO=sf.TRN_NO,INV_NO=sf.INV_NO,TRN_DATE=sf.TRN_DATE,CODE=sf.CODE,TAX=sf.TAX,REMARK1=sf.REMARK1,ACC_DATE=sf.ACC_DATE ,SUMAMT=sf.SUMAMT,TAXAMT=sf.TAXAMT,TOTAMT=sf.TOTAMT,AMO1=sf.AMO1,AMO2=sf.AMO2,AMO3=sf.AMO3,SAL_NO=sf.SAL_NO,PAY_WAY=sf.PAY_WAY,ACC_YN=sf.ACC_YN});
+            // 
+            foreach (var s in salesList)
+            {
+                // Item Update
+                var item = db.ITEM.Where(m => m.ITEM_NO == s.ITEM_NO).FirstOrDefault();
+                // 減去庫存量
+                var n_QTY = item.QTY - Convert.ToDouble(s.QTY);
+                item.QTY = n_QTY;
+                item.TRN_DATE = today;
+                // 更新歷史成交價
+                var custitem = db.CUSTITEM.Where(m => m.CUST_CODE == s.CODE && m.ITEM_NO == s.ITEM_NO).FirstOrDefault();
+                if (custitem != null)
+                {
+                    custitem.L_PRICE = s.PRICE;
+                    custitem.L_DATE = s.TRN_DATE;
+                    custitem.L_QTY = Convert.ToDouble(s.QTY);
+                    custitem.SAL_CODE = s.SAL_CODE;
+                    custitem.COST = item.C_PRICE;
+                    custitem.REMARK = s.ORD_NO;
+
+                }
+                else
+                    db.CUSTITEM.Add(new CUSTITEM { CUST_CODE = s.CODE, ITEM_NO = s.ITEM_NO,L_QTY= Convert.ToDouble(s.QTY), SAL_CODE = s.SAL_CODE, L_DATE = s.TRN_DATE, L_PRICE = s.PRICE, COST = item.C_PRICE,REMARK=s.ORD_NO });                  
+                itrans.Add(new ITRANS { TRN_NO = s.TRN_NO, ITEM_NO = s.ITEM_NO,QTY=s.QTY,PRICE=s.PRICE,AMOUNT=s.AMOUNT,CODE=s.CODE,ACC_DATE=s.ACC_DATE,ACC_YN=s.ACC_YN,TRN_DATE=s.TRN_DATE,ORD_NO=s.ORD_NO,SAL_NO=s.SAL_NO,SAL_CODE=s.SAL_CODE,COST=item.C_PRICE });
+            }
+            db.SaveChanges();
         }
 
         // PUT: api/Sales/5

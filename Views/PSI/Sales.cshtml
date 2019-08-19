@@ -239,6 +239,8 @@ var $table = $('#table')
                         var telephon = data[0].TELEPHONE;
                         if (telephon.length > 14)
                             telephon = telephon.substring(0, 14) + "...";
+                        if (data[0].SAL_NAME == null)
+                            data[0].SAL_NAME=""
                         $("#Invoice").append(
                             '<div class="col-lg-3">單據號碼: ' + data[0].TRN_NO + '</div>' +
                             '<div class="col-lg-5">出貨日期: ' + data[0].TRN_DATE + '</div>' +
