@@ -165,9 +165,11 @@ namespace INV_Project.Controllers.API
         {
         }
 
+        [HttpDelete]
         // DELETE: api/Sales/5
-        public void Delete(int id)
+        public void Delete([FromBody]Sales sales)
         {
+            
         }
     }
 }

@@ -1,0 +1,389 @@
+﻿@model IEnumerable<INV_Project.Models.Sales>
+
+@{
+    ViewBag.Title = "Update";
+}
+<style>
+    input {
+        padding: 0px 5px;
+        background: #ccc;
+        border: 2px black solid;
+        color: forestgreen;
+        max-width: 1000px;
+        width: 100%;
+    }
+
+    .select2-selection__rendered {
+        line-height: 50px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 50px !important;
+    }
+
+    .select2-selection__arrow {
+        height: 50px !important;
+    }
+
+    .dropdownCssClass {
+        font-size: 25px;
+        text-align: left;
+        color: black;
+    }
+
+    .containerCssClass {
+        font-size: 30px;
+        text-align: center;
+        color: black;
+    }
+</style>
+@Html.HiddenFor(modelItem => modelItem.FirstOrDefault().TRN_NO)
+@Html.HiddenFor(modelItem => modelItem.FirstOrDefault().TRN_DATE)
+@Html.HiddenFor(modelItem => modelItem.FirstOrDefault().ACC_DATE)
+@Html.HiddenFor(modelItem => modelItem.FirstOrDefault().CODE)
+@Html.HiddenFor(modelItem => modelItem.FirstOrDefault().TAX)
+@Html.HiddenFor(modelItem => modelItem.FirstOrDefault().SAL_NO)
+@Html.HiddenFor(modelItem => modelItem.FirstOrDefault().ACC_YN)
+@Html.HiddenFor(modelItem => modelItem.FirstOrDefault().AMO1)
+@Html.HiddenFor(modelItem => modelItem.FirstOrDefault().AMO2)
+@Html.HiddenFor(modelItem => modelItem.FirstOrDefault().AMO3)
+<main role="main" class="inner cover">
+    <h1 class="text-warning">F2>儲存 F8>新增 TAB> 切換輸入框</h1>
+    <div class="container-fluid h1 text-left bg-dark" style="border:3px #808080 solid;padding:5px;">
+        <div id="Invoice" class="row">
+            <div class="col-lg-3">單據號碼: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().TRN_NO)</div>
+            <div class="col-lg-5">出貨日期: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().TRN_DATE)</div>
+            <div class="col-lg-4">收款月份: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().ACC_DATE)</div>
+            <div class="w-100"></div>
+            <div class="col-lg-3">客戶號碼: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().CODE)</div>
+            @{
+                var TELEPHONE = Model.FirstOrDefault().TELEPHONE;
+                if (TELEPHONE.Length > 14)
+                {
+                    TELEPHONE = TELEPHONE.Substring(0, 14) + "...";
+                }
+            }
+            <div class="col-lg-5">聯 絡 人: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().ATTENTION)</div>
+            <div class="col-lg-4">電&emsp;&emsp;話: @TELEPHONE</div>
+            <div class="w-100"></div>
+            <div class="col-lg-8">客戶名稱: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().CUST_NAME)</div>
+            <div class="col-lg-4">統一編號: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().UNIFORM)</div>
+            <div class="w-100"></div>
+            <div class="col-lg-3">業務編號: <select id="employCode"><option selected="selected">@Model.FirstOrDefault().SAL_NO</option></select></div>
+            <div id="SAL_NAME" class="col-lg-5">姓&emsp;&emsp;名: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().SAL_NAME)</div>
+            <div class="col-lg-4">發票號碼: @Html.TextBoxFor(modelItem => modelItem.FirstOrDefault().INV_NO, new { style = "width:300px" })</div>
+            <div class="w-100"></div>
+            <div class="col-lg-3">稅&emsp;&emsp;率: <select id="TAXSelect" style="width:150px;"></select></div>
+            <div class="col-lg-5">帳&emsp;&emsp;別: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().ACC_YN)</div>
+            <div class="col-lg-4">會計傳票: </div>
+            <div class="w-100"></div>
+            <div class="col-lg-12">付款方式: @Html.TextBoxFor(modelItem => modelItem.FirstOrDefault().PAY_WAY, new { style = "width:500px" })</div>
+            <div class="w-100"></div>
+            <div class="col-lg-12">備&emsp;&emsp;註: @Html.TextBoxFor(modelItem => modelItem.FirstOrDefault().REMARK1, new { style = "width:500px" })</div>
+            <div class="w-100"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table id="table"
+                       data-toggle="table"
+                       data-height="460"
+                       data-unique-id="id"
+                       class="table table-dark table-bordered">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th data-field="ITEM_NO">
+                                產品號碼
+                            </th>
+                            <th data-field="ITEM_NAME">
+                                品名規格
+                            </th>
+                            <th data-field="PRICE">
+                                單價
+                            </th>
+                            <th data-field="SAL_CODE">
+                                註
+                            </th>
+                            <th data-field="QTY">
+                                數量
+                            </th>
+                            <th data-field="AMOUNT">
+                                金額
+                            </th>
+                            <th data-field="ORD_NO">
+                                備註
+                            </th>
+                            <th data-field="update">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="container-fluid h3 text-left bg-dark" style="border:3px #808080 solid;padding:5px;">
+        <div id="Money" class="row">
+            <div class="col-lg-2">銷貨合計: </div>
+            <div id="SUMAMT" class="col-lg-2">@Html.DisplayFor(modelItem => modelItem.FirstOrDefault().SUMAMT)</div>
+            <div class="col-lg-2">稅&emsp;&emsp;額: </div>
+            <div id="TAXAMT" class="col-lg-2">@Html.DisplayFor(modelItem => modelItem.FirstOrDefault().TAXAMT)</div>
+            <div class="col-lg-2">銷貨總額: </div>
+            <div id="TOTAMT" class="col-lg-2">@Html.DisplayFor(modelItem => modelItem.FirstOrDefault().TOTAMT)</div>
+        </div>
+    </div>
+</main>
+<script>
+    $(document).ready(function () {
+        var TRN_NO = "@Model.FirstOrDefault().TRN_NO";
+        if (navigator.userAgent.indexOf("MSIE") > 0) {
+            //IE
+            document.onkeyup = function () {
+            }
+        }
+        else {
+            window.onkeyup = function () {
+                var key=event.keyCode
+                switch (key) {
+                    case 27:
+                        window.location.href = '/PSI/Sales'; // Navigate to URL
+                        break;
+                }
+                if (key == 113) {
+                    var arr = []
+                    var data = JSON.parse(JSON.stringify($("#table").bootstrapTable('getData')))
+                    if (data.length == 0) {
+                        arr.push({
+                            TRN_NO: $("#TRN_NO").val(),
+                            INV_NO: $("#INV_NO").val(),
+                            TRN_DATE: $("#TRN_DATE").val(),
+                            CODE: $("#CODE").val(),
+                            ACC_DATE: $("#ACC_DATE").val(),
+                            SAL_NO: $("#SAL_NO").val(),
+                            TAX: $("#TAX").val(),
+                            PAY_WAY: $("#PAY_WAY").val(),
+                            REMARK1: $("#REMARK1").val(),
+                            SUMAMT: $("#SUMAMT").html(),
+                            TAXAMT: $("#TAXAMT").html(),
+                            TOTAMT: $("#TOTAMT").html(),
+                            AMO1: $("#AMO1").val(),
+                            AMO2: $("#AMO2").val(),
+                            AMO3: $("#AMO3").val()
+                        })
+                    }
+                    else {
+                            for (var i = 0; i < data.length; i++) {
+                                var PRICE = $(data[i]['PRICE']).val()
+                                var SAL_CODE = $(data[i]['SAL_CODE']).val()
+                                var QTY = $(data[i]['QTY']).val()
+                                var ORD_NO = $(data[i]['ORD_NO']).val()
+                                arr.push({
+                                    TRN_NO: $("#TRN_NO").val(),
+                                    INV_NO: $("#INV_NO").val(),
+                                    TRN_DATE: $("#TRN_DATE").val(),
+                                    CODE: $("#CODE").val(),
+                                    ACC_DATE: $("#ACC_DATE").val(),
+                                    SAL_NO: $("#SAL_NO").val(),
+                                    TAX: $("#TAX").val(),
+                                    PAY_WAY: $("#PAY_WAY").val(),
+                                    REMARK1: $("#REMARK1").val(),
+                                    SUMAMT: $("#SUMAMT").html(),
+                                    TAXAMT: $("#TAXAMT").html(),
+                                    TOTAMT: $("#TOTAMT").html(),
+                                    ITEM_NO:data[i]['ITEM_NO'],
+                                    PRICE: PRICE,
+                                    SAL_CODE: SAL_CODE,
+                                    QTY: QTY,
+                                    ORD_NO: ORD_NO,
+                                    AMOUNT: data[i]['AMOUNT'],
+                                    AMO1: $("#AMO1").val(),
+                                    AMO2: $("#AMO2").val(),
+                                    AMO3: $("#AMO3").val()
+                                })
+                        }
+                    }
+                }
+            }
+        }
+        var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Sales";
+        var $table = $('#table')
+        var rows = [];
+        var model =@Html.Raw(Json.Encode(Model));
+        for (var i = 0; i < model.length; i++)
+        {
+            rows.push({
+                id: i,
+                ITEM_NO: model[i].ITEM_NO,
+                ITEM_NAME: model[i].ITEM_NAME,
+                PRICE: '<input id="PRICE_inp" style="width:150px" type="number" value="' + model[i].PRICE + '"/>',
+                SAL_CODE: '<input id="SAL_CODE_inp" style="width:50px" type="text" value="'+ model[i].SAL_CODE+'" />',
+                QTY: '<input id="QTY_inp" style="width:150px" type="number" value="'+ model[i].QTY+'"/>',
+                ORD_NO: '<input id="ORD_NO_inp" style="width:150px" type="text" value="' + model[i].ORD_NO + '" />',
+                AMOUNT:model[i].AMOUNT,
+                update:'<button id="del_btn" name=' + i + ' type="button" class="btn btn-danger btn-lg">刪除</button>'
+            })
+        }
+        $table.bootstrapTable('append', rows);
+        // 業務控制
+        $("#employCode").select2({
+            dropdownCssClass: "dropdownCssClass",
+            containerCssClass: "containerCssClass",
+            width:"150px",
+            maximumInputLength: 10,
+            dropdownAutoWidth: true,
+            ajax: {
+                url: "/api/Employ",
+                dataType: 'json',
+                delay: 250,
+                type: 'post',
+                data: function (params) {
+                    return {
+                        SAL_NO: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    var select2data = $.map(data, function (obj) {
+                        obj.id = obj.id || obj.SAL_NO;
+                        obj.text = obj.text || obj.NAME;
+                        return obj;
+                    });
+                    params.page = params.page | 1;
+                    return {
+                        results: select2data,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    }
+
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            templateResult: EformatRepo,
+            templateSelection: EformatRepoSelection,
+            "language": {
+                "noResults": function () {
+                    return "查無結果";
+                }
+            }
+        });
+        $('#employCode').on('select2:select', function (e) {
+            var data = e.params.data;
+            // Give Form value
+            $('#SAL_NO').val(data.id);
+            $('#SAL_NAME').html("姓&emsp;&emsp;名: " + data.text);
+
+        });
+        function EformatRepo(repo) {
+            if (repo.loading) return "搜尋中...";
+            repo.id = repo.SAL_NO;
+            repo.text = repo.NAME;
+            var markup = '<div class="container-fluid">' +
+                '<div class="row">' +
+                '<div class="col-4">' + repo.SAL_NO + '</div>' +
+                '<div class="col-8">' + repo.NAME + '</div>' +
+                '</div>';
+            markup += '</div>';
+            return markup;
+        }
+        function EformatRepoSelection(repo) {
+
+            return repo.id;
+        }
+
+        $('#employCode').on("select2:close", function () { $("#INV_NO").select(); })
+        // 發票控制
+        $('#INV_NO').on('keydown', function () {
+            var key = event.keyCode
+            if (key == 13) {
+                $("#TAXSelect").select2("open");
+            }
+        });
+        // PAY_WAY控制
+        $('#PAY_WAY').on('keydown', function () {
+            var key = event.keyCode
+            if (key == 13) {
+                $("#REMARK1").select();
+            }
+        });
+        // 稅率
+        var tax_row = [{ id: 0, text: "0.00%" }, { id: 5, text: "5.00%" }]
+        $("#TAXSelect").select2({
+            data: tax_row,
+            dropdownCssClass: "dropdownCssClass",
+            containerCssClass: "containerCssClass"
+        });
+        $('#TAXSelect').on('select2:select', function (e) {
+            // Give Form value
+            var data = e.params.data;
+            $('#TAX').val(Number(data.id));
+        });
+        $('#TAXSelect').on("select2:close", function () { $("#PAY_WAY").select(); })
+        var TAX =@Model.FirstOrDefault().TAX.ToString();
+        $("#TAXSelect").select2("val", "" + TAX)
+        $("#employCode").select2("open");
+        var $table = $('#table')
+        $(document).on("click", '#del_btn', function () {
+            var msg = "確定要刪除?\n";
+            if (confirm(msg) == true) {
+                var row_data = JSON.parse(JSON.stringify($table.bootstrapTable('getRowByUniqueId', $(this).attr('name'))))
+                var AMOUNT = Number(row_data['AMOUNT'])
+                var ITEM_NO = row_data['ITEM_NO']
+                var SUMAMT = Number($("#SUMAMT").html()) - AMOUNT
+                var TAXAMT = Math.round(SUMAMT * (TAX / 100))
+                var TOTAMT = Number(TAXAMT + SUMAMT)
+                $("#SUMAMT").html(SUMAMT)
+                $("#TAXAMT").html(TAXAMT)
+                $("#TOTAMT").html(TOTAMT)
+                switch (ITEM_NO.charAt(0)) {
+                    case "1":
+                        $("#AMO1").val(Number($("#AMO1").val()) - AMOUNT)
+                        break
+                    case "2":
+                        $("#AMO2").val(Number($("#AMO2").val()) - AMOUNT)
+                        break;
+                    case "3":
+                        $("#AMO3").val(Number($("#AMO3").val()) - AMOUNT)
+                        break;
+                }
+                var del_arr = {
+                    TRN_NO: $("#TRN_NO").val(),
+                    INV_NO: $("#INV_NO").val(),
+                    TRN_DATE: $("#TRN_DATE").val(),
+                    ITEM_NO:ITEM_NO,
+                    CODE: $("#CODE").val(),
+                    ACC_DATE: $("#ACC_DATE").val(),
+                    SAL_NO: $("#SAL_NO").val(),
+                    TAX: $("#TAX").val(),
+                    PAY_WAY: $("#PAY_WAY").val(),
+                    REMARK1: $("#REMARK1").val(),
+                    SUMAMT: $("#SUMAMT").html(),
+                    TAXAMT: $("#TAXAMT").html(),
+                    TOTAMT: $("#TOTAMT").html(),
+                    AMO1: $("#AMO1").val(),
+                    AMO2: $("#AMO2").val(),
+                    AMO3: $("#AMO3").val()
+                }
+                console.log(del_arr)
+                $table.bootstrapTable('removeByUniqueId', $(this).attr('name'))
+                $.ajax({
+                    type: "post",
+                    url: "/PSI/Delete_Item",
+                    contentType: 'application/json',
+                    data: JSON.stringify(del_arr),
+                    success: function (data, status) {
+                    alert("刪除成功");
+                        }
+                    });
+            }
+            else
+            {
+                return false;
+            }
+            })
+});
+</script>

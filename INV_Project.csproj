@@ -348,6 +348,7 @@
     <Content Include="Views\PSI\Sales.cshtml" />
     <Content Include="Views\PSI\Insert.cshtml" />
     <Content Include="Views\PSI\Search.cshtml" />
+    <Content Include="Views\PSI\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
