@@ -85,7 +85,7 @@
             <div id="REMARK_txt" class="col-lg-12">備&emsp;&emsp;註: <input id="REMARK_input" style="width:500px" type="text" /></div>
             <div class="w-100"></div>
             <div id="control_I" class="col-lg-4 text-warning">案F8新增產品</div>
-            <div id="Item_history" class="col-lg-4 text-success">上次成交價:100元, 成本:50元</div>
+            <div id="Item_history" class="col-lg-8 text-success">上次成交價:100元, 成本:50元</div>
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -426,7 +426,8 @@
         }
         else {
             window.onkeyup = function () {
-                switch (event.keyCode) {
+                var keycode = event.keyCode;
+                switch (keycode) {
                     case 27:
                         window.location.href = '/PSI/Sales';
                         break;
@@ -435,9 +436,13 @@
                             appendITEM();      
                             $("#selectItem").select2("open");
                         }     
-                        break;
+                        break;                 
                 }
-
+                if (keycode == 113) {
+                    var data = JSON.parse(JSON.stringify($("#table").bootstrapTable('getData')))
+                    alert($("#TRN_NO").val())
+                     //alert(data[0]['ITEM_NAME'])
+                }
             }
         }
 
@@ -468,20 +473,21 @@
                 maximumInputLength: 10,
                 dropdownAutoWidth:true,
                 ajax: {
-                        url: "/api/ITEM",
+                        url: "/api/CustItemWithName",
                         dataType: 'json',
                         delay: 250,
                         type: 'post',
                         data: function (params) {
                             return {
                                 ITEM_NO: params.term, // search term
+                                CUST_CODE:$('#CODE').val(),
                                 page: params.page
                             };
                         },
                         processResults: function (data, params) {
                             var select2data = $.map(data, function (obj) {
                                 obj.id = obj.id || obj.ITEM_NO;
-                                obj.text = obj.text || obj.NAME1;
+                                obj.text = obj.text || obj.ITEM_NAME;
                                 return obj;
                             });
                             params.page = params.page | 1;
@@ -511,15 +517,16 @@
                     $table.bootstrapTable('updateByUniqueId', {
                         id: ITEM_COUNT,
                         row: {
-                            ITEM_NAME: data.NAME1,
+                            ITEM_NAME: data.ITEM_NAME,
                             ITEM_NO: data.ITEM_NO,
-                            PRICE: '<input id="PRICE_inp"style="width:150px" type="number" value="0"/>',
+                            PRICE: '<input id="PRICE_inp"style="width:150px" type="number" value="'+data.L_PRICE+'"/>',
                             SAL_CODE: '<input id="SAL_CODE_inp"style="width:150px" type="text" />',
-                            QTY: '<input id="QTY_inp"style="width:150px" type="number" value="0"/>',
-                            AMOUNT: '<input id="AMOUNT_inp"style="width:150px" type="number" value="0"/>',
+                            QTY: '<input id="QTY_inp"style="width:150px" type="number" value="1"/>',
+                            AMOUNT: '',
                             ORD_NO: '<input id="ORD_NO_inp"style="width:150px" type="text" />'
                         }
                     })    
+                    $("#Item_history").html("歷史價:" + data.L_PRICE + ", 平均成本:" + data.COST+", 庫存:"+ data.L_QTY);
                     $("#Item_history").show();
                     selectEnable = false;
                     $("#PRICE_inp").select();
@@ -537,31 +544,42 @@
                     });
                     $('#QTY_inp').on('keydown', function () {                    
                             var key = event.keyCode
-                            if (key == 13) {
-                                $("#AMOUNT_inp").select(); 
-                            }
-                    });
-                    $('#AMOUNT_inp').on('keydown', function () {                    
-                            var key = event.keyCode
                         if (key == 13) {
-                             $("#ORD_NO_inp").focus(); 
+                            if ($("#QTY_inp").val() > data.L_QTY)
+                                alert("庫存量不足!!");
+                                $("#ORD_NO_inp").select(); 
                             }
                     });
                     $('#ORD_NO_inp').on('keydown', function () {                    
                      var key = event.keyCode
                         if (key == 13) {
+                             if ($("#PRICE_inp").val() == "") {
+                                alert("請填寫單價")
+                                $("#PRICE_inp").select();
+                            }
+                            else if ($("#QTY_inp").val() == 0) {
+                                alert("請填寫數量")
+                                $("#QTY_inp").select();
+                            }
+                            else if ($("#PRICE_inp").val() == "" && $("#QTY_inp").val() == "") {
+                                alert("請填寫單價與數量")
+                                $("#PRICE_inp").select();
+                            }
+                            else {
+                                var AMOUNT = Number($("#QTY_inp").val()) * Number($("#PRICE_inp").val())
                                 $table.bootstrapTable('updateByUniqueId', {
                                     id: ITEM_COUNT,
                                     row: {
                                         PRICE: $("#PRICE_inp").val(),
                                         SAL_CODE: $("#SAL_CODE_inp").val(),
                                         QTY: $("#QTY_inp").val(),
-                                        AMOUNT: $("#AMOUNT_inp").val(),
+                                        AMOUNT: AMOUNT,
                                         ORD_NO: $("#ORD_NO_inp").val(),
                                         delete:'<button id="del_btn" name='+ITEM_COUNT+' type="button" class="btn btn-danger btn-lg">刪除</button>'
                                     }
                                 })
-                            $("#Item_history").hide();
+                                $("#Item_history").hide();
+                            }                          
                             }
                     });
                 });
@@ -570,11 +588,11 @@
         function CformatRepo(repo) {
             if (repo.loading) return "搜尋中...";
             repo.id = repo.ITEM_NO;
-            repo.text = repo.NAME1;
+            repo.text = repo.ITEM_NAME;
             var markup = '<div class="container-fluid">' +
                 '<div class="row">' +
                 '<div class="col-4">' + repo.ITEM_NO + '</div>' +
-                '<div class="col-8">' + repo.NAME1 + '</div>' +
+                '<div class="col-8">' + repo.ITEM_NAME + '</div>' +
                 '</div>';
             markup += '</div>';
             return markup;

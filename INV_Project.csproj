@@ -143,6 +143,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\API\CustItemWithNameController.cs" />
     <Compile Include="Controllers\API\CUSTOMERController.cs" />
     <Compile Include="Controllers\API\EmployController.cs" />
     <Compile Include="Controllers\API\FactoryController.cs" />
