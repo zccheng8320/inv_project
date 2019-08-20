@@ -35,9 +35,9 @@ namespace INV_Project.Controllers
             var table = (from inv in db.INVOICE
                          join itran in db.ITRANS on inv.TRN_NO equals itran.TRN_NO into table1
                          from t1 in table1.DefaultIfEmpty()
-                         join c in db.CUSTOMER on t1.CODE equals c.CUST_CODE into table2
+                         join c in db.CUSTOMER on inv.CODE equals c.CUST_CODE into table2
                          from t2 in table2.DefaultIfEmpty()
-                         join e in db.EMPLOY on t1.SAL_NO equals e.SAL_NO into table3
+                         join e in db.EMPLOY on inv.SAL_NO equals e.SAL_NO into table3
                          from t3 in table3.DefaultIfEmpty()
                          join i in db.ITEM on t1.ITEM_NO equals i.ITEM_NO into table4
                          from t4 in table4.DefaultIfEmpty()
@@ -82,9 +82,9 @@ namespace INV_Project.Controllers
                 table = (from inv in db.INVOICE
                          join itran in db.ITRANS on inv.TRN_NO equals itran.TRN_NO into table1
                          from t1 in table1.DefaultIfEmpty()
-                         join c in db.CUSTOMER on t1.CODE equals c.CUST_CODE into table2
+                         join c in db.CUSTOMER on inv.CODE equals c.CUST_CODE into table2
                          from t2 in table2.DefaultIfEmpty()
-                         join e in db.EMPLOY on t1.SAL_NO equals e.SAL_NO into table3
+                         join e in db.EMPLOY on inv.SAL_NO equals e.SAL_NO into table3
                          from t3 in table3.DefaultIfEmpty()
                          join i in db.ITEM on t1.ITEM_NO equals i.ITEM_NO into table4
                          from t4 in table4.DefaultIfEmpty()
@@ -152,9 +152,9 @@ namespace INV_Project.Controllers
             var table = (from inv in db.INVOICE
                          join itran in db.ITRANS on inv.TRN_NO equals itran.TRN_NO into table1
                          from t1 in table1.DefaultIfEmpty()
-                         join c in db.CUSTOMER on t1.CODE equals c.CUST_CODE into table2
+                         join c in db.CUSTOMER on inv.CODE equals c.CUST_CODE into table2
                          from t2 in table2.DefaultIfEmpty()
-                         join e in db.EMPLOY on t1.SAL_NO equals e.SAL_NO into table3
+                         join e in db.EMPLOY on inv.SAL_NO equals e.SAL_NO into table3
                          from t3 in table3.DefaultIfEmpty()
                          join i in db.ITEM on t1.ITEM_NO equals i.ITEM_NO into table4
                          from t4 in table4.DefaultIfEmpty()
@@ -190,17 +190,38 @@ namespace INV_Project.Controllers
                              AMO1=inv.AMO1,
                              AMO2 = inv.AMO2,
                              AMO3 = inv.AMO3,
-
+                             ITEM_ID=t1.ID
                          }).ToList();
             return View(table);
+        }
+        [HttpPost]
+        public void Update_Sales([FromBody]List<Sales> salesList)
+        {
+            var SF = salesList.FirstOrDefault();
+            var invoice = db.INVOICE.Where(m => m.TRN_NO == SF.TRN_NO).DefaultIfEmpty().FirstOrDefault();
+            var new_inv = SalesConvertInvoice(SF);
+            invoice = new_inv;
+            db.SaveChanges();
+            foreach(var s in salesList)
+            {
+                if(s.ITEM_ID!=null)
+                {
+                    var itrans = db.ITRANS.Where(m => m.ID == s.ITEM_ID).FirstOrDefault();
+                    var new_itrans = SalesConvertITRANS(s);
+                    if (itrans != null)
+                        itrans = new_itrans;
+                    else
+                        db.ITRANS.Add(new_itrans);
+                    db.SaveChanges();
+                }
+            }
         }
         [HttpPost]
         public void Delete_Item([FromBody]Sales sales)
         {
             Debug.WriteLine("sales="+sales.TRN_NO);
-            var itrans = db.ITRANS.Where(m => m.TRN_NO == sales.TRN_NO && m.ITEM_NO == sales.ITEM_NO).ToList();
-            foreach(var i in itrans)
-                db.ITRANS.Remove(i);
+            var itrans = db.ITRANS.Where(m => m.ID == sales.ITEM_ID).FirstOrDefault();
+            db.ITRANS.Remove(itrans);
             var invoice = db.INVOICE.Where(m => m.TRN_NO == sales.TRN_NO).FirstOrDefault();
             invoice.TAX = sales.TAX; invoice.REMARK1 = sales.REMARK1;
             invoice.PAY_WAY = sales.PAY_WAY; invoice.SUMAMT = sales.SUMAMT;
@@ -223,8 +244,48 @@ namespace INV_Project.Controllers
                 AMO3 += Convert.ToDouble(i.AMO3);
             }
             recmon.SAL_AMT = SAL_AMT.ToString(); recmon.TAX_AMT = TAX_AMT.ToString(); recmon.AMO1 = AMO1.ToString(); recmon.AMO2 = AMO2.ToString(); recmon.AMO3 = AMO3.ToString();
+            if (recmon.REC_AMT == null || recmon.REC_AMT == "")
+                recmon.REC_AMT = "0";
             recmon.TOT_AMT = (Convert.ToDouble(recmon.REC_AMT) - SAL_AMT - TAX_AMT).ToString();
             db.SaveChanges();
+        }
+        public ITRANS SalesConvertITRANS(Sales sales)
+        {
+            var itrans = new ITRANS();
+            itrans.ID = (int)sales.ITEM_ID;
+            itrans.TRN_NO = sales.TRN_NO;
+            itrans.ITEM_NO = sales.ITEM_NO;
+            itrans.QTY = sales.QTY;
+            itrans.PRICE = sales.PRICE;
+            itrans.AMOUNT = sales.AMOUNT;
+            itrans.CODE = sales.CODE;
+            itrans.ACC_DATE = sales.ACC_DATE;
+            itrans.ACC_YN = sales.ACC_YN;
+            itrans.TRN_DATE = sales.TRN_DATE;
+            itrans.ORD_NO = sales.ORD_NO;
+            itrans.SAL_NO = sales.SAL_NO;
+            itrans.SAL_CODE = sales.SAL_CODE;
+            return itrans;
+        }
+        public INVOICE SalesConvertInvoice(Sales sales)
+        {
+            var inv = new INVOICE();
+            inv.TRN_NO = sales.TRN_NO;
+            inv.INV_NO = sales.INV_NO;
+            inv.TRN_DATE = sales.TRN_DATE;
+            inv.CODE = sales.CODE;
+            inv.TAX = sales.TAX;
+            inv.REMARK1 = sales.REMARK1;
+            inv.ACC_DATE = sales.ACC_DATE;
+            inv.PAY_WAY = sales.PAY_WAY;
+            inv.SUMAMT = sales.SUMAMT;
+            inv.TAXAMT = sales.TAXAMT;         
+            inv.TOTAMT = sales.TOTAMT;
+            inv.SAL_NO = sales.SAL_NO;
+            inv.AMO1 = sales.AMO1;
+            inv.AMO2 = sales.AMO2;
+            inv.AMO3 = sales.AMO3;
+            return inv;
         }
     }
 }

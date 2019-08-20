@@ -36,5 +36,6 @@ namespace INV_Project.Models
         public Nullable<double> AMO1 { get; set; }
         public Nullable<double> AMO2 { get; set; }
         public Nullable<double> AMO3 { get; set; }
+        public Nullable<int> ITEM_ID { get; set; }
     }
 }

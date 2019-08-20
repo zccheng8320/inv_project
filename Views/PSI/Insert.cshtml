@@ -55,8 +55,8 @@
     @Html.HiddenFor(model => model.SAL_NO, new { @Value = "", style = "width:300px" })
     @Html.HiddenFor(model => model.TAX, new { @Value = 0, style = "width:300px" })
     @Html.HiddenFor(model => model.ACC_YN, new { @Value = "Y", style = "width:300px" })
-    @Html.HiddenFor(model => model.PAY_WAY, new { style = "width:300px" })
-    @Html.HiddenFor(model => model.REMARK1, new { style = "width:300px" })
+    @Html.HiddenFor(model => model.PAY_WAY, new {@Value ="", style = "width:300px" })
+    @Html.HiddenFor(model => model.REMARK1, new {@Value ="", style = "width:300px" })
     @Html.HiddenFor(model => model.AMO3, new { @Value = 0, style = "width:300px" })
     @Html.HiddenFor(model => model.AMO2, new { @Value = 0, style = "width:300px" })
     @Html.HiddenFor(model => model.AMO1, new { @Value = 0, style = "width:300px" })
@@ -517,7 +517,7 @@
                 }
             }
         }
-
+        var ITEM_COUNT
         function appendITEM() {
             ITEM_COUNT += 1;
             selectEnable = true;
@@ -534,6 +534,27 @@
             }];
             $table.bootstrapTable('append', new_rows);
             $(document).on("click", '#del_btn', function () {
+                var row_data = JSON.parse(JSON.stringify($table.bootstrapTable('getRowByUniqueId', $(this).attr('name'))))
+                var AMOUNT = Number(row_data['AMOUNT'])
+                var ITEM_NO = row_data['ITEM_NO']
+                var SUMAMT = Number($("#SUMAMT").html()) - AMOUNT
+                var TAX = Number($("#TAX").val())
+                var TAXAMT = Number(Math.round(SUMAMT * (TAX / 100)))
+                var TOTAMT = Number(TAXAMT + SUMAMT)
+                $("#SUMAMT").html(SUMAMT)
+                $("#TAXAMT").html(TAXAMT)
+                $("#TOTAMT").html(TOTAMT)
+                switch (ITEM_NO.charAt(0)) {
+                    case "1":
+                        $("#AMO1").val(Number($("#AMO1").val()) - AMOUNT)
+                        break
+                    case "2":
+                        $("#AMO2").val(Number($("#AMO2").val()) - AMOUNT)
+                        break;
+                    case "3":
+                        $("#AMO3").val(Number($("#AMO3").val()) - AMOUNT)
+                        break;
+                }
                 $table.bootstrapTable('removeByUniqueId', $(this).attr('name'))
             })
         }
@@ -599,8 +620,7 @@
                     }
                 })
                 $("#Item_history").html("歷史價:" + data.L_PRICE + ", 平均成本:" + data.COST + ", 庫存:" + data.L_QTY);
-                $("#Item_history").show();
-                selectEnable = false;
+                $("#Item_history").show();               
                 $("#PRICE_inp").select();
                 $('#PRICE_inp').on('keydown', function () {
                     var key = event.keyCode
@@ -670,6 +690,7 @@
                                 }
                             })
                             $("#Item_history").hide();
+                            selectEnable = false;
                         }
                     }
                 });

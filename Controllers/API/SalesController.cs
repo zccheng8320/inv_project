@@ -58,9 +58,9 @@ namespace INV_Project.Controllers.API
             var table = (from inv in db.INVOICE
                          join itran in db.ITRANS on inv.TRN_NO equals itran.TRN_NO into table1
                          from t1 in table1.DefaultIfEmpty()
-                         join c in db.CUSTOMER on t1.CODE equals c.CUST_CODE into table2
+                         join c in db.CUSTOMER on inv.CODE equals c.CUST_CODE into table2
                          from t2 in table2.DefaultIfEmpty()
-                         join e in db.EMPLOY on t1.SAL_NO equals e.SAL_NO into table3
+                         join e in db.EMPLOY on inv.SAL_NO equals e.SAL_NO into table3
                          from t3 in table3.DefaultIfEmpty()
                          join i in db.ITEM on t1.ITEM_NO equals i.ITEM_NO into table4
                          from t4 in table4.DefaultIfEmpty()
@@ -97,19 +97,12 @@ namespace INV_Project.Controllers.API
             return table;
         }
 
-        // POST: api/Sales
+        // POST: Sales新增
         public void Post([FromBody]List<Sales> salesList)
         {
-            // 取得民國日期
-            var year = DateTime.Now.Year - 1911;
-            var month = "" + DateTime.Now.Month;
-            var day = "" + DateTime.Now.Day;
-            if (DateTime.Now.Month < 10)
-            { month = "0" + month; }
-            if (DateTime.Now.Day < 10)
-            { day = "0" + day; }
-            var today = year + "." + month + "." + day;
-            var ym = year + "." + month;
+            // 取得民國日期           
+            var today = getToday();
+            var ym = getToday("ym");
             // 第一筆資料
             var sf = salesList.FirstOrDefault();           
             var invoice = db.INVOICE;
@@ -135,35 +128,59 @@ namespace INV_Project.Controllers.API
             // 
             foreach (var s in salesList)
             {
-                // Item Update
-                var item = db.ITEM.Where(m => m.ITEM_NO == s.ITEM_NO).FirstOrDefault();
-                // 減去庫存量
-                var n_QTY = item.QTY - Convert.ToDouble(s.QTY);
-                item.QTY = n_QTY;
-                item.TRN_DATE = today;
-                // 更新歷史成交價
-                var custitem = db.CUSTITEM.Where(m => m.CUST_CODE == s.CODE && m.ITEM_NO == s.ITEM_NO).FirstOrDefault();
-                if (custitem != null)
-                {
-                    custitem.L_PRICE = s.PRICE;
-                    custitem.L_DATE = s.TRN_DATE;
-                    custitem.L_QTY = Convert.ToDouble(s.QTY);
-                    custitem.SAL_CODE = s.SAL_CODE;
-                    custitem.COST = item.C_PRICE;
-                    custitem.REMARK = s.ORD_NO;
-
-                }
-                else
-                    db.CUSTITEM.Add(new CUSTITEM { CUST_CODE = s.CODE, ITEM_NO = s.ITEM_NO,L_QTY= Convert.ToDouble(s.QTY), SAL_CODE = s.SAL_CODE, L_DATE = s.TRN_DATE, L_PRICE = s.PRICE, COST = item.C_PRICE,REMARK=s.ORD_NO });                  
-                itrans.Add(new ITRANS { TRN_NO = s.TRN_NO, ITEM_NO = s.ITEM_NO,QTY=s.QTY,PRICE=s.PRICE,AMOUNT=s.AMOUNT,CODE=s.CODE,ACC_DATE=s.ACC_DATE,ACC_YN=s.ACC_YN,TRN_DATE=s.TRN_DATE,ORD_NO=s.ORD_NO,SAL_NO=s.SAL_NO,SAL_CODE=s.SAL_CODE,COST=item.C_PRICE });
-            }
+                ItemAddAction(s, today);
+            }                
             db.SaveChanges();
         }
-
-        // PUT: api/Sales/5
-        public void Put(int id, [FromBody]string value)
+        public void ItemAddAction(Sales s,string today)
         {
+            var item = db.ITEM.Where(m => m.ITEM_NO == s.ITEM_NO).FirstOrDefault();
+            // 減去庫存量
+            var n_QTY = item.QTY - Convert.ToDouble(s.QTY);
+            item.QTY = n_QTY;
+            item.TRN_DATE = today;
+            // 更新歷史成交價 或新增
+            var custitem = db.CUSTITEM.Where(m => m.CUST_CODE == s.CODE && m.ITEM_NO == s.ITEM_NO).FirstOrDefault();
+            if (custitem != null)
+            {
+                custitem.L_PRICE = s.PRICE;
+                custitem.L_DATE = s.TRN_DATE;
+                custitem.L_QTY = Convert.ToDouble(s.QTY);
+                custitem.SAL_CODE = s.SAL_CODE;
+                custitem.COST = item.C_PRICE;
+                custitem.REMARK = s.ORD_NO;
+
+            }
+            else
+                db.CUSTITEM.Add(new CUSTITEM { CUST_CODE = s.CODE, ITEM_NO = s.ITEM_NO, L_QTY = Convert.ToDouble(s.QTY), SAL_CODE = s.SAL_CODE, L_DATE = s.TRN_DATE, L_PRICE = s.PRICE, COST = item.C_PRICE, REMARK = s.ORD_NO });
+            db.ITRANS.Add(new ITRANS { TRN_NO = s.TRN_NO, ITEM_NO = s.ITEM_NO, QTY = s.QTY, PRICE = s.PRICE, AMOUNT = s.AMOUNT, CODE = s.CODE, ACC_DATE = s.ACC_DATE, ACC_YN = s.ACC_YN, TRN_DATE = s.TRN_DATE, ORD_NO = s.ORD_NO, SAL_NO = s.SAL_NO, SAL_CODE = s.SAL_CODE, COST = item.C_PRICE });
+            db.SaveChanges();
         }
+        public string getToday(string i="today")
+        {
+            // 取得民國日期
+            var year = DateTime.Now.Year - 1911;
+            var month = "" + DateTime.Now.Month;
+            var day = "" + DateTime.Now.Day;
+            if (DateTime.Now.Month < 10)
+            { month = "0" + month; }
+            if (DateTime.Now.Day < 10)
+            { day = "0" + day; }
+            
+            var today = year + "." + month + "." + day;
+            var ym = year + "." + month;
+            if (i == "ym")
+                return ym;
+            else
+                return today;
+        }
+        // PUT: api/Sales/5
+        public void Put([FromBody]Sales s)
+        {
+            var today = getToday();
+            ItemAddAction(s, today);
+        }
+       
 
         [HttpDelete]
         // DELETE: api/Sales/5

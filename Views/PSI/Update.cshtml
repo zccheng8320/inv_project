@@ -81,6 +81,7 @@
             <div class="w-100"></div>
             <div class="col-lg-12">備&emsp;&emsp;註: @Html.TextBoxFor(modelItem => modelItem.FirstOrDefault().REMARK1, new { style = "width:500px" })</div>
             <div class="w-100"></div>
+            <div id="Item_history" class="col-lg-8 text-success">上次成交價:100元, 成本:50元</div>
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -137,6 +138,9 @@
 <script>
     $(document).ready(function () {
         var TRN_NO = "@Model.FirstOrDefault().TRN_NO";
+        // Select 控制識別
+        var selectEnable = false;
+        $("#Item_history").hide();
         if (navigator.userAgent.indexOf("MSIE") > 0) {
             //IE
             document.onkeyup = function () {
@@ -149,6 +153,12 @@
                     case 27:
                         window.location.href = '/PSI/Sales'; // Navigate to URL
                         break;
+                    case 119:
+                        if (selectEnable == false) {
+                            appendITEM();
+                            $("#selectItem").select2("open");
+                        }
+                        break;
                 }
                 if (key == 113) {
                     var arr = []
@@ -159,72 +169,285 @@
                             INV_NO: $("#INV_NO").val(),
                             TRN_DATE: $("#TRN_DATE").val(),
                             CODE: $("#CODE").val(),
-                            ACC_DATE: $("#ACC_DATE").val(),
-                            SAL_NO: $("#SAL_NO").val(),
                             TAX: $("#TAX").val(),
+                            REMARK1:$("#REMARK1").val(),
+                            ACC_DATE: $("#ACC_DATE").val(),
                             PAY_WAY: $("#PAY_WAY").val(),
-                            REMARK1: $("#REMARK1").val(),
                             SUMAMT: $("#SUMAMT").html(),
                             TAXAMT: $("#TAXAMT").html(),
                             TOTAMT: $("#TOTAMT").html(),
+                            SAL_NO: $("#SAL_NO").val(),                                                                             
                             AMO1: $("#AMO1").val(),
                             AMO2: $("#AMO2").val(),
                             AMO3: $("#AMO3").val()
                         })
+                        console.log(arr)
                     }
                     else {
                             for (var i = 0; i < data.length; i++) {
-                                var PRICE = $(data[i]['PRICE']).val()
-                                var SAL_CODE = $(data[i]['SAL_CODE']).val()
-                                var QTY = $(data[i]['QTY']).val()
-                                var ORD_NO = $(data[i]['ORD_NO']).val()
+                                var PRICE = ($(data[i]['PRICE']).val()==undefined) ?data[i]['PRICE']:$(data[i]['PRICE']).val()
+                                var SAL_CODE = ($(data[i]['SAL_CODE']).val()==undefined) ?data[i]['SAL_CODE']:$(data[i]['SAL_CODE']).val()
+                                var QTY = ($(data[i]['QTY']).val()==undefined) ?data[i]['QTY']:$(data[i]['QTY']).val()
+                                var ORD_NO = ($(data[i]['ORD_NO']).val() == undefined) ? data[i]['ORD_NO'] : $(data[i]['ORD_NO']).val()
+                                console.log(PRICE);
                                 arr.push({
                                     TRN_NO: $("#TRN_NO").val(),
                                     INV_NO: $("#INV_NO").val(),
                                     TRN_DATE: $("#TRN_DATE").val(),
                                     CODE: $("#CODE").val(),
-                                    ACC_DATE: $("#ACC_DATE").val(),
-                                    SAL_NO: $("#SAL_NO").val(),
                                     TAX: $("#TAX").val(),
+                                    REMARK1:$("#REMARK1").val(),
+                                    ACC_DATE: $("#ACC_DATE").val(),
                                     PAY_WAY: $("#PAY_WAY").val(),
-                                    REMARK1: $("#REMARK1").val(),
                                     SUMAMT: $("#SUMAMT").html(),
                                     TAXAMT: $("#TAXAMT").html(),
                                     TOTAMT: $("#TOTAMT").html(),
+                                    SAL_NO: $("#SAL_NO").val(),                                                                             
+                                    AMO1: $("#AMO1").val(),
+                                    AMO2: $("#AMO2").val(),
+                                    AMO3: $("#AMO3").val(),
                                     ITEM_NO:data[i]['ITEM_NO'],
                                     PRICE: PRICE,
                                     SAL_CODE: SAL_CODE,
                                     QTY: QTY,
                                     ORD_NO: ORD_NO,
                                     AMOUNT: data[i]['AMOUNT'],
-                                    AMO1: $("#AMO1").val(),
-                                    AMO2: $("#AMO2").val(),
-                                    AMO3: $("#AMO3").val()
+                                    ITEM_ID:data[i]['id']
                                 })
+                                console.log(arr)
                         }
                     }
                 }
             }
         }
-        var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/Sales";
-        var $table = $('#table')
+        // GET TABLE
+        var $table = $('#table')        
         var rows = [];
+        // JS USE Razor MODEL
         var model =@Html.Raw(Json.Encode(Model));
+        function isNULL(data) {
+                var str = (data == null) ? '' : data
+                return str;
+        }
+        var ITEM_COUNT = 0;
+        // TABLE 初始設定
         for (var i = 0; i < model.length; i++)
         {
-            rows.push({
-                id: i,
+            if (model[i].ITEM_NO != null) {
+                rows.push({
+                id: model[i].ITEM_ID,
                 ITEM_NO: model[i].ITEM_NO,
                 ITEM_NAME: model[i].ITEM_NAME,
                 PRICE: '<input id="PRICE_inp" style="width:150px" type="number" value="' + model[i].PRICE + '"/>',
-                SAL_CODE: '<input id="SAL_CODE_inp" style="width:50px" type="text" value="'+ model[i].SAL_CODE+'" />',
+                SAL_CODE: '<input id="SAL_CODE_inp" style="width:50px" type="text" value="'+ isNULL(model[i].SAL_CODE)+'" />',
                 QTY: '<input id="QTY_inp" style="width:150px" type="number" value="'+ model[i].QTY+'"/>',
-                ORD_NO: '<input id="ORD_NO_inp" style="width:150px" type="text" value="' + model[i].ORD_NO + '" />',
+                ORD_NO: '<input id="ORD_NO_inp" style="width:150px" type="text" value="' + isNULL(model[i].ORD_NO) + '" />',
                 AMOUNT:model[i].AMOUNT,
-                update:'<button id="del_btn" name=' + i + ' type="button" class="btn btn-danger btn-lg">刪除</button>'
-            })
+                update:'<button id="del_btn" name=' + model[i].ITEM_ID + ' type="button" class="btn btn-danger btn-lg">刪除</button>'
+                })
+                ITEM_COUNT = Number(model[i].ITEM_ID);
+            }           
         }
         $table.bootstrapTable('append', rows);
+        // F8新增按鈕相關        
+        $('#table').on('reset-view.bs.table', function () {
+            if (selectEnable)
+                selectItemControl()
+        })
+        function appendITEM() {
+            ITEM_COUNT += 1;
+            selectEnable = true;
+            var new_rows = [{
+                id: ITEM_COUNT,
+                ITEM_NO: '<select id="selectItem" style="width:250px;"></select>',
+                ITEM_NAME: '',
+                PRICE: '',
+                SAL_CODE: '',
+                QTY: '',
+                AMOUNT: '',
+                ORD_NO: '',
+                delete: ''
+            }];
+            $table.bootstrapTable('append', new_rows);
+            //刪除表單(無資料庫)
+            $(document).on("click", '#del_btn1', function () {
+                var row_data = JSON.parse(JSON.stringify($table.bootstrapTable('getRowByUniqueId', $(this).attr('name'))))
+                var AMOUNT = Number(row_data['AMOUNT'])
+                var ITEM_NO = row_data['ITEM_NO']
+                var SUMAMT = Number($("#SUMAMT").html()) - AMOUNT
+                var TAX = Number($("#TAX").val())
+                var TAXAMT = Number(Math.round(SUMAMT * (TAX / 100)))
+                var TOTAMT = Number(TAXAMT + SUMAMT)
+                $("#SUMAMT").html(SUMAMT)
+                $("#TAXAMT").html(TAXAMT)
+                $("#TOTAMT").html(TOTAMT)
+                switch (ITEM_NO.charAt(0)) {
+                    case "1":
+                        $("#AMO1").val(Number($("#AMO1").val()) - AMOUNT)
+                        break
+                    case "2":
+                        $("#AMO2").val(Number($("#AMO2").val()) - AMOUNT)
+                        break;
+                    case "3":
+                        $("#AMO3").val(Number($("#AMO3").val()) - AMOUNT)
+                        break;
+                }
+                $table.bootstrapTable('removeByUniqueId', $(this).attr('name'))
+            })
+        }
+        function selectItemControl() {
+            $("#selectItem").select2({
+                dropdownCssClass: "dropdownCssClass",
+                containerCssClass: "containerCssClass",
+                maximumInputLength: 10,
+                dropdownAutoWidth: true,
+                ajax: {
+                    url: "/api/CustItemWithName",
+                    dataType: 'json',
+                    delay: 250,
+                    type: 'post',
+                    data: function (params) {
+                        return {
+                            ITEM_NO: params.term, // search term
+                            CUST_CODE: $('#CODE').val(),
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        var select2data = $.map(data, function (obj) {
+                            obj.id = obj.id || obj.ITEM_NO;
+                            obj.text = obj.text || obj.ITEM_NAME;
+                            return obj;
+                        });
+                        params.page = params.page | 1;
+                        return {
+                            results: select2data,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        }
+
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                templateResult: CformatRepo,
+                templateSelection: CformatRepoSelection,
+                "language": {
+                    "noResults": function () {
+                        return "查無結果";
+                    }
+                }
+            });
+            $("#selectItem").on('select2:select', function (e) {
+                var data = e.params.data;
+                $table.bootstrapTable('updateByUniqueId', {
+                    id: ITEM_COUNT,
+                    row: {
+                        ITEM_NAME: data.ITEM_NAME,
+                        ITEM_NO: data.ITEM_NO,
+                        PRICE: '<input id="PRICE_inp1" style="width:150px" type="number" value="' + data.L_PRICE + '"/>',
+                        SAL_CODE: '<input id="SAL_CODE_inp1"style="width:50px" type="text" />',
+                        QTY: '<input id="QTY_inp1"style="width:150px" type="number" value="1"/>',
+                        AMOUNT: '',
+                        ORD_NO: '<input id="ORD_NO_inp1"style="width:150px" type="text" />'
+                    }
+                })
+                $("#Item_history").html("歷史價:" + data.L_PRICE + ", 平均成本:" + data.COST + ", 庫存:" + data.L_QTY);
+                $("#Item_history").show();
+                $("#PRICE_inp1").select();
+                $('#PRICE_inp1').on('keydown', function () {
+                    var key = event.keyCode
+                    if (key == 13) {
+                        $("#SAL_CODE_inp1").focus();
+                    }
+                });
+                $('#SAL_CODE_inp1').on('keydown', function () {
+                    var key = event.keyCode
+                    if (key == 13) {
+                        $("#QTY_inp1").select();
+                    }
+                });
+                $('#QTY_inp1').on('keydown', function () {
+                    var key = event.keyCode
+                    if (key == 13) {
+                        if ($("#QTY_inp1").val() > data.L_QTY)
+                            alert("庫存量不足!!");
+                        $("#ORD_NO_inp1").select();
+                    }
+                });
+                $('#ORD_NO_inp1').on('keydown', function () {
+                    var key = event.keyCode
+                    if (key == 13) {
+                        if ($("#PRICE_inp1").val() == "") {
+                            alert("請填寫單價")
+                            $("#PRICE_inp1").select();
+                        }
+                        else if ($("#QTY_inp1").val() == 0) {
+                            alert("請填寫數量")
+                            $("#QTY_inp1").select();
+                        }
+                        else if ($("#PRICE_inp1").val() == "" && $("#QTY_inp1").val() == "") {
+                            alert("請填寫單價與數量")
+                            $("#PRICE_inp1").select();
+                        }
+                        else {
+                            var AMOUNT = Number($("#QTY_inp1").val()) * Number($("#PRICE_inp1").val())
+                            var TAX = Number($("#TAX").val())
+                            var SUMAMT = Number($("#SUMAMT").html()) + AMOUNT
+                            var TAXAMT = Math.round(SUMAMT * (TAX / 100))
+                            var TOTAMT = Number(TAXAMT + SUMAMT)
+
+                            $("#SUMAMT").html(SUMAMT)
+                            $("#TAXAMT").html(TAXAMT)
+                            $("#TOTAMT").html(TOTAMT)
+                            switch (data.ITEM_NO.charAt(0)) {
+                                case "1":
+                                    $("#AMO1").val(Number($("#AMO1").val()) + Number(AMOUNT))
+                                    break
+                                case "2":
+                                    $("#AMO2").val(Number($("#AMO2").val()) + Number(AMOUNT))
+                                    break;
+                                case "3":
+                                    $("#AMO3").val(Number($("#AMO3").val()) + Number(AMOUNT))
+                                    break;
+                            }
+                            $table.bootstrapTable('updateByUniqueId', {
+                                id: ITEM_COUNT,
+                                row: {
+                                    PRICE: $("#PRICE_inp1").val(),
+                                    SAL_CODE: $("#SAL_CODE_inp1").val(),
+                                    QTY: $("#QTY_inp1").val(),
+                                    AMOUNT: AMOUNT,
+                                    ORD_NO: $("#ORD_NO_inp1").val(),
+                                    update: '<button id="del_btn1" name=' + ITEM_COUNT + ' type="button" class="btn btn-danger btn-lg">刪除</button>'
+                                }
+                            })
+                            selectEnable = false;
+                            $("#Item_history").hide();
+                        }
+                    }
+                });
+            });
+        }
+        function CformatRepo(repo) {
+            if (repo.loading) return "搜尋中...";
+            repo.id = repo.ITEM_NO;
+            repo.text = repo.ITEM_NAME;
+            var markup = '<div class="container-fluid">' +
+                '<div class="row">' +
+                '<div class="col-4">' + repo.ITEM_NO + '</div>' +
+                '<div class="col-8">' + repo.ITEM_NAME + '</div>' +
+                '</div>';
+            markup += '</div>';
+            return markup;
+        }
+        function CformatRepoSelection(repo) {
+
+            return repo.id;
+        }
         // 業務控制
         $("#employCode").select2({
             dropdownCssClass: "dropdownCssClass",
@@ -326,6 +549,7 @@
         var TAX =@Model.FirstOrDefault().TAX.ToString();
         $("#TAXSelect").select2("val", "" + TAX)
         $("#employCode").select2("open");
+        // 刪除按鈕控制(針對資料庫)
         var $table = $('#table')
         $(document).on("click", '#del_btn', function () {
             var msg = "確定要刪除?\n";
@@ -334,7 +558,7 @@
                 var AMOUNT = Number(row_data['AMOUNT'])
                 var ITEM_NO = row_data['ITEM_NO']
                 var SUMAMT = Number($("#SUMAMT").html()) - AMOUNT
-                var TAXAMT = Math.round(SUMAMT * (TAX / 100))
+                var TAXAMT = Math.round(SUMAMT * (Number(TAX) / 100))
                 var TOTAMT = Number(TAXAMT + SUMAMT)
                 $("#SUMAMT").html(SUMAMT)
                 $("#TAXAMT").html(TAXAMT)
@@ -366,10 +590,12 @@
                     TOTAMT: $("#TOTAMT").html(),
                     AMO1: $("#AMO1").val(),
                     AMO2: $("#AMO2").val(),
-                    AMO3: $("#AMO3").val()
+                    AMO3: $("#AMO3").val(),
+                    ITEM_ID:$(this).attr('name')
                 }
                 console.log(del_arr)
                 $table.bootstrapTable('removeByUniqueId', $(this).attr('name'))
+                
                 $.ajax({
                     type: "post",
                     url: "/PSI/Delete_Item",
@@ -384,6 +610,7 @@
             {
                 return false;
             }
+            
             })
 });
 </script>
