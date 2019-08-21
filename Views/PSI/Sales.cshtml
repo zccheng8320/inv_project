@@ -164,6 +164,10 @@
 <script>
     $(document).ready(function () {
         var TRN_NO = "@Model.FirstOrDefault().TRN_NO";
+        var CUST_CODE = "@Model.FirstOrDefault().CODE";
+        var model =@Html.Raw(Json.Encode(Model));
+
+        var del_arr = JSON.stringify(model);
 if (navigator.userAgent.indexOf("MSIE") > 0) {
     //IE
     document.onkeyup = function () {
@@ -187,8 +191,18 @@ else {
             case 52:
             case 100:
                 var password = prompt("請輸入密碼", "")
-                if (password != "" && password != null)
-                    window.location.href = '/PSI/Delete?TRN_NO=' + TRN_NO + '&password=' + password;
+                if (password != "" && password != null) {
+                    $.ajax({
+                        type: "post",
+                        url:  '/PSI/Delete?password=' + password,
+                        contentType: 'application/json',
+                        data: del_arr,
+                        success: function (data, status) {
+                            alert(data);
+                            window.location.href = '/PSI/Sales';
+                            }
+                        });
+                }
                 break;
             case 53:
                 alert('5');
@@ -199,13 +213,9 @@ else {
             case 55:
                 alert('7');
                 break;
-            case 56:
-            case 104:
-                window.location.href = '/PSI/CustItem?TRN_NO='+TRN_NO;
-                break;
-            case 65:
-                window.location.href = '/PSI/CustREC?TRN_NO='+TRN_NO;
-                break;
+            case 80:
+                window.location.href = '/PSI/CustItem?CUST_CODE='+CUST_CODE;
+                break;            
             case 67:
                 alert('C');
                 break;
@@ -235,6 +245,7 @@ var $table = $('#table')
                 type: 'GET',
                 success: function (data) {
                     if (data != null && data != "") {
+                        del_arr = JSON.stringify(data);
                         $("#Invoice").empty();
                         $("#Money").empty();
                         $table.bootstrapTable('removeAll')

@@ -148,6 +148,8 @@
     <Compile Include="Controllers\API\EmployController.cs" />
     <Compile Include="Controllers\API\FactoryController.cs" />
     <Compile Include="Controllers\API\ItemController.cs" />
+    <Compile Include="Controllers\API\RECAMTController.cs" />
+    <Compile Include="Controllers\API\RECMONController.cs" />
     <Compile Include="Controllers\API\SalesController.cs" />
     <Compile Include="Controllers\API\SalesInesrtController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\PSIController.cs" />
+    <Compile Include="Controllers\RECAMTController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -231,6 +234,7 @@
     <Compile Include="Models\RECAMT.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RECAMT2.cs" />
     <Compile Include="Models\RECMON.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -349,6 +353,10 @@
     <Content Include="Views\PSI\Insert.cshtml" />
     <Content Include="Views\PSI\Search.cshtml" />
     <Content Include="Views\PSI\Update.cshtml" />
+    <Content Include="Views\PSI\CustItem.cshtml" />
+    <Content Include="Views\RECAMT\Index.cshtml" />
+    <Content Include="Views\RECAMT\Search.cshtml" />
+    <Content Include="Views\RECAMT\Insert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

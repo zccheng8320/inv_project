@@ -11,29 +11,6 @@ namespace INV_Project.Controllers.API
     public class SalesController : ApiController
     {
         private invEntities db = new invEntities();
-        // GET: api/Sales
-        public List<Sales> Get(string search)
-        {
-            var table = (from inv in db.INVOICE
-                         join c in db.CUSTOMER on inv.CODE equals c.CUST_CODE
-                         where inv.TRN_NO.StartsWith(search)
-                         ||inv.ACC_DATE.StartsWith(search)
-                         ||inv.TRN_DATE.StartsWith(search)
-                         ||c.CUST_CODE.StartsWith(search)
-                         || c.CUST_NAME.StartsWith(search)
-                         || c.TELEPHONE.StartsWith(search)
-                         select new Sales
-                         {
-                             TRN_NO = inv.TRN_NO,
-                             ACC_DATE = inv.ACC_DATE,
-                             TRN_DATE = inv.TRN_DATE,
-                             CODE = c.CUST_CODE,
-                             CUST_NAME = c.CUST_NAME,
-                             TELEPHONE = c.TELEPHONE,
-                         }).Distinct().OrderByDescending(m=>m.TRN_DATE).Take(200).ToList();
-            return table;
-        }
-
         // GET: api/Sales/5
         public List<Sales> Get(string TRN_NO, int preOrNext)
         {
@@ -92,11 +69,14 @@ namespace INV_Project.Controllers.API
                              ACC_YN = inv.ACC_YN,
                              ORD_NO = t1.ORD_NO,
                              SAL_CODE = t1.SAL_CODE,
-                             COST = t4.C_PRICE
+                             COST = t4.C_PRICE,
+                             ITEM_ID = t1.ID,
+                             AMO1 = inv.AMO1,
+                             AMO2 = inv.AMO2,
+                             AMO3 = inv.AMO3
                          }).ToList();
             return table;
-        }
-
+        }      
         // POST: Sales新增
         public void Post([FromBody]List<Sales> salesList)
         {
@@ -132,7 +112,7 @@ namespace INV_Project.Controllers.API
             }                
             db.SaveChanges();
         }
-        public void ItemAddAction(Sales s,string today)
+        public string ItemAddAction(Sales s,string today)
         {
             var item = db.ITEM.Where(m => m.ITEM_NO == s.ITEM_NO).FirstOrDefault();
             // 減去庫存量
@@ -153,8 +133,10 @@ namespace INV_Project.Controllers.API
             }
             else
                 db.CUSTITEM.Add(new CUSTITEM { CUST_CODE = s.CODE, ITEM_NO = s.ITEM_NO, L_QTY = Convert.ToDouble(s.QTY), SAL_CODE = s.SAL_CODE, L_DATE = s.TRN_DATE, L_PRICE = s.PRICE, COST = item.C_PRICE, REMARK = s.ORD_NO });
-            db.ITRANS.Add(new ITRANS { TRN_NO = s.TRN_NO, ITEM_NO = s.ITEM_NO, QTY = s.QTY, PRICE = s.PRICE, AMOUNT = s.AMOUNT, CODE = s.CODE, ACC_DATE = s.ACC_DATE, ACC_YN = s.ACC_YN, TRN_DATE = s.TRN_DATE, ORD_NO = s.ORD_NO, SAL_NO = s.SAL_NO, SAL_CODE = s.SAL_CODE, COST = item.C_PRICE });
+            var i = new ITRANS { TRN_NO = s.TRN_NO, ITEM_NO = s.ITEM_NO, QTY = s.QTY, PRICE = s.PRICE, AMOUNT = s.AMOUNT, CODE = s.CODE, ACC_DATE = s.ACC_DATE, ACC_YN = s.ACC_YN, TRN_DATE = s.TRN_DATE, ORD_NO = s.ORD_NO, SAL_NO = s.SAL_NO, SAL_CODE = s.SAL_CODE, COST = item.C_PRICE };
+            db.ITRANS.Add(i);     
             db.SaveChanges();
+            return i.ID.ToString();
         }
         public string getToday(string i="today")
         {
@@ -174,19 +156,80 @@ namespace INV_Project.Controllers.API
             else
                 return today;
         }
-        // PUT: api/Sales/5
-        public void Put([FromBody]Sales s)
+        // 更新應收帳款資料
+        public void UpdateRECMON(Sales s)
         {
-            var today = getToday();
-            ItemAddAction(s, today);
+            var recmon = db.RECMON.Where(m => m.CUST_CODE == s.CODE && m.MON_DATE == s.ACC_DATE).FirstOrDefault();
+            var inv_list = db.INVOICE.Where(m => m.CODE == s.CODE && m.ACC_DATE == s.ACC_DATE).ToList();
+            var SAL_AMT = 0.0; var TAX_AMT = 0.0; var AMO1 = 0.0; var AMO2 = 0.0; var AMO3 = 0.0;
+            foreach (var i in inv_list)
+            {
+                SAL_AMT += Convert.ToDouble(i.SUMAMT);
+                TAX_AMT += Convert.ToDouble(i.TAXAMT);
+                AMO1 += Convert.ToDouble(i.AMO1);
+                AMO2 += Convert.ToDouble(i.AMO2);
+                AMO3 += Convert.ToDouble(i.AMO3);
+            }
+            recmon.SAL_AMT = SAL_AMT.ToString();
+            recmon.TAX_AMT = TAX_AMT.ToString();
+            recmon.AMO1 = AMO1.ToString();
+            recmon.AMO2 = AMO2.ToString();
+            recmon.AMO3 = AMO3.ToString();
+            if (recmon.REC_AMT == null || recmon.REC_AMT == "")
+                recmon.REC_AMT = "0";
+            recmon.TOT_AMT = (SAL_AMT + TAX_AMT - Convert.ToDouble(recmon.REC_AMT)).ToString();
+            db.SaveChanges();
         }
-       
-
+        // PUT: api/Sales/5 更新SALES Item API
+        public string Put([FromBody]Sales s)
+        {
+            string ID = "";
+            var today = getToday();
+            if (s.ITEM_ID == 0)
+            {
+                ID=ItemAddAction(s, today);
+                
+            }
+            else
+            {
+                var custitem = db.CUSTITEM.Where(m => m.CUST_CODE == s.CODE && m.ITEM_NO == s.ITEM_NO).FirstOrDefault();
+                if (custitem != null)
+                {
+                    custitem.L_PRICE = s.PRICE;
+                    custitem.L_DATE = s.TRN_DATE;
+                    custitem.L_QTY = Convert.ToDouble(s.QTY);
+                    custitem.SAL_CODE = s.SAL_CODE;
+                    custitem.REMARK = s.ORD_NO;
+                }
+                var i = db.ITRANS.Where(m => m.ID == s.ITEM_ID).FirstOrDefault();
+                i.PRICE = s.PRICE;
+                i.QTY = s.QTY;
+                i.AMOUNT = s.AMOUNT;
+                i.ORD_NO = s.ORD_NO;
+                i.SAL_CODE = s.SAL_CODE;
+                ID = s.ITEM_ID.ToString();
+            }
+            var invoice = db.INVOICE.Where(m => m.TRN_NO == s.TRN_NO).FirstOrDefault();
+            invoice.SUMAMT = s.SUMAMT;invoice.AMO1 = s.AMO1;
+            invoice.TAXAMT = s.TAXAMT;invoice.AMO2 = s.AMO2;
+            invoice.TOTAMT = s.TOTAMT;invoice.AMO3 = s.AMO3;        
+            db.SaveChanges();
+            UpdateRECMON(s);
+            return ID;
+        }      
         [HttpDelete]
         // DELETE: api/Sales/5
-        public void Delete([FromBody]Sales sales)
+        public void Delete([FromBody]Sales s)
         {
-            
+            var itrans = db.ITRANS.Where(m => m.ID == s.ITEM_ID).FirstOrDefault();
+            db.ITRANS.Remove(itrans);
+            var invoice = db.INVOICE.Where(m => m.TRN_NO == s.TRN_NO).FirstOrDefault();
+            invoice.SUMAMT = s.SUMAMT; invoice.AMO1 = s.AMO1;
+            invoice.TAXAMT = s.TAXAMT; invoice.AMO2 = s.AMO2;
+            invoice.TOTAMT = s.TOTAMT; invoice.AMO3 = s.AMO3;
+            db.SaveChanges();
+            UpdateRECMON(s);
         }
+       
     }
 }

@@ -1,0 +1,140 @@
+﻿<style>
+    .select2-selection__rendered {
+        line-height: 50px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 50px !important;
+        display: block;
+    }
+
+    .select2-selection__arrow {
+        height: 50px !important;
+    }
+
+    .dropdownCssClass {
+        font-size: 30px;
+        text-align: left;
+        color: black;
+        width: 100%;
+        height: auto;
+    }
+
+    .containerCssClass {
+        font-size: 30px;
+        text-align: center;
+        color: black;
+    }
+</style>
+<hr>
+<div style='position:absolute; z-index:999; top:100px;width:100%;'>
+    <select id="itemCode" style="width:100%;"></select>
+</div>
+
+<script>
+        $(document).ready(function () {
+            $("#itemCode").select2({
+                dropdownCssClass: "dropdownCssClass",
+                containerCssClass: "containerCssClass",
+                maximumInputLength: 10,
+                ajax: {
+                    url: "/api/RECAMT",
+                    dataType: 'json',
+                    delay: 250,
+                    type: 'post',
+                    data: function (params) {
+                        return {
+                            REC_NO: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        var select2data = $.map(data, function (obj) {
+                            obj.id = obj.id || obj.id;
+                            obj.text = obj.text || obj.CUST_NAME;
+                            return obj;
+                        });
+                        params.page = params.page | 1;
+                        return {
+                            results: select2data,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        }
+
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                templateResult: CformatRepo,
+                templateSelection: CformatRepoSelection,
+                "language": {
+                    "noResults": function () {
+                        return "查無結果";
+                    }
+                }
+            }).maximizeSelect2Height();;
+            $('#itemCode').select2("open");
+            $('#itemCode').on('select2:select', function (e) {
+                var data = e.params.data;
+                var ID = data.id;
+                var date = new Date();
+                date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+                document.cookie = "RECAMT_ID=" + ID + expires + "; path=/";
+                var href = "/RECAMT/Index?RECAMT_ID=" + ID;
+                window.location.href = href;
+                // Give Form Value
+
+            });
+            function CformatRepo(repo) {
+                if (repo.loading) return "搜尋中...";
+                repo.id = repo.id;
+                repo.text = repo.CUST_NAME;
+               var markup = '<div class="container-fluid">' +
+                '<div class="row" style="border:3px #808080 solid;padding:px;">' +
+                   '<div class="col-1">收款單號: </div>' +
+                   '<div class="col-1" style="color:#009100; border-right:3px #808080 solid;padding:0px;">' + repo.REC_NO + '</div>' +
+                '<div class="col-1">收款月份: </div>' +
+                '<div class="col-1" style="color:#009100; border-right:3px #808080 solid;padding:0px;">' + repo.REC_MON + '</div>' +
+                '<div class="col-1" >日期: </div>' +
+                '<div class="col-1" style="color:#009100;border-right:3px #808080 solid;padding:0px;">' + repo.TRN_DATE + '</div>' +
+                '<div class="col-1" >客戶代碼: </div>' +
+                '<div class="col-1" style="color:#009100;border-right:3px #808080 solid;padding:0px;">' + repo.CUST_CODE + '</div>' +
+                '<div class="col-1">客戶名稱: </div>' +
+                '<div class="col-3" style="color:#009100;border-right:3px #808080 solid;padding:0px;">' + repo.CUST_NAME + '</div>' +
+                '</div>';
+                markup += '</div>';
+                return markup;
+            }
+            function CformatRepoSelection(repo) {
+
+                return repo.text;
+            }
+
+        });
+</script>
+
+<script>
+        if (navigator.userAgent.indexOf("MSIE") > 0) {
+            //IE
+            document.onkeyup = function () {
+                switch (event.keyCode) {
+                    case 27:
+                        window.location.href = '/RECAMT/Index';
+                        break;
+                }
+            }
+        }
+        else {
+            window.onkeyup = function () {
+                switch (event.keyCode) {
+                    case 27:
+                        window.location.href = '/RECAMT/Index';
+                        break;
+                }
+            }
+        }
+</script>

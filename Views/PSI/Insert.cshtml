@@ -177,7 +177,7 @@
         }
         // 單據號輸入框
         TRN_NO_Control()
-        $('#TRN_DATE_input').on('keydown', function () {
+        $('#TRN_DATE_input').on('keyup', function () {
             var key = event.keyCode
             if ($(this).val().length != 9) {
                 $("#TRN_V").show();
@@ -191,9 +191,11 @@
                 if ($(this).val().length == 9)
                     $('#ACC_DATE_input').select();
             }
-            if ($(this).val().length == 3 && key != 8)
+            if (key == 8)
+                $(this).val('')
+            if ($(this).val().length == 3)
                 $(this).val($(this).val() + ".");
-            else if ($(this).val().length == 6 && key != 8)
+            else if ($(this).val().length == 6)
                 $(this).val($(this).val() + ".");
             else if (key == 110 || key == 190)
                 $(this).val($(this).val().substring(0, $(this).val().length - 1));
@@ -202,7 +204,7 @@
             TRN_NO_Control()
         });
         // 收款月份控制
-        $('#ACC_DATE_input').on('keydown', function () {
+        $('#ACC_DATE_input').on('keyup', function () {
             var key = event.keyCode
             if ($(this).val().length != 6) {
                 $('#ACC_DATE').val("");
@@ -215,7 +217,9 @@
             if (key == 13) {
                 $("#itemCode").select2("open");
             }
-            if ($(this).val().length == 3 && key != 8)
+            if (key == 8)
+                $(this).val('')
+            if ($(this).val().length == 3)
                 $(this).val($(this).val() + ".");
             else if (key == 110 || key == 190)
                 $(this).val($(this).val().substring(0, $(this).val().length - 1));

@@ -69,7 +69,11 @@ namespace INV_Project.Controllers
                              ACC_YN = inv.ACC_YN,
                              ORD_NO = t1.ORD_NO,
                              SAL_CODE=t1.SAL_CODE,
-                             COST = t4.C_PRICE
+                             COST = t4.C_PRICE,
+                             ITEM_ID=t1.ID,
+                             AMO1=inv.AMO1,
+                             AMO2=inv.AMO2,
+                             AMO3=inv.AMO3
                          }).ToList();
             if (TRN_NO != "")
             {            
@@ -114,7 +118,11 @@ namespace INV_Project.Controllers
                              PRICE = t1.PRICE,
                              AMOUNT = t1.AMOUNT,
                              ACC_YN = inv.ACC_YN,
-                             ORD_NO = t1.ORD_NO
+                             ORD_NO = t1.ORD_NO,
+                             ITEM_ID = t1.ID,
+                             AMO1 = inv.AMO1,
+                             AMO2 = inv.AMO2,
+                             AMO3 = inv.AMO3
 
                          }).ToList();
                 HttpCookie Cookie = new HttpCookie(CookieID, table.FirstOrDefault().TRN_NO);
@@ -194,64 +202,81 @@ namespace INV_Project.Controllers
                          }).ToList();
             return View(table);
         }
+        public ActionResult CustItem(string CUST_CODE)
+        {
+            var CUST_NAME = (from ci in db.CUSTOMER where ci.CUST_CODE == CUST_CODE select ci.CUST_NAME).FirstOrDefault();
+            TempData["CUST_CODE"] = CUST_CODE;
+            TempData["CUST_NAME"] = CUST_NAME;
+            var p = from ci in db.CUSTITEM
+                    join i in db.ITEM on ci.ITEM_NO equals i.ITEM_NO
+                    join c in db.CUSTOMER on ci.CUST_CODE equals c.CUST_CODE
+                    where ci.CUST_CODE == CUST_CODE
+                    orderby ci.L_DATE descending
+                    select new CUST_ItemWithName
+                    {
+                        id = ci.id,
+                        CUST_CODE = ci.CUST_CODE,
+                        CUST_NAME = c.CUST_NAME,
+                        ITEM_NO = ci.ITEM_NO,
+                        ITEM_NAME = i.NAME1,
+                        SAL_CODE = ci.SAL_CODE,
+                        L_DATE = ci.L_DATE,
+                        L_PRICE = ci.L_PRICE,
+                        L_QTY = ci.L_QTY,
+                        COST = ci.COST,
+                        REMARK = ci.REMARK
+                    };
+            return View(p.ToList());
+        }
+        public ActionResult CustItemDel(int id)
+        {
+            var p = db.CUSTITEM.Where(m => m.id == id).FirstOrDefault();
+            string CUST_CODE = p.CUST_CODE;
+            db.CUSTITEM.Remove(p);
+            db.SaveChanges();
+            return RedirectToAction("CustItem", new { CUST_CODE = CUST_CODE });
+        }
         [HttpPost]
         public void Update_Sales([FromBody]List<Sales> salesList)
-        {
-            var SF = salesList.FirstOrDefault();
-            var invoice = db.INVOICE.Where(m => m.TRN_NO == SF.TRN_NO).DefaultIfEmpty().FirstOrDefault();
-            var new_inv = SalesConvertInvoice(SF);
-            invoice = new_inv;
+        {            
+            var SF = salesList.FirstOrDefault();           
+            UpdateInvoice(SF);
             db.SaveChanges();
             foreach(var s in salesList)
-            {
-                if(s.ITEM_ID!=null)
-                {
-                    var itrans = db.ITRANS.Where(m => m.ID == s.ITEM_ID).FirstOrDefault();
-                    var new_itrans = SalesConvertITRANS(s);
-                    if (itrans != null)
-                        itrans = new_itrans;
-                    else
-                        db.ITRANS.Add(new_itrans);
-                    db.SaveChanges();
-                }
-            }
+                if(s.ITEM_ID!=null)                 
+                    UpdateITRANS(s);
+
+            UpdateRECMON(SF);
         }
         [HttpPost]
-        public void Delete_Item([FromBody]Sales sales)
+        public string Delete([FromBody]List<Sales> salesList,int password)
         {
-            Debug.WriteLine("sales="+sales.TRN_NO);
-            var itrans = db.ITRANS.Where(m => m.ID == sales.ITEM_ID).FirstOrDefault();
-            db.ITRANS.Remove(itrans);
-            var invoice = db.INVOICE.Where(m => m.TRN_NO == sales.TRN_NO).FirstOrDefault();
-            invoice.TAX = sales.TAX; invoice.REMARK1 = sales.REMARK1;
-            invoice.PAY_WAY = sales.PAY_WAY; invoice.SUMAMT = sales.SUMAMT;
-            invoice.TAXAMT = sales.TAXAMT;
-            invoice.AMO1 = sales.AMO1; invoice.TAX = sales.TAX;
-            invoice.TOTAMT = sales.TOTAMT; invoice.SAL_NO = sales.SAL_NO;
-            invoice.AMO2 = sales.AMO2; invoice.AMO3 = sales.AMO3;
-            invoice.INV_NO = sales.INV_NO;
-            db.SaveChanges();
-
-            var recmon = db.RECMON.Where(m => m.CUST_CODE == sales.CODE && m.MON_DATE == sales.ACC_DATE).FirstOrDefault();
-            var in_list = db.INVOICE.Where(m => m.CODE == sales.CODE && m.ACC_DATE == sales.ACC_DATE).ToList();
-            var SAL_AMT = 0.0; var TAX_AMT = 0.0; var AMO1 = 0.0; var AMO2 = 0.0; var AMO3 = 0.0;
-            foreach (var i in in_list)
+            if(password==618320)
             {
-                SAL_AMT += Convert.ToDouble(i.SUMAMT);
-                TAX_AMT += Convert.ToDouble(i.TAXAMT);
-                AMO1 += Convert.ToDouble(i.AMO1);
-                AMO2 += Convert.ToDouble(i.AMO2);
-                AMO3 += Convert.ToDouble(i.AMO3);
+                var SF = salesList.FirstOrDefault();
+                var invoice = db.INVOICE.Where(m => m.TRN_NO == SF.TRN_NO).FirstOrDefault();
+                db.INVOICE.Remove(invoice);
+                foreach (var i in salesList)
+                {
+                    var itrans = db.ITRANS.Where(m => m.ID == i.ITEM_ID).FirstOrDefault();
+                    db.ITRANS.Remove(itrans);
+                    db.SaveChanges();
+                }
+                UpdateRECMON(SF);
+                var TRN_NO = (from d in db.INVOICE where string.Compare(d.TRN_NO, SF.TRN_NO) < 0 select d).OrderByDescending(d => d.ID).FirstOrDefault().TRN_NO;
+                HttpCookie Cookie = new HttpCookie(CookieID, TRN_NO);
+                Cookie.Expires = DateTime.Now.AddDays(1); //設置Cookie到期時間
+                HttpContext.Response.Cookies.Add(Cookie);
+                return "刪除成功";
+            }        
+            else
+            {
+                return "密碼錯誤";
             }
-            recmon.SAL_AMT = SAL_AMT.ToString(); recmon.TAX_AMT = TAX_AMT.ToString(); recmon.AMO1 = AMO1.ToString(); recmon.AMO2 = AMO2.ToString(); recmon.AMO3 = AMO3.ToString();
-            if (recmon.REC_AMT == null || recmon.REC_AMT == "")
-                recmon.REC_AMT = "0";
-            recmon.TOT_AMT = (Convert.ToDouble(recmon.REC_AMT) - SAL_AMT - TAX_AMT).ToString();
-            db.SaveChanges();
         }
-        public ITRANS SalesConvertITRANS(Sales sales)
+        public void UpdateITRANS(Sales sales)
         {
-            var itrans = new ITRANS();
+            var itrans = db.ITRANS.Where(m => m.ID == sales.ITEM_ID).FirstOrDefault();
             itrans.ID = (int)sales.ITEM_ID;
             itrans.TRN_NO = sales.TRN_NO;
             itrans.ITEM_NO = sales.ITEM_NO;
@@ -265,11 +290,11 @@ namespace INV_Project.Controllers
             itrans.ORD_NO = sales.ORD_NO;
             itrans.SAL_NO = sales.SAL_NO;
             itrans.SAL_CODE = sales.SAL_CODE;
-            return itrans;
+            db.SaveChanges();
         }
-        public INVOICE SalesConvertInvoice(Sales sales)
+        public void UpdateInvoice(Sales sales)
         {
-            var inv = new INVOICE();
+            var inv = db.INVOICE.Where(m => m.TRN_NO == sales.TRN_NO).FirstOrDefault();
             inv.TRN_NO = sales.TRN_NO;
             inv.INV_NO = sales.INV_NO;
             inv.TRN_DATE = sales.TRN_DATE;
@@ -285,7 +310,30 @@ namespace INV_Project.Controllers
             inv.AMO1 = sales.AMO1;
             inv.AMO2 = sales.AMO2;
             inv.AMO3 = sales.AMO3;
-            return inv;
+            db.SaveChanges();
+        }
+        public void UpdateRECMON(Sales s)
+        {
+            var recmon = db.RECMON.Where(m => m.CUST_CODE == s.CODE && m.MON_DATE == s.ACC_DATE).FirstOrDefault();
+            var inv_list = db.INVOICE.Where(m => m.CODE == s.CODE && m.ACC_DATE == s.ACC_DATE).ToList();
+            var SAL_AMT = 0.0; var TAX_AMT = 0.0; var AMO1 = 0.0; var AMO2 = 0.0; var AMO3 = 0.0;
+            foreach (var i in inv_list)
+            {
+                SAL_AMT += Convert.ToDouble(i.SUMAMT);
+                TAX_AMT += Convert.ToDouble(i.TAXAMT);
+                AMO1 += Convert.ToDouble(i.AMO1);
+                AMO2 += Convert.ToDouble(i.AMO2);
+                AMO3 += Convert.ToDouble(i.AMO3);
+            }
+            recmon.SAL_AMT = SAL_AMT.ToString();
+            recmon.TAX_AMT = TAX_AMT.ToString();
+            recmon.AMO1 = AMO1.ToString();
+            recmon.AMO2 = AMO2.ToString();
+            recmon.AMO3 = AMO3.ToString();
+            if (recmon.REC_AMT == null || recmon.REC_AMT == "")
+                recmon.REC_AMT = "0";
+            recmon.TOT_AMT = (SAL_AMT + TAX_AMT- Convert.ToDouble(recmon.REC_AMT)).ToString();
+            db.SaveChanges();
         }
     }
 }

@@ -1,0 +1,249 @@
+﻿@model INV_Project.Models.RECAMT
+@{
+    var CUST_NAME = TempData["CUST_NAME"] ;
+    ViewData["Title"] = "沖帳管理";
+    if (TempData["Inser_Code"] != null)
+    {
+        <script type="text/javascript">
+            alert("新增失敗，產品邊號重複");
+        </script>
+    }
+}
+<main role="main" class="inner cover">
+    <h1>收款作業管理</h1>
+    <div class="container">
+        <table style="border:3px #808080 solid;padding:5px;" class="table table-borderless table-dark">
+            <tbody id="tbodyshow" align="left">
+                <tr>
+                    <td class="h2">收款單號: @Html.DisplayFor(modelItem => modelItem.REC_NO)</td>
+                    <td class="h2">&emsp;日&emsp;期: @Html.DisplayFor(modelItem => modelItem.TRN_DATE)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="h2">客戶號碼: @Html.DisplayFor(modelItem => modelItem.CUST_CODE)&emsp;&emsp;@CUST_NAME</td>
+                </tr>
+                <tr>
+                    <td class="h2">收款月份: @Html.DisplayFor(modelItem => modelItem.REC_MON)</td>
+                    <td class="h2">會計傳票: </td>
+                </tr>
+                <tr style="border-bottom:3px #808080 dashed;padding:5px;">
+                    <td colspan="2" class="h2">應收餘額: @Html.DisplayFor(modelItem => modelItem.REC_AMT)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="h2">沖帳金額: @Html.DisplayFor(modelItem => modelItem.CL_AMT)</td>
+                </tr>
+                <tr>
+                    <td class="h2">折&emsp;&emsp;讓: @Html.DisplayFor(modelItem => modelItem.DISC)</td>
+                    @{ var sum = Model.DISC + Model.CL_AMT;}
+                    <td class="h2">&emsp;合&emsp;計: @sum</td>
+                </tr>
+                <tr>
+                    <td class="h2">票據號碼: @Html.DisplayFor(modelItem => modelItem.CHNO)</td>
+                    <td class="h2">&emsp;款&emsp;別: @Html.DisplayFor(modelItem => modelItem.D_NO)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="h2">兌現日期: @Html.DisplayFor(modelItem => modelItem.CASH)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="h2">備&emsp;註: @Html.DisplayFor(modelItem => modelItem.REMARK1)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer class="mastfoot mt-auto">
+    <div class="inner">
+        <table class="table table-borderless  table-dark">
+            <tbody align="left">
+                <tr>
+                    <td class="h3">1>查詢</td>
+                    <td class="h3">2>新增</td>
+                    <td class="h3">3>更改</td>
+                    <td class="h3">4>刪除</td>
+                    <td class="h3">5>印產品資料</td>
+                    <td class="h3">7>廠商成交價</td>
+                    <td class="h3">8>客戶成交價</td>
+                </tr>
+                <tr>
+                    <td class="h3">C>複製</td>
+                    <td class="h3">+>下筆</td>
+                    <td class="h3">->上筆</td>
+                    <td class="h3">*>多筆</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</footer>
+<script>
+    $(document).ready(function () {
+        var id = "@Model.id";   
+        var REC_NO = "@Model.REC_NO";
+        console.log(REC_NO);
+        var page = "RECAMT";
+if (navigator.userAgent.indexOf("MSIE") > 0) {
+    //IE
+    document.onkeyup = function () {
+        switch (event.keyCode) {
+            case 49:
+                window.location.href = '/'+page+'/Search';
+                break;
+            case 50:
+                alert('2');
+                break;
+            case 51:
+                window.location.href = '/'+page+'/Insert';
+                break;
+            case 52:
+                alert('4');
+                break;
+            case 53:
+                alert('5');
+                break;
+            case 54:
+                alert('6');
+                break;
+            case 55:
+                alert('7');
+                break;
+            case 56:
+                window.location.href = '/'+page+'/Item?ITEM_NO='+FCODE;
+                break;
+            case 65:
+                alert('A');
+                break;
+            case 67:
+                alert('C');
+                break;
+            case 87:
+                alert('W');
+                break;
+            case 85:
+                alert('U');
+                break;
+        }
+    }
+}
+else {
+    window.onkeyup= function () {
+        switch (event.keyCode) {
+            case 49:
+            case 97:
+                window.location.href = '/'+page+'/Search?id=' + id;
+                break;
+            case 50:
+            case 98:
+                window.location.href = '/'+page+'/Insert';
+                break;
+            case 51:
+            case 99:
+                window.location.href = '/'+page+'/Update?id=' + id;
+                break;
+            case 52:
+            case 100:
+                var password = prompt("請輸入密碼", "")
+                if (password != "" && password != null)
+                    window.location.href = '/'+page+'/Delete?id=' + id + '&password=' + password;
+                break;
+            case 53:
+                alert('5');
+                break;
+            case 54:
+                alert('6');
+                break;
+            case 55:
+            case 103:
+                window.location.href = '/'+page+'/Ptrans?ITEM_NO='+ITEM_NO;
+                break;
+            case 56:
+            case 104:
+                window.location.href = '/' + page + '/Itrans?ITEM_NO=' + ITEM_NO;
+                break;
+            case 104:
+                window.location.href = '/'+page+'/FactItem?FACT_CODE='+FCODE;
+                break;
+            case 65:
+                break;
+            case 67:
+                alert('C');
+                break;
+            case 87:
+                alert('W');
+                break;
+            case 85:
+                alert('U');
+                break;
+            case 109:
+                Sajax(0);
+                break;
+            case 107:
+                Sajax(1);
+                break;
+            case 27:
+                window.location.href = '/Home/Index';
+                break;
+
+        }
+    }
+        }
+        var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/" + page;
+
+        function Sajax(tmp) {
+            console.log(REC_NO);
+        $.ajax({
+            url: apiurl + "?REC_NO=" + REC_NO + "&preOrNext=" + tmp,
+            type: 'GET',
+            success: function (data) {
+                if (data != null) {
+                    $("#tbodyshow").empty();
+                    id = data.id;
+                    var sum = Number(data.DISC) + Number(data.CL_AMT)
+                    REC_NO = data.REC_NO;
+                    $("#tbodyshow").append(                 
+                        '<tr>'+
+                        '<td class="h2">收款單號: '+data.REC_NO+'</td>'+
+                        '<td class="h2">&emsp;日&emsp;期: '+data.TRN_DATE+'</td>'+
+                    '</tr>'+
+                    '<tr>' +
+                        '<td colspan="2" class="h2">客戶號碼: '+ data.CUST_CODE+'&emsp;&emsp;'+data.CUST_NAME+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td class="h2">收款月份: '+data.REC_MON+'</td>'+
+                        '<td class="h2">會計傳票: </td>'+
+                    '</tr>'+
+                    '<tr style="border-bottom:3px #808080 dashed;padding:5px;">'+
+                        '<td colspan="2" class="h2">應收餘額: '+data.REC_AMT+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td colspan="2" class="h2">沖帳金額: '+data.CL_AMT+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td class="h2">折&emsp;&emsp;讓: '+data.DISC+'</td>'+
+                        '<td class="h2">&emsp;合&emsp;計: '+sum+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td class="h2">票據號碼: '+data.CHNO+'</td>'+
+                        '<td class="h2">&emsp;款&emsp;別: '+data.D_NO+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td colspan="2" class="h2">兌現日期: '+data.CASH+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td colspan="2" class="h2">備&emsp;註: '+data.REMARK1+'</td>'+
+                    '</tr>');
+                    var date = new Date();
+                    date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                    var expires = "; expires=" + date.toGMTString();
+                    document.cookie = "RECAMT_ID=" + id + expires + "; path=/";
+                }
+                else {
+                    alert("已達最後一筆");
+                }
+
+            }
+
+        });
+}
+});
+</script>
+
