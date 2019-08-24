@@ -1,0 +1,155 @@
+﻿@model INV_Project.Models.RECAMT
+@{
+    ViewData["Title"] = "新增";
+    var year = DateTime.Now.Year - 1911;
+    var month = "" + DateTime.Now.Month;
+    var day = "" + DateTime.Now.Day;
+    if (DateTime.Now.Month < 10)
+    { month = "0" + month; }
+    if (DateTime.Now.Day < 10)
+    { day = "0" + day; }
+    var today = year + "." + month + "." + day;
+    var ym = year + "." + month;
+}
+<style>
+    input {
+        padding: 0px 5px;
+        background: #ccc;
+        border: 2px black solid;
+        color: forestgreen;
+        max-width: 1000px;
+        width: 100%;
+    }
+
+    .select2-selection__rendered {
+        line-height: 40px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 40px !important;
+    }
+
+    .select2-selection__arrow {
+        height: 40px !important;
+    }
+
+    .dropdownCssClass {
+        font-size: 25px;
+        text-align: left;
+        color: black;
+    }
+
+    .containerCssClass {
+        font-size: 30px;
+        text-align: center;
+        color: black;
+    }
+</style>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "target" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.id, new { style = "width:300px" })
+    <main role="main" class="inner cover">
+        <h1>收款作業管理</h1>
+        <div class="container h2 text-left bg-dark" style="border:3px #808080 solid;padding:12px;">
+            <div class="row">
+                <div class="col-2">收款單號: </div>
+                <div id="REC_NO" class="col-4" style="color:#ffd800">@Html.DisplayFor(model => model.REC_NO)</div>
+                <div class="col-2">&emsp;日&emsp;期: </div>
+                <div id="TRN_DATE_TXT" class="col-4" style="color:#ffd800">@Html.DisplayFor(model => model.TRN_DATE)</div>
+                <div class="w-100" style="margin:5px;"></div>
+                <div class="col-2">客戶號碼: </div>
+                <div id="CUST_CODE" class="col-3" style="color:#ffd800">@Html.DisplayFor(model => model.CUST_CODE)</div>
+                <div id="CUST_NAME" class="col-5">@TempData["CUST_NAME"]</div>
+                <div class="w-100" style="margin:5px;"></div>
+                <div class="col-2">帳款月份: </div>
+                <div id="REC_MON_TXT" class="col-4" style="color:#ffd800">@Html.DisplayFor(model => model.REC_MON)</div>
+                <div class="col-2">會計傳票: </div>
+                <div class="col-4"></div>
+                <div class="w-100" style="margin:5px;"></div>
+                <div class="col-2">應收餘額: </div>
+                <div id="REC_AMT" class="col-10" style="color:#ffd800">@Html.DisplayFor(model => model.REC_AMT)</div>
+                <div class="w-100" style="margin:10px; border-bottom:2px #808080 dashed;"></div>
+                <div class="col-2">沖帳金額: </div>
+                <div class="col-10">@Html.DisplayFor(model => model.CL_AMT)</div>
+                <div class="w-100" style="margin:5px;"></div>
+                <div class="col-2">折&emsp;&emsp;讓: </div>
+                <div class="col-4">@Html.DisplayFor(model => model.DISC)</div>
+                <div class="col-2">&emsp;合&emsp;計:  </div>
+                <div class="col-4" id="sum" style="color:#ffd800">@{var sum = Model.CL_AMT + Model.DISC;}@sum</div>
+                <div class="w-100" style="margin:5px;"></div>
+                <div class="col-2">票據號碼: </div>
+                <div class="col-4">@Html.TextBoxFor(model => model.CHNO, new { style = "width:200px" })</div>
+                <div class="col-2">&emsp;款&emsp;別:  </div>
+                <div class="col-4">@Html.TextBoxFor(model => model.D_NO, new { style = "width:200px" })</div>
+                <div class="w-100" style="margin:5px;"></div>
+                <div class="col-2">兌現日期: </div>
+                <div class="col-10">@Html.TextBoxFor(model => model.CASH, new { maxlength = "9", style = "width:200px" })<div id="CASH_V" class="bg-danger h4" style="text-align:center;width:75%">請填入正確的格式</div></div>
+                <div class="w-100" style="margin:5px;"></div>
+                <div class="col-2">備&emsp;註: </div>
+                <div class="col-10">@Html.TextBoxFor(model => model.REMARK1, new { style = "width:400px" })</div>
+            </div>
+        </div>
+    </main>
+}
+<script>
+    $(document).ready(function () {
+        $('#CASH_V').hide();
+        $("#CHNO").select();
+        // 票據號碼
+        $('#CHNO').on('keyup', function () {
+            var key = event.keyCode;
+            if (key == 13) {
+                $("#D_NO").select();
+            }
+        })
+        // 款別
+        $('#D_NO').on('keyup', function () {
+            var key = event.keyCode;
+            if (key == 13) {
+                $("#CASH").select();
+            }
+        })
+        // 兌現日期
+        $('#CASH').on('keyup', function () {
+            var key = event.keyCode
+            if ($(this).val().length != 9) {
+                $("#CASH_V").show();
+            }
+            else {
+                $("#CASH_V").hide();
+            }
+            if (key == 13) {
+                if ($(this).val().length == 9)
+                    $("#REMARK1").select();
+            }
+            if (key == 8)
+                $(this).val('')
+            if ($(this).val().length == 3)
+                $(this).val($(this).val() + ".");
+            else if ($(this).val().length == 6)
+                $(this).val($(this).val() + ".");
+            else if (key == 110 || key == 190)
+                $(this).val($(this).val().substring(0, $(this).val().length - 1));
+            $(this).val($(this).val().replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, ''));
+        });
+        $('#REMARK1').on('keydown', function () {
+            var key = event.keyCode;
+            if (key == 13) {
+                if ($("#CHNO").val() == "") {
+                    alert("請填寫票據號碼")
+                    $("#CHNO").select();
+                } else if ($("#D_NO").val() == "") {
+                    alert("請填寫款別")
+                    $("#D_NO").select()
+                }
+                else {
+                    if ($("#CASH").val().length == 9) {         
+                        $( "#target" ).submit();
+                    }
+                }
+            }
+        })
+
+    });
+</script>

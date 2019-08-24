@@ -1,0 +1,301 @@
+﻿@model IEnumerable<INV_Project.Models.PURCHASE>
+
+@{
+    ViewBag.Title = "進貨管理系統";
+}
+<style>
+    .select2-selection__rendered {
+        line-height: 50px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 50px !important;
+    }
+
+    .select2-selection__arrow {
+        height: 50px !important;
+    }
+
+    .dropdownCssClass {
+        font-size: 20px;
+        text-align: left;
+        color: black;
+    }
+
+    .containerCssClass {
+        font-size: 30px;
+        text-align: center;
+        color: black;
+    }
+</style>
+<main role="main" class="inner cover">
+    <div class="container-fluid h1 text-left bg-dark" style="border:3px #808080 solid;padding:5px;">
+        <div id="Invoice" class="row">
+            <div class="col-lg-3">單據號碼: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().TRN_NO)</div>
+            <div class="col-lg-5">進貨日期: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().TRN_DATE)</div>
+            <div class="col-lg-4">付款月份: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().ACC_DATE)</div>
+            <div class="w-100"></div>
+            <div class="col-lg-3">廠商號碼: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().CODE)</div>
+            @{
+                var TELEPHONE = Model.FirstOrDefault().TELEPHONE;
+                if (TELEPHONE.Length > 14)
+                {
+                    TELEPHONE = TELEPHONE.Substring(0, 14) + "...";
+                }
+            }
+            <div class="col-lg-5">聯 絡 人: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().ATTENTION)</div>
+            <div class="col-lg-4">電&emsp;&emsp;話: @TELEPHONE</div>
+            <div class="w-100"></div>
+            <div class="col-lg-8">廠商名稱: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().FACT_NAME)</div>
+            <div class="col-lg-4">統一編號: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().UNIFORM)</div>
+            <div class="w-100"></div>
+            <div class="col-lg-8">付款方式: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().PAY_WAY)</div>
+            <div class="col-lg-4">發票號碼: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().INV_NO)</div>
+            <div class="w-100"></div>
+            <div class="col-lg-3">稅&emsp;&emsp;率: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().TAX)</div>
+            <div class="col-lg-5">帳&emsp;&emsp;別: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().ACC_YN)</div>
+            <div class="col-lg-4">會計傳票: </div>
+            <div class="w-100"></div>
+            <div class="col-lg-12">備&emsp;&emsp;註: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().REMARK1)</div>
+            <div class="w-100"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table id="table"
+                       data-toggle="table"
+                       data-height="460"
+                       class="table table-dark table-bordered">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th data-field="ITEM_NO">
+                                產品號碼
+                            </th>
+                            <th data-field="ITEM_NAME">
+                                品名規格
+                            </th>
+                            <th data-field="PRICE">
+                                單價
+                            </th>
+                            <th data-field="QTY">
+                                數量
+                            </th>
+                            <th data-field="AMOUNT">
+                                金額
+                            </th>
+                            <th data-field="ORD_NO">
+                                備註
+                            </th>
+                            <th data-field="COST">
+                                成本
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            if (item.ITEM_NO != null)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ITEM_NO)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ITEM_NAME)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PRICE)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QTY)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AMOUNT)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ORD_NO)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.COST)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="container-fluid h3 text-left bg-dark" style="border:3px #808080 solid;padding:5px;">
+        <div id="Money" class="row">
+            <div class="col-lg-4">進貨合計: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().SUMAMT)</div>
+            <div class="col-lg-4">稅&emsp;&emsp;額: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().TAXAMT) </div>
+            <div class="col-lg-4">進貨總額: @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().TOTAMT)</div>
+        </div>
+    </div>
+    <div class="container-fluid h3 text-right bg-dark" style="border:3px #808080 solid;padding:5px;">
+        <div class="row right">
+            <div class="col-1">1> 查詢 </div>
+            <div class="col-1">2> 新增 </div>
+            <div class="col-1">3> 更改 </div>
+            <div class="col-1">4> 刪除 </div>
+            <div class="col-2">5> 印進貨單</div>
+        </div>
+        <div class="row">
+            <div class="col-1">+> 下筆 </div>
+            <div class="col-1">-> 上筆 </div>
+        </div>
+    </div>
+</main>
+<script>
+    $(document).ready(function () {
+        var TRN_NO = "@Model.FirstOrDefault().TRN_NO";
+        var CUST_CODE = "@Model.FirstOrDefault().CODE";
+        var model =@Html.Raw(Json.Encode(Model));
+
+        var del_arr = JSON.stringify(model);
+if (navigator.userAgent.indexOf("MSIE") > 0) {
+    //IE
+    document.onkeyup = function () {
+    }
+}
+else {
+    window.onkeyup = function () {
+        switch (event.keyCode) {
+            case 49:
+            case 97:
+                window.location.href = '/Purchase/Search?TRN_NO='+TRN_NO;
+                break;
+            case 50:
+            case 98:
+                window.location.href = '/Purchase/Insert';
+                break;
+            case 51:
+            case 99:
+                window.location.href = '/Purchase/Update?TRN_NO=' + TRN_NO;
+                break;
+            case 52:
+            case 100:
+                var password = prompt("請輸入密碼", "")
+                if (password != "" && password != null) {
+                    $.ajax({
+                        type: "post",
+                        url:  '/PSI/Delete?password=' + password,
+                        contentType: 'application/json',
+                        data: del_arr,
+                        success: function (data, status) {
+                            alert(data);
+                            window.location.href = '/PSI/Sales';
+                            }
+                        });
+                }
+                break;
+            case 53:
+                alert('5');
+                break;
+            case 54:
+                alert('6');
+                break;
+            case 55:
+                alert('7');
+                break;
+            case 80:
+                window.location.href = '/PSI/CustItem?CUST_CODE='+CUST_CODE;
+                break;
+            case 67:
+                alert('C');
+                break;
+            case 87:
+                alert('W');
+                break;
+            case 85:
+                alert('U');
+                break;
+            case 109:
+                Sajax(0);
+                break;
+            case 107:
+                Sajax(1);
+                break;
+            case 27:
+                window.location.href = '/PSI/Index'; // Navigate to URL
+                break;
+        }
+    }
+}
+var apiurl = location.protocol + "//" + location.hostname + ":" + location.port + "/api/PURCHASE";
+var $table = $('#table')
+        function Sajax(tmp) {
+            $.ajax({
+                url: apiurl + "?TRN_NO=" + TRN_NO + "&preOrNext=" + tmp,
+                type: 'GET',
+                success: function (data) {
+                    if (data != null && data != "") {
+                        del_arr = JSON.stringify(data);
+                        $("#Invoice").empty();
+                        $("#Money").empty();
+                        $table.bootstrapTable('removeAll')
+                        TRN_NO = data[0].TRN_NO;
+                        var telephon = data[0].TELEPHONE;
+                        if (telephon.length > 14)
+                            telephon = telephon.substring(0, 14) + "...";
+                        $("#Invoice").append(
+                            '<div class="col-lg-3">單據號碼: ' + isNULL(data[0].TRN_NO) + '</div>' +
+                            '<div class="col-lg-5">出貨日期: ' + isNULL(data[0].TRN_DATE) + '</div>' +
+                            '<div class="col-lg-4">付款月份: ' + isNULL(data[0].ACC_DATE) + '</div>' +
+                            '<div class="w-100"></div>' +
+                            '<div class="col-lg-3">廠商號碼: ' + isNULL(data[0].CODE) + '</div>' +
+                            '<div class="col-lg-5">聯 絡 人: ' + isNULL(data[0].ATTENTION) + '</div>' +
+                            '<div class="col-lg-4">電&emsp;&emsp;話: ' + telephon + '</div>' +
+                            '<div class="w-100"></div>' +
+                            '<div class="col-lg-8">廠商名稱: ' + isNULL(data[0].FACT_NAME) + '</div>' +
+                            '<div class="col-lg-4">統一編號: ' +isNULL( data[0].UNIFORM) + '</div>' +
+                            '<div class="w-100"></div>' +
+                            '<div class="col-lg-8">付款方式: ' + isNULL(data[0].PAY_WAY) + '</div>' +
+                            '<div class="col-lg-4">發票號碼: ' + isNULL(data[0].INV_NO) + '</div>' +
+                            '<div class="w-100"></div>' +
+                            '<div class="col-lg-3">稅&emsp;&emsp;率: ' + isNULL(data[0].TAX) + '</div>' +
+                            '<div class="col-lg-5">帳&emsp;&emsp;別: ' + isNULL(data[0].ACC_YN) + '</div>' +
+                            '<div class="col-lg-4">會計傳票:</div>' +
+                            '<div class="w-100">' +
+                            '<div class="col-lg-12">備&emsp;&emsp;註: ' + isNULL(data[0].REMARK1) + '</div>' +
+                            '<div class="w-100"></div>');
+                        var rows=[]
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].ITEM_NO != null) {
+                                rows.push({
+                                ITEM_NO: data[i].ITEM_NO,
+                                ITEM_NAME: data[i].ITEM_NAME,
+                                PRICE: data[i].PRICE,
+                                QTY: data[i].QTY,
+                                AMOUNT: data[i].AMOUNT,
+                                ORD_NO: data[i].ORD_NO,
+                                COST: data[i].COST
+                            });
+                            }
+                        }
+                        $("#Money").append(
+                            '<div class="col-lg-4">進貨合計: '+data[0].SUMAMT+'</div>'+
+                            '<div class="col-lg-4">稅&emsp;&emsp;額: '+data[0].TAXAMT+' </div>'+
+                            '<div class="col-lg-4">進貨總額: '+data[0].TOTAMT+'</div>'
+                        );
+                        $table.bootstrapTable('append', rows)
+                        var date = new Date();
+                        date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                        var expires = "; expires=" + date.toGMTString();
+                        document.cookie = "PTRN_NO=" + TRN_NO + expires + "; path=/";
+                }
+            else {
+                alert("已達最後一筆");
+            }
+
+        }
+
+    });
+        }
+        function isNULL(data) {
+            var str = (data == null) ? '' : data
+            return str;
+        }
+});
+</script>

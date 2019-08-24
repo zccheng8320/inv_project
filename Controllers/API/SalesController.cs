@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using INV_Project.Models;
+using INV_Project.Controllers;
 namespace INV_Project.Controllers.API
 {
     public class SalesController : ApiController
     {
+        private PSIController psi = new PSIController();
         private invEntities db = new invEntities();
         // GET: api/Sales/5
         public List<Sales> Get(string TRN_NO, int preOrNext)
@@ -76,8 +75,9 @@ namespace INV_Project.Controllers.API
                              AMO3 = inv.AMO3
                          }).ToList();
             return table;
-        }      
+        }
         // POST: Sales新增
+        [HttpPost]
         public void Post([FromBody]List<Sales> salesList)
         {
             // 取得民國日期           
@@ -108,7 +108,8 @@ namespace INV_Project.Controllers.API
             // 
             foreach (var s in salesList)
             {
-                ItemAddAction(s, today);
+                if(s.QTY!=""&&s.QTY!=null)
+                    ItemAddAction(s, today);
             }                
             db.SaveChanges();
         }
@@ -157,30 +158,9 @@ namespace INV_Project.Controllers.API
                 return today;
         }
         // 更新應收帳款資料
-        public void UpdateRECMON(Sales s)
-        {
-            var recmon = db.RECMON.Where(m => m.CUST_CODE == s.CODE && m.MON_DATE == s.ACC_DATE).FirstOrDefault();
-            var inv_list = db.INVOICE.Where(m => m.CODE == s.CODE && m.ACC_DATE == s.ACC_DATE).ToList();
-            var SAL_AMT = 0.0; var TAX_AMT = 0.0; var AMO1 = 0.0; var AMO2 = 0.0; var AMO3 = 0.0;
-            foreach (var i in inv_list)
-            {
-                SAL_AMT += Convert.ToDouble(i.SUMAMT);
-                TAX_AMT += Convert.ToDouble(i.TAXAMT);
-                AMO1 += Convert.ToDouble(i.AMO1);
-                AMO2 += Convert.ToDouble(i.AMO2);
-                AMO3 += Convert.ToDouble(i.AMO3);
-            }
-            recmon.SAL_AMT = SAL_AMT.ToString();
-            recmon.TAX_AMT = TAX_AMT.ToString();
-            recmon.AMO1 = AMO1.ToString();
-            recmon.AMO2 = AMO2.ToString();
-            recmon.AMO3 = AMO3.ToString();
-            if (recmon.REC_AMT == null || recmon.REC_AMT == "")
-                recmon.REC_AMT = "0";
-            recmon.TOT_AMT = (SAL_AMT + TAX_AMT - Convert.ToDouble(recmon.REC_AMT)).ToString();
-            db.SaveChanges();
-        }
+        
         // PUT: api/Sales/5 更新SALES Item API
+        [HttpPut]
         public string Put([FromBody]Sales s)
         {
             string ID = "";
@@ -214,7 +194,7 @@ namespace INV_Project.Controllers.API
             invoice.TAXAMT = s.TAXAMT;invoice.AMO2 = s.AMO2;
             invoice.TOTAMT = s.TOTAMT;invoice.AMO3 = s.AMO3;        
             db.SaveChanges();
-            UpdateRECMON(s);
+            psi.UpdateRECMON(s);
             return ID;
         }      
         [HttpDelete]
@@ -228,7 +208,7 @@ namespace INV_Project.Controllers.API
             invoice.TAXAMT = s.TAXAMT; invoice.AMO2 = s.AMO2;
             invoice.TOTAMT = s.TOTAMT; invoice.AMO3 = s.AMO3;
             db.SaveChanges();
-            UpdateRECMON(s);
+            psi.UpdateRECMON(s);
         }
        
     }

@@ -12,9 +12,9 @@ namespace INV_Project.Models
         public string ITEM_NO { get; set; }
         public string ITEM_NAME { get; set; }
         public string L_DATE { get; set; }
-        public string L_PRICE { get; set; }
-        public string L_QTY { get; set; }
-        public string COST { get; set; }
+        public Nullable<double> L_PRICE { get; set; }
+        public Nullable<double> L_QTY { get; set; }
+        public Nullable<double> COST { get; set; }
         public string REMARK { get; set; }
     }
 }

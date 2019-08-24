@@ -59,15 +59,10 @@
                     <td class="h3">2>新增</td>
                     <td class="h3">3>更改</td>
                     <td class="h3">4>刪除</td>
-                    <td class="h3">5>印產品資料</td>
-                    <td class="h3">7>廠商成交價</td>
-                    <td class="h3">8>客戶成交價</td>
                 </tr>
                 <tr>
-                    <td class="h3">C>複製</td>
                     <td class="h3">+>下筆</td>
                     <td class="h3">->上筆</td>
-                    <td class="h3">*>多筆</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -137,13 +132,13 @@ else {
                 break;
             case 51:
             case 99:
-                window.location.href = '/'+page+'/Update?id=' + id;
+                window.location.href = '/'+page+'/Update?RECAMT_ID=' + id;
                 break;
             case 52:
             case 100:
                 var password = prompt("請輸入密碼", "")
                 if (password != "" && password != null)
-                    window.location.href = '/'+page+'/Delete?id=' + id + '&password=' + password;
+                    window.location.href = '/'+page+'/Delete?RECAMT_ID=' + id + '&password=' + password;
                 break;
             case 53:
                 alert('5');
@@ -180,7 +175,7 @@ else {
                 Sajax(1);
                 break;
             case 27:
-                window.location.href = '/Home/Index';
+                window.location.href = '/PSI/Index';
                 break;
 
         }

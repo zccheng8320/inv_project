@@ -7,7 +7,6 @@
       <Diagram DiagramId="228fa4de09384fde8e2b8f469d793ad9" Name="Diagram1" >
         <EntityTypeShape EntityType="invModel.CLASS" Width="1.5" PointX="3.625" PointY="0.75" />
         <EntityTypeShape EntityType="invModel.EMPLOY" Width="1.5" PointX="0.875" PointY="3.375" />
-        <EntityTypeShape EntityType="invModel.FACTITEM" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="invModel.MONTOT" Width="1.5" PointX="4.75" PointY="9.75" />
         <EntityTypeShape EntityType="invModel.NCUST" Width="1.5" PointX="10.75" PointY="0.75" />
         <EntityTypeShape EntityType="invModel.PAYAMT" Width="1.5" PointX="10.75" PointY="6.75" />
@@ -23,6 +22,7 @@
         <EntityTypeShape EntityType="invModel.FACTORY" Width="1.5" PointX="7.375" PointY="6.75" />
         <EntityTypeShape EntityType="invModel.ITEM" Width="1.5" PointX="13.375" PointY="10.75" />
         <EntityTypeShape EntityType="invModel.ITRANS" Width="1.5" PointX="5.375" PointY="14.75" />
+        <EntityTypeShape EntityType="invModel.FACTITEM" Width="1.5" PointX="6.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

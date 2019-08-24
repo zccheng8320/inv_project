@@ -3,7 +3,6 @@
   <EntityContainer Name="invEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="CLASS" EntityType="invModel.CLASS" />
     <EntitySet Name="EMPLOY" EntityType="invModel.EMPLOY" />
-    <EntitySet Name="FACTITEM" EntityType="invModel.FACTITEM" />
     <EntitySet Name="MONTOT" EntityType="invModel.MONTOT" />
     <EntitySet Name="NCUST" EntityType="invModel.NCUST" />
     <EntitySet Name="PAYAMT" EntityType="invModel.PAYAMT" />
@@ -19,6 +18,7 @@
     <EntitySet Name="FACTORY" EntityType="invModel.FACTORY" />
     <EntitySet Name="ITEM" EntityType="invModel.ITEM" />
     <EntitySet Name="ITRANS" EntityType="invModel.ITRANS" />
+    <EntitySet Name="FACTITEM" EntityType="invModel.FACTITEM" />
   </EntityContainer>
   <EntityType Name="CLASS">
     <Key>
@@ -77,19 +77,6 @@
     <Property Name="AMTM3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="IN_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="FACTITEM">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FACT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ITEM_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="L_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="L_PRICE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="L_QTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="COST" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="MONTOT">
     <Key>
@@ -380,5 +367,18 @@
     <Property Name="SAL_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="SAL_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="COST" Type="Double" />
+  </EntityType>
+  <EntityType Name="FACTITEM">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FACT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ITEM_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="L_DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="L_PRICE" Type="Double" />
+    <Property Name="L_QTY" Type="Double" />
+    <Property Name="COST" Type="Double" />
+    <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

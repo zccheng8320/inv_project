@@ -61,20 +61,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="FACTITEM">
-      <EntityTypeMapping TypeName="invModel.FACTITEM">
-        <MappingFragment StoreEntitySet="FACTITEM">
-          <ScalarProperty Name="REMARK" ColumnName="REMARK" />
-          <ScalarProperty Name="COST" ColumnName="COST" />
-          <ScalarProperty Name="L_QTY" ColumnName="L_QTY" />
-          <ScalarProperty Name="L_PRICE" ColumnName="L_PRICE" />
-          <ScalarProperty Name="L_DATE" ColumnName="L_DATE" />
-          <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
-          <ScalarProperty Name="FACT_CODE" ColumnName="FACT_CODE" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MONTOT">
       <EntityTypeMapping TypeName="invModel.MONTOT">
         <MappingFragment StoreEntitySet="MONTOT">
@@ -374,6 +360,20 @@
           <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
           <ScalarProperty Name="TRN_NO" ColumnName="TRN_NO" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FACTITEM">
+      <EntityTypeMapping TypeName="invModel.FACTITEM">
+        <MappingFragment StoreEntitySet="FACTITEM">
+          <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+          <ScalarProperty Name="COST" ColumnName="COST" />
+          <ScalarProperty Name="L_QTY" ColumnName="L_QTY" />
+          <ScalarProperty Name="L_PRICE" ColumnName="L_PRICE" />
+          <ScalarProperty Name="L_DATE" ColumnName="L_DATE" />
+          <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
+          <ScalarProperty Name="FACT_CODE" ColumnName="FACT_CODE" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

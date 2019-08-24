@@ -108,9 +108,9 @@
     <Property Name="FACT_CODE" Type="varchar" MaxLength="50" />
     <Property Name="ITEM_NO" Type="varchar" MaxLength="50" />
     <Property Name="L_DATE" Type="varchar" MaxLength="50" />
-    <Property Name="L_PRICE" Type="varchar" MaxLength="50" />
-    <Property Name="L_QTY" Type="varchar" MaxLength="50" />
-    <Property Name="COST" Type="varchar" MaxLength="50" />
+    <Property Name="L_PRICE" Type="float" />
+    <Property Name="L_QTY" Type="float" />
+    <Property Name="COST" Type="float" />
     <Property Name="REMARK" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="FACTORY">

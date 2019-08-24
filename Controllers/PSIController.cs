@@ -243,9 +243,20 @@ namespace INV_Project.Controllers
             UpdateInvoice(SF);
             db.SaveChanges();
             foreach(var s in salesList)
-                if(s.ITEM_ID!=null)                 
+            {
+                if (s.ITEM_ID != null)
                     UpdateITRANS(s);
-
+                var custitem = db.CUSTITEM.Where(m => m.CUST_CODE == s.CODE && m.ITEM_NO == s.ITEM_NO).FirstOrDefault();
+                if (custitem != null)
+                {
+                    custitem.L_PRICE = s.PRICE;
+                    custitem.L_DATE = s.TRN_DATE;
+                    custitem.L_QTY = Convert.ToDouble(s.QTY);
+                    custitem.SAL_CODE = s.SAL_CODE;
+                    custitem.REMARK = s.ORD_NO;
+                }
+                db.SaveChanges();
+            }              
             UpdateRECMON(SF);
         }
         [HttpPost]
@@ -258,9 +269,12 @@ namespace INV_Project.Controllers
                 db.INVOICE.Remove(invoice);
                 foreach (var i in salesList)
                 {
-                    var itrans = db.ITRANS.Where(m => m.ID == i.ITEM_ID).FirstOrDefault();
-                    db.ITRANS.Remove(itrans);
-                    db.SaveChanges();
+                    if (i.QTY!=null && i.QTY!="")
+                    {
+                        var itrans = db.ITRANS.Where(m => m.ID == i.ITEM_ID).FirstOrDefault();
+                        db.ITRANS.Remove(itrans);
+                        db.SaveChanges();
+                    }                    
                 }
                 UpdateRECMON(SF);
                 var TRN_NO = (from d in db.INVOICE where string.Compare(d.TRN_NO, SF.TRN_NO) < 0 select d).OrderByDescending(d => d.ID).FirstOrDefault().TRN_NO;

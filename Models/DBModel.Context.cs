@@ -27,7 +27,6 @@ namespace INV_Project.Models
     
         public virtual DbSet<CLASS> CLASS { get; set; }
         public virtual DbSet<EMPLOY> EMPLOY { get; set; }
-        public virtual DbSet<FACTITEM> FACTITEM { get; set; }
         public virtual DbSet<MONTOT> MONTOT { get; set; }
         public virtual DbSet<NCUST> NCUST { get; set; }
         public virtual DbSet<PAYAMT> PAYAMT { get; set; }
@@ -43,5 +42,6 @@ namespace INV_Project.Models
         public virtual DbSet<FACTORY> FACTORY { get; set; }
         public virtual DbSet<ITEM> ITEM { get; set; }
         public virtual DbSet<ITRANS> ITRANS { get; set; }
+        public virtual DbSet<FACTITEM> FACTITEM { get; set; }
     }
 }

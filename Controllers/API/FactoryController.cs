@@ -15,13 +15,13 @@ namespace INV_Project.Controllers.API
         {
             // 查詢
             var p = db.FACTORY.Where(m =>
-            m.FACT_CODE.Contains(search)
-            || m.FACT_NAME.Contains(search)
+            m.FACT_CODE.StartsWith(search)
+            || m.FACT_NAME.StartsWith(search)
             || m.ADDRESS1.Contains(search)
-            || m.UNIFORM.Contains(search)
-            || m.TELEPHONE.Contains(search)
-            || m.FAX.Contains(search)
-            || m.TRN_DATE.Contains(search)).Take(200);
+            || m.UNIFORM.StartsWith(search)
+            || m.TELEPHONE.StartsWith(search)
+            || m.FAX.StartsWith(search)
+            || m.TRN_DATE.StartsWith(search)).Take(200);
             return p.ToList();
         }
         // GET: api/Factory/5
