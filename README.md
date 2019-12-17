@@ -7,11 +7,11 @@
 
 2.進貨、銷貨、收款的管理。
 
-##使用工具
+## 使用工具
 ASP.NET MVC 5
-##資料庫:
+## 資料庫:
 MS SQL Server
-##前端:
+## 前端:
 JQuery、Ajax、Bootstrap、Bootstrap Table
 ### 主畫面與客戶資料
 #### 舊版椅天系統
