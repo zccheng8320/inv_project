@@ -1,5 +1,5 @@
 # 進銷貨系統
-本專案將以前DOS倚天中文系統的進銷貨管理系統利用ASP.NET MVC的全部重新撰寫。
+本專案將以前DOS倚天中文系統的進銷貨管理系統，使用ASP.NET MVC為核心全部重新撰寫。
 
 進銷貨系統的主要功能為以下:
 
@@ -19,7 +19,7 @@ JQuery、Ajax、Bootstrap、Bootstrap Table
 
 <img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/SQL%20Server%E8%B3%87%E6%96%99%E5%BA%AB.jpg">
 
-
+# 舊系統與新系統畫面
 ### 主畫面與客戶資料
 #### 舊版椅天系統
 
