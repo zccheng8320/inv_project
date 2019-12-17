@@ -44,5 +44,20 @@ JQuery、Ajax、Bootstrap、Bootstrap Table
 
 <img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/IMG_7433.jpg">
 
+# Demo
+### 銷貨查詢
 
+<img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/IMB_8PhS7T.gif">
+
+### 新增銷貨紀錄
+
+<img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/IMB_AsqHad.gif">
+
+### 修改銷貨紀錄
+
+<img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/IMB_RAOrVr.gif">
+
+### 利用+/-鍵控制上/下筆資料 與 刪除銷貨紀錄
+
+<img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/IMB_VdM0xP.gif">
 
