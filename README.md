@@ -20,12 +20,12 @@ JQuery、Ajax、Bootstrap、Bootstrap Table
 <img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/SQL%20Server%E8%B3%87%E6%96%99%E5%BA%AB.jpg">
 
 # 舊系統與新系統畫面
-### 主畫面與客戶銷貨資訊
-#### 舊版椅天系統
+### 主畫面(左圖為舊系統)
+#### 
 
 <img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/IMG_7128.jpg">
 
-#### ASP.NET MVC 
+### 客戶銷貨資訊(左圖為舊系統)
 
 <img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/img_2.jpg">
 
