@@ -25,7 +25,7 @@ JQuery、Ajax、Bootstrap、Bootstrap Table
 
 <img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/IMG_7128.jpg">
 
-### 客戶銷貨資訊(左圖為舊系統)
+### 銷貨管理(左圖為舊系統)
 
 <img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/img_2.jpg">
 
