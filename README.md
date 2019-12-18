@@ -36,7 +36,7 @@ JQuery、Ajax、Bootstrap、Bootstrap Table
 
 <img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/img_2.jpg">
 
-### 銷貨管理
+### 進貨管理
 
 <img src="https://github.com/zccheng8320/inv_project/blob/master/DemoPicture/%E9%80%B2%E8%B2%A8%E7%AE%A1%E7%90%86.jpg">
 
